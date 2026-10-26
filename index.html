@@ -3,421 +3,1147 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Borang Maklum Balas Kehadiran</title>
+  <title>Kehadiran Majlis</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+
   <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
     body {
-      background-color: #f0f4f8;
-      margin: 0;
-      padding: 20px 10px;
-      color: #333;
+      background-color: #0e1626;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     }
-    .container {
-      max-width: 620px;
-      margin: 0 auto;
-      background: #ffffff;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-      overflow: hidden;
-    }
-    
-    /* BAHAGIAN HEADER BLUE GRADIENT PREMUIUM */
-    .header {
-      text-align: center;
-      padding: 35px 25px 25px 25px;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      color: #ffffff;
-      border-bottom: 4px solid #10b981;
-    }
-    .logo-container {
-      text-align: center;
-      margin-bottom: 15px;
-    }
-    .logo-container img {
-      max-width: 130px;
-      height: auto;
-      filter: drop-shadow(0px 3px 6px rgba(0,0,0,0.4));
-    }
-    .header h2 {
-      margin: 0 0 10px 0;
-      color: #ffffff;
-      font-size: 20px;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      line-height: 1.3;
-    }
-    .header p {
-      margin: 0;
-      color: #cbd5e1;
-      font-size: 13px;
-      font-weight: 500;
-      line-height: 1.5;
-    }
-
-    .form-body {
-      padding: 25px 30px 30px 30px;
-    }
-
-    /* KOTAK TARIKH AKHIR MAKLUM BALAS */
-    .deadline-card {
-      background-color: #eff6ff;
-      border-left: 4px solid #3b82f6;
-      padding: 12px 15px;
-      border-radius: 8px;
-      margin-bottom: 25px;
-      font-size: 13px;
-      color: #1e40af;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .deadline-card strong {
-      color: #1e3a8a;
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-    label {
-      display: block;
-      font-weight: 600;
-      margin-bottom: 8px;
-      font-size: 14px;
-      color: #334155;
-    }
-    input[type="text"], input[type="tel"], select {
-      width: 100%;
-      padding: 12px 14px;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      font-size: 14px;
-      background-color: #fff;
-      transition: all 0.2s ease;
-    }
-    input[type="text"]:focus, input[type="tel"]:focus, select:focus {
-      outline: none;
-      border-color: #2563eb;
-      box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
-    }
-
-    /* EVENT CARD GAYA EKSKLUSIF */
-    .event-card {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-left: 5px solid #2563eb;
-      border-radius: 8px;
-      padding: 18px;
-      margin-bottom: 20px;
-    }
-    .event-title {
-      font-weight: 700;
-      color: #1e3a8a;
-      margin-bottom: 6px;
-      font-size: 15px;
-    }
-    .event-detail {
-      font-size: 13px;
-      color: #64748b;
-      margin-bottom: 14px;
-      line-height: 1.4;
-    }
-    .radio-group {
-      display: flex;
-      gap: 25px;
-      margin-top: 8px;
-    }
-    .radio-option {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      color: #1e293b;
-      cursor: pointer;
-    }
-    .radio-option input[type="radio"] {
-      width: 18px;
-      height: 18px;
-      accent-color: #2563eb;
-      cursor: pointer;
-    }
-
-    /* BUTANG HANTAR DENGAN ANIMASI HOVER & SHADOW */
-    .btn-submit {
-      width: 100%;
-      background: linear-gradient(135deg, #1d6b88, #128C7E);
-      color: white;
-      border: none;
-      padding: 15px;
-      font-size: 16px;
-      font-weight: bold;
-      border-radius: 8px;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(29, 107, 136, 0.3);
-      transition: transform 0.2s, box-shadow 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 25px;
-    }
-    .btn-submit:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(29, 107, 136, 0.4);
-    }
-    .btn-submit:active {
-      transform: translateY(0);
-    }
-    .btn-submit:disabled {
-      background: #a0aec0;
-      box-shadow: none;
-      cursor: not-allowed;
-    }
-
-    /* SKRIN KEJAYAAN BERANIMASI */
-    .success-card {
-      display: none;
-      text-align: center;
-      padding: 50px 20px;
-    }
-    .checkmark-circle {
-      width: 85px;
-      height: 85px;
-      background-color: #1d629b;
-      color: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 50px;
-      margin: 0 auto 20px auto;
-      box-shadow: 0 6px 20px rgba(29, 98, 155, 0.35);
-      animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    @keyframes popIn {
-      0% { transform: scale(0); }
-      100% { transform: scale(1); }
-    }
-    .success-card h3 {
-      color: #0f172a;
-      font-size: 22px;
-      margin-bottom: 10px;
-    }
-    .success-card p {
-      color: #64748b;
-      font-size: 15px;
-      line-height: 1.6;
+    .card-grey {
+      background-color: #e2e7ec;
     }
   </style>
 </head>
-<body>
+<body class="min-h-screen text-slate-800 flex flex-col justify-between p-3 sm:p-6 md:p-8">
 
-<div class="container">
-  
-  <!-- === 1. BORANG KEHADIRAN === -->
-  <div id="formSection">
-    
-    <!-- HEADER DENGAN BLUE GRADIENT -->
-    <div class="header">
-      <div class="logo-container">
-        <img src="https://i.postimg.cc/SQPrp8qh/KCS-logo-01.png" alt="Logo Program / Agensi">
-      </div>
-      <h2>Borang Maklum Balas Kehadiran</h2>
-      <p>PROGRAM PENINGKATAN KEMAJUAN KERJAYA PEGAWAI TADBIR NEGERI</p>
-      <p>TERENGGANU, KELANTAN, KEDAH DAN JOHOR</p>
-      <p>TAHUN 2026</p>
-    </div>
+  <!-- INDIKATOR STATUS SYNC DATA -->
+  <div id="sync-status" class="fixed top-2 right-2 sm:top-4 sm:right-4 z-50 bg-slate-900/90 text-white px-3 py-1.5 rounded-full text-[11px] font-bold shadow-lg flex items-center gap-2 border border-slate-700">
+    <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+    <span id="sync-status-text">Memuatkan data...</span>
+  </div>
 
-    <div class="form-body">
-      <!-- TARIKH AKHIR ISI BORANG -->
-      <div class="deadline-card">
-        <span>⚠️ Tarikh Akhir Maklum Balas: <strong>13 Oktober 2026 (Selasa), 5.00 Petang</strong></span>
-      </div>
+  <div class="max-w-5xl w-full mx-auto space-y-4 sm:space-y-6">
 
-      <form id="attendanceForm">
+    <!-- HEADER / NAVIGATION BAR -->
+    <header class="card-grey rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 border border-slate-300">
+      <div class="flex items-center gap-3 sm:gap-4 w-full sm:w-auto">
+        <img src="https://i.postimg.cc/gk64HYT5/logo-kedah.png" alt="Logo Emblem Rasmi" class="w-12 h-12 sm:w-14 sm:h-14 object-contain shrink-0 drop-shadow-md">
         
-        <!-- 1. DROPDOWN GELARAN -->
-        <div class="form-group">
-          <label for="gelaran">1. Gelaran *</label>
-          <select id="gelaran" required>
-            <option value="" disabled selected>-- Pilih Gelaran --</option>
-            <option value="YBhg. Tan Sri">YBhg. Tan Sri</option>
-            <option value="YB Dato' Seri">YB Dato' Seri</option>
-            <option value="YB Dato">YB Dato</option>
-            <option value="YB">YB</option>
-            <option value="YBhg. Datuk">YBhg. Datuk</option>
-            <option value="YBhg. Dato'">YBhg. Dato'</option>
-            <option value="YBhg. Datin">YBhg. Datin</option>
-            <option value="Tuan Dr.">Tuan Dr.</option>
-            <option value="Tuan Syeikh">Tuan Syeikh</option>
-            <option value="Tuan Haji">Tuan Haji</option>
-            <option value="Puan Hajah">Puan Hajah</option>
-            <option value="Encik">Encik</option>
-            <option value="Puan">Puan</option>
-            <option value="Cik">Cik</option>
-          </select>
+        <div>
+          <h1 class="text-lg sm:text-2xl font-black text-slate-900 tracking-tight leading-tight uppercase">
+            Kehadiran Majlis
+          </h1>
+          <p class="text-[10px] sm:text-sm font-bold text-amber-600 tracking-wider mt-0.5 uppercase">
+            Negeri Kedah Darul Aman
+          </p>
         </div>
+      </div>
 
-        <!-- 2. NAMA PEGAWAI -->
-        <div class="form-group">
-          <label for="nama">2. Nama Pegawai *</label>
-          <input type="text" id="nama" required placeholder="Contoh: Ahmad Bin Abdullah">
-        </div>
-
-        <!-- 3. JAWATAN -->
-        <div class="form-group">
-          <label for="jawatan">3. Jawatan *</label>
-          <input type="text" id="jawatan" required placeholder="Contoh: Penolong Setiausaha Kerajaan">
-        </div>
-
-        <!-- 4. NOMBOR TELEFON -->
-        <div class="form-group">
-          <label for="phone">4. Nombor Telefon *</label>
-          <input type="tel" id="phone" required placeholder="Contoh: 0123456789">
-        </div>
-
-        <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 25px 0;">
-
-        <!-- MAJLIS 1: PERASMIAN -->
-        <div class="event-card">
-          <div class="event-title">1. MAJLIS PERASMIAN</div>
-          <div class="event-detail">📅 18 Oktober 2026 (Ahad)</div>
-          <div class="event-detail">⏰ 9.00 Pagi</div>
-          <div class="event-detail">👔 : Lounge Suit KCS 2026</div>
-          <div class="event-detail">📍 Dewan Auditorium Majlis Bandaraya Kuala Terengganu</div>
-          <label style="margin-top: 10px;">Status Kehadiran: *</label>
-          <div class="radio-group">
-            <label class="radio-option">
-              <input type="radio" name="perasmian" value="Hadir" required> Hadir
-            </label>
-            <label class="radio-option">
-              <input type="radio" name="perasmian" value="Tidak Hadir"> Tidak Hadir
-            </label>
-          </div>
-        </div>
-
-        <!-- MAJLIS 2: PENUTUP -->
-        <div class="event-card">
-          <div class="event-title">2. MAJLIS PENUTUP</div>
-          <div class="event-detail">📅 23 Oktober 2026 (Jumaat)</div>
-          <div class="event-detail">⏰ 8.00 Malam</div>
-          <div class="event-detail">👔 : Batik</div>
-          <div class="event-detail">📍 Dewan Besar, Wisma Darul Iman, Kuala Terengganu</div>
-          <label style="margin-top: 10px;">Status Kehadiran: *</label>
-          <div class="radio-group">
-            <label class="radio-option">
-              <input type="radio" name="penutupan" value="Hadir" required> Hadir
-            </label>
-            <label class="radio-option">
-              <input type="radio" name="penutupan" value="Tidak Hadir"> Tidak Hadir
-            </label>
-          </div>
-        </div>
-
-        <button type="submit" class="btn-submit" id="btnSubmit">
-          <span>📲 HANTAR PENGESAHAN KEHADIRAN</span>
+      <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-300/60">
+        <button id="btn-portal-tag" class="border border-amber-500/80 text-amber-700 bg-amber-500/10 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full font-bold text-[11px] sm:text-xs md:text-sm tracking-wide uppercase">
+          PORTAL JEMPUTAN
         </button>
+        <button id="nav-toggle-btn" onclick="toggleView()" class="bg-slate-900 text-white hover:bg-slate-800 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-semibold transition-all shadow">
+          Admin Portal
+        </button>
+      </div>
+    </header>
+
+    <!-- VIEW 1: PUBLIC ATTENDANCE FORM -->
+    <main id="public-view" class="space-y-6">
+      
+      <div id="inactive-card" class="hidden card-grey rounded-2xl sm:rounded-3xl p-8 sm:p-16 text-center shadow-2xl border border-slate-300 flex flex-col items-center justify-center min-h-[300px]">
+        <div class="text-amber-500 text-5xl sm:text-7xl mb-4 animate-bounce">⚠️</div>
+        <h2 class="text-xl sm:text-4xl font-black text-slate-900 mb-2">Borang Belum Diaktifkan</h2>
+        <p class="text-slate-600 text-sm sm:text-lg max-w-md mx-auto">Pendaftaran bagi semua majlis telah ditutup buat masa ini.</p>
+      </div>
+
+      <div id="active-form-card" class="card-grey rounded-2xl sm:rounded-3xl p-4 sm:p-8 md:p-10 shadow-2xl border border-slate-300">
+        <div class="mb-5 sm:mb-6 pb-3 sm:pb-4 border-b border-slate-300">
+          <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">Borang Kehadiran Tetamu</h2>
+          <p class="text-slate-600 text-xs sm:text-sm mt-1">Sila pilih majlis dan lengkapkan maklumat anda di bawah.</p>
+        </div>
+
+        <form id="attendance-form" onsubmit="handleFormSubmit(event)" class="space-y-4 sm:space-y-5">
+          <div>
+            <label class="block text-xs sm:text-sm font-bold text-slate-700 mb-1">Pilih Majlis <span class="text-red-500">*</span></label>
+            <select id="select-event" required onchange="updateSelectedEventInfo()" class="w-full px-3.5 sm:px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 font-bold focus:ring-2 focus:ring-amber-500 focus:outline-none text-xs sm:text-sm">
+            </select>
+          </div>
+
+          <div id="event-info-box" class="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-amber-500/10 border border-amber-500/30 text-slate-800 text-xs space-y-2">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div class="font-bold text-amber-700 flex items-center gap-1.5"><i class="fa-solid fa-circle-info"></i> MAKLUMAT MAJLIS:</div>
+              <div id="container-btn-aturcara" class="hidden">
+                <a id="btn-download-aturcara" href="#" target="_blank" class="inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-3 py-1.5 rounded-lg text-xs transition-all shadow">
+                  <i class="fa-solid fa-file-pdf"></i> Muat Turun Atur Cara Majlis
+                </a>
+              </div>
+            </div>
+            <div id="info-tarikh-masa" class="font-medium text-slate-700"><i class="fa-regular fa-calendar-check mr-1"></i> <span>-</span></div>
+            <div id="info-tempat" class="font-medium text-slate-700"><i class="fa-solid fa-location-dot mr-1"></i> <span>-</span></div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
+            <div>
+              <label class="block text-xs sm:text-sm font-bold text-slate-700 mb-1">Gelaran <span class="text-red-500">*</span></label>
+              <select id="select-gelaran" required class="w-full px-3.5 sm:px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-amber-500 focus:outline-none text-xs sm:text-sm font-medium">
+                <option value="Encik">Encik</option>
+                <option value="Puan">Puan</option>
+                <option value="Cik">Cik</option>
+                <option value="YAB">YAB (Yang Amat Berhormat)</option>
+                <option value="YB">YB (Yang Berhormat)</option>
+                <option value="YBm">YBm (Yang Berhormat Mulia)</option>
+                <option value="YBhg.">YBhg. (Yang Berbahagia)</option>
+                <option value="YAM">YAM (Yang Amat Mulia)</option>
+                <option value="YM">YM (Yang Mulia)</option>
+                <option value="Tun">Tun</option>
+                <option value="Toh Puan">Toh Puan</option>
+                <option value="Tan Sri">Tan Sri</option>
+                <option value="Puan Sri">Puan Sri</option>
+                <option value="Dato' Seri Utama">Dato' Seri Utama</option>
+                <option value="Dato' Seri">Dato' Seri</option>
+                <option value="Datuk Seri">Datuk Seri</option>
+                <option value="Datin Seri">Datin Seri</option>
+                <option value="Dato'">Dato'</option>
+                <option value="Datuk">Datuk</option>
+                <option value="Datin">Datin</option>
+                <option value="Dr.">Dr.</option>
+                <option value="Prof.">Prof.</option>
+                <option value="Prof. Diraja">Prof. Diraja</option>
+                <option value="Tuan Dr.">Tuan Dr.</option>
+                <option value="Tuan Syeikh">Tuan Syeikh</option>
+                <option value="Tuan Haji">Tuan Haji</option>
+                <option value="Puan Hajah">Puan Hajah</option>
+              </select>
+            </div>
+            <div class="md:col-span-2">
+              <label class="block text-xs sm:text-sm font-bold text-slate-700 mb-1">Nama Penuh <span class="text-red-500">*</span></label>
+              <input type="text" id="input-nama" required placeholder="Contoh: Ahmad bin Razali" class="w-full px-3.5 sm:px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-amber-500 focus:outline-none text-xs sm:text-sm">
+            </div>
+          </div>
+
+          <div id="grid-agensi-gred" class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+            <div>
+              <label class="block text-xs sm:text-sm font-bold text-slate-700 mb-1">Agensi / Jabatan / Organisasi</label>
+              <input type="text" id="input-agensi" placeholder="Contoh: SUK Kedah / Awam" class="w-full px-3.5 sm:px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-amber-500 focus:outline-none text-xs sm:text-sm">
+            </div>
+            <div>
+              <label class="block text-xs sm:text-sm font-bold text-slate-700 mb-1">Nombor Telefon (WhatsApp) <span class="text-red-500">*</span></label>
+              <input type="tel" id="input-phone" required placeholder="Contoh: 0123456789" class="w-full px-3.5 sm:px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-amber-500 focus:outline-none text-xs sm:text-sm">
+            </div>
+
+            <div id="container-gred-jawatan" class="hidden sm:col-span-2">
+              <label class="block text-xs sm:text-sm font-bold text-slate-700 mb-1">Gred Jawatan <span class="text-red-500">*</span></label>
+              <select id="select-gred" class="w-full px-3.5 sm:px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-amber-500 focus:outline-none text-xs sm:text-sm font-medium">
+                <option value="Tidak Berkenaan">-- Sila Pilih Gred Jawatan --</option>
+                <optgroup label="Pengurusan Tertinggi / JUSA / Turus">
+                  <option value="Turus 1 / 2 / 3">Turus 1 / 2 / 3</option>
+                  <option value="JUSA A / VK5">JUSA A / VK5</option>
+                  <option value="JUSA B / VK6">JUSA B / VK6</option>
+                  <option value="JUSA C / VK7">JUSA C / VK7</option>
+                </optgroup>
+                <optgroup label="Pengurusan & Profesional (P&P)">
+                  <option value="Gred 56">Gred 56 (SSM)</option>
+                  <option value="Gred 54">Gred 54 / Gred 14 (SSPA)</option>
+                  <option value="Gred 52">Gred 52 / Gred 13 (SSPA)</option>
+                  <option value="Gred 48">Gred 48 / Gred 12 (SSPA)</option>
+                  <option value="Gred 44">Gred 44 / Gred 10 (SSPA)</option>
+                  <option value="Gred 41">Gred 41 / Gred 9 (SSPA)</option>
+                </optgroup>
+                <optgroup label="Kumpulan Pelaksana">
+                  <option value="Gred 38 / 40">Gred 38 / 40 / Gred 7 (SSPA)</option>
+                  <option value="Gred 36">Gred 36 / Gred 6 (SSPA)</option>
+                  <option value="Gred 32 / 34">Gred 32 / 34 / Gred 6 (SSPA)</option>
+                  <option value="Gred 29">Gred 29 / Gred 5 (SSPA)</option>
+                  <option value="Gred 22 / 26 / 28">Gred 22 / 26 / 28</option>
+                  <option value="Gred 19">Gred 19 / Gred 1 (SSPA)</option>
+                  <option value="Gred 11 / 14">Gred 11 / 14</option>
+                </optgroup>
+                <optgroup label="Sektor Swasta / Lain-lain">
+                  <option value="Pengurusan Kanan Swasta">Pengurusan Kanan Swasta</option>
+                  <option value="Eksekutif Swasta">Eksekutif Swasta</option>
+                  <option value="Lain-lain Gred">Lain-lain Gred</option>
+                  <option value="Tidak Berkenaan">Tidak Berkenaan (Awam/Bukan Penjawat Awam)</option>
+                </optgroup>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs sm:text-sm font-bold text-slate-700 mb-1">Status Kehadiran <span class="text-red-500">*</span></label>
+            <div class="grid grid-cols-2 gap-3 sm:gap-4">
+              <label class="flex items-center justify-center p-3 rounded-xl bg-white border border-slate-300 cursor-pointer hover:bg-slate-50 transition-all">
+                <input type="radio" name="status" value="Hadir" checked onchange="toggleStatusKehadiran()" class="w-4 h-4 text-amber-600 focus:ring-amber-500">
+                <span class="ml-2 text-xs sm:text-sm font-bold text-slate-800">Hadir</span>
+              </label>
+              <label class="flex items-center justify-center p-3 rounded-xl bg-white border border-slate-300 cursor-pointer hover:bg-slate-50 transition-all">
+                <input type="radio" name="status" value="Tidak Hadir" onchange="toggleStatusKehadiran()" class="w-4 h-4 text-amber-600 focus:ring-amber-500">
+                <span class="ml-2 text-xs sm:text-sm font-bold text-slate-800">Tidak Hadir</span>
+              </label>
+            </div>
+          </div>
+
+          <div id="section-kategori" class="space-y-3 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-200/70 border border-slate-300">
+            <label class="block text-xs sm:text-sm font-bold text-slate-800">Jenis Kehadiran <span class="text-red-500">*</span></label>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
+              <label class="flex items-center p-3 rounded-xl bg-white border border-slate-300 cursor-pointer hover:bg-slate-50">
+                <input type="radio" name="kategori_kehadiran" value="Berseorangan" checked onchange="updateKategoriUI()" class="w-4 h-4 text-amber-600">
+                <span class="ml-2 text-xs font-bold text-slate-800">Berseorangan</span>
+              </label>
+
+              <label class="flex items-center p-3 rounded-xl bg-white border border-slate-300 cursor-pointer hover:bg-slate-50">
+                <input type="radio" name="kategori_kehadiran" value="Berdua" onchange="updateKategoriUI()" class="w-4 h-4 text-amber-600">
+                <span class="ml-2 text-xs font-bold text-slate-800">Berdua (Pasangan)</span>
+              </label>
+
+              <label class="flex items-center p-3 rounded-xl bg-white border border-slate-300 cursor-pointer hover:bg-slate-50">
+                <input type="radio" name="kategori_kehadiran" value="Diwakili" onchange="updateKategoriUI()" class="w-4 h-4 text-amber-600">
+                <span class="ml-2 text-xs font-bold text-slate-800">Hadir Wakil</span>
+              </label>
+            </div>
+
+            <div id="box-nama-tambahan" class="hidden mt-3 pt-3 border-t border-slate-300">
+              <label id="lbl-nama-tambahan" class="block text-xs font-bold text-slate-800 mb-1">Nama Pasangan / Wakil</label>
+              <input type="text" id="input-nama-tambahan" placeholder="Masukkan nama..." class="w-full px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-amber-500 focus:outline-none text-xs sm:text-sm">
+            </div>
+          </div>
+
+          <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-black py-3.5 sm:py-4 rounded-xl shadow-lg transition-all text-sm sm:text-base tracking-wide uppercase mt-4 flex items-center justify-center gap-2">
+            <i class="fa-brands fa-whatsapp text-lg sm:text-xl"></i> Rekod & Hantar Kehadiran (WhatsApp)
+          </button>
+        </form>
+
+        <div id="success-box" class="hidden mt-6 p-5 sm:p-6 rounded-2xl bg-emerald-100 border border-emerald-300 text-center space-y-3 sm:space-y-4">
+          <div class="text-emerald-700 text-3xl sm:text-4xl animate-bounce">✅</div>
+          <h3 class="text-lg sm:text-xl font-bold text-emerald-900">Kehadiran Berjaya Direkodkan!</h3>
+          <p class="text-xs sm:text-sm text-emerald-800">Sila tekan butang hijau di bawah sekiranya aplikasi WhatsApp tidak terbuka secara automatik:</p>
+          <a id="whatsapp-btn" href="#" target="_blank" class="inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl shadow-lg transition-all text-xs sm:text-sm w-full">
+            <i class="fa-brands fa-whatsapp text-lg sm:text-xl"></i> Buka WhatsApp Urusetia Sekarang
+          </a>
+          <div class="pt-1">
+            <button onclick="resetPublicForm()" class="text-xs font-bold text-slate-600 underline hover:text-slate-900">Isi Borang Baharu</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- VIEW 2: ADMIN DASHBOARD -->
+    <main id="admin-view" class="hidden space-y-6">
+      
+      <div id="admin-login-card" class="card-grey rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-300 max-w-md mx-auto text-center">
+        <h2 class="text-lg sm:text-xl font-black text-slate-900 mb-1.5">Akses Urusetia Admin</h2>
+        <p class="text-xs text-slate-600 mb-5 sm:mb-6">Masukkan PIN keselamatan untuk menguruskan majlis & kehadiran.</p>
+        <form onsubmit="verifyPin(event)" class="space-y-4">
+          <div>
+            <input type="password" id="admin-pin" placeholder="Masukkan PIN" class="w-full text-center tracking-widest text-base sm:text-lg font-bold px-4 py-3 rounded-xl border border-slate-300 bg-white focus:ring-2 focus:ring-amber-500 focus:outline-none">
+            <p id="pin-error-msg" class="hidden text-xs text-rose-600 font-extrabold mt-2 animate-pulse">❌ Wrong PIN</p>
+          </div>
+          <button type="submit" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl text-xs sm:text-sm transition-all shadow">
+            Lanjut ke Dashboard
+          </button>
+        </form>
+      </div>
+
+      <div id="admin-content" class="hidden space-y-6">
+        
+        <div class="card-grey rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl border border-slate-300 space-y-3.5 sm:space-y-4">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-3 sm:pb-4 border-b border-slate-300">
+            <div>
+              <h2 class="text-lg sm:text-xl font-black text-slate-900 uppercase">Pengurusan Majlis</h2>
+              <p class="text-[11px] sm:text-xs text-slate-600">Tambah/Edit majlis, urus status Buka/Tutup, atur cara, dan nombor urusetia.</p>
+            </div>
+            <button onclick="openNewEventModal()" class="w-full sm:w-auto bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-4 py-2.5 rounded-xl text-xs transition-all shadow shrink-0">
+              + Tambah Majlis Baharu
+            </button>
+          </div>
+
+          <div>
+            <input type="text" id="search-event-input" onkeyup="renderEventsAdminList()" placeholder="🔍 Cari nama majlis, tarikh, atau lokasi..." class="w-full px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+          </div>
+
+          <div id="events-list-container" class="space-y-3"></div>
+        </div>
+
+        <div class="card-grey rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl border border-slate-300 space-y-4">
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 pb-3 sm:pb-4 border-b border-slate-300">
+            <div>
+              <h2 class="text-lg sm:text-xl font-black text-slate-900 uppercase">Senarai Kehadiran Tetamu</h2>
+              <p class="text-[11px] sm:text-xs text-slate-600">Paparan maklumat rekod pendaftaran mengikut majlis.</p>
+            </div>
+            
+            <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
+              <select id="filter-event" onchange="renderAttendanceTable()" class="w-full sm:w-auto flex-1 sm:flex-none px-3 py-2 rounded-xl border border-slate-300 bg-white text-xs font-bold text-slate-800 focus:outline-none">
+              </select>
+              <button onclick="exportToCSV()" class="bg-emerald-700 hover:bg-emerald-800 text-white font-bold px-3 py-2 rounded-xl text-xs transition-all flex items-center justify-center gap-1.5 shadow flex-1 sm:flex-none" title="Muat Turun Fail Excel / CSV">
+                <i class="fa-solid fa-file-excel"></i> CSV / Sheets
+              </button>
+              <button onclick="exportToPDF()" class="bg-rose-700 hover:bg-rose-800 text-white font-bold px-3 py-2 rounded-xl text-xs transition-all flex items-center justify-center gap-1.5 shadow flex-1 sm:flex-none" title="Muat Turun Dokumen PDF">
+                <i class="fa-solid fa-file-pdf"></i> Muat Turun PDF
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2.5 sm:gap-4 text-center">
+            <div class="bg-white p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border border-slate-200 shadow-sm">
+              <div class="text-[10px] sm:text-xs text-slate-500 font-bold uppercase">Jumlah Rekod</div>
+              <div id="stat-total" class="text-base sm:text-xl font-black text-slate-900 mt-0.5">0</div>
+            </div>
+            <div class="bg-white p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border border-slate-200 shadow-sm">
+              <div class="text-[10px] sm:text-xs text-emerald-600 font-bold uppercase">Hadir</div>
+              <div id="stat-hadir" class="text-base sm:text-xl font-black text-emerald-600 mt-0.5">0</div>
+            </div>
+            <div class="bg-white p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border border-slate-200 shadow-sm">
+              <div class="text-[10px] sm:text-xs text-rose-600 font-bold uppercase">Tidak Hadir</div>
+              <div id="stat-absent" class="text-base sm:text-xl font-black text-rose-600 mt-0.5">0</div>
+            </div>
+          </div>
+
+          <input type="text" id="search-input" onkeyup="renderAttendanceTable()" placeholder="Cari nama, gred, agensi, wakil..." class="w-full px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+
+          <div class="overflow-x-auto rounded-xl sm:rounded-2xl border border-slate-300 bg-white shadow-sm">
+            <table class="w-full text-left border-collapse text-xs whitespace-nowrap">
+              <thead>
+                <tr class="bg-slate-100 text-slate-700 font-bold border-b border-slate-300">
+                  <th class="p-3">Masa Rekod</th>
+                  <th class="p-3">Majlis</th>
+                  <th class="p-3">Nama Tetamu</th>
+                  <th class="p-3">Gred</th>
+                  <th class="p-3">Agensi</th>
+                  <th class="p-3">No. Tel</th>
+                  <th class="p-3">Kategori</th>
+                  <th class="p-3">Pasangan / Wakil</th>
+                  <th class="p-3">Status</th>
+                  <th class="p-3 text-center">Tindakan</th>
+                </tr>
+              </thead>
+              <tbody id="attendance-tbody" class="divide-y divide-slate-200 text-slate-800"></tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- MODAL 1: ADD/EDIT EVENT -->
+  <div id="event-modal" class="hidden fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4">
+    <div class="card-grey rounded-2xl sm:rounded-3xl p-5 sm:p-8 max-w-md w-full shadow-2xl border border-slate-300 space-y-4 max-h-[90vh] overflow-y-auto">
+      <h3 id="modal-event-title" class="text-lg sm:text-xl font-black text-slate-900">Tambah Majlis Baharu</h3>
+      <form onsubmit="saveEventModal(event)" class="space-y-3.5 sm:space-y-4">
+        <input type="hidden" id="modal-event-id">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Nama Majlis <span class="text-red-500">*</span></label>
+          <input type="text" id="modal-event-name" required placeholder="Contoh: Majlis Anugerah Cemerlang" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+        </div>
+        
+        <div class="grid grid-cols-2 gap-2.5">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Tarikh Majlis</label>
+            <input type="text" id="modal-event-date" placeholder="Contoh: 15 Nov 2026" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Masa Majlis</label>
+            <input type="text" id="modal-event-time" placeholder="Contoh: 8:30 Pagi" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Tempat / Lokasi</label>
+          <input type="text" id="modal-event-location" placeholder="Contoh: Dewan Seri Negeri, Alor Setar" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Nombor WhatsApp Urusetia <span class="text-red-500">*</span></label>
+          <input type="text" id="modal-event-phone" required placeholder="Contoh: 60123456789" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+        </div>
+
+        <div class="p-3 bg-white rounded-xl border border-slate-300 space-y-2">
+          <label class="block text-xs font-bold text-slate-800">
+            <i class="fa-solid fa-file-pdf text-amber-600 mr-1"></i> Atur Cara Majlis (Pilihan)
+          </label>
+          <p class="text-[11px] text-slate-500">Muat naik fail PDF atur cara atau letakkan pautan URL (Google Drive/Canva):</p>
+          
+          <div class="space-y-2 pt-1">
+            <div>
+              <label class="block text-[10px] font-bold text-slate-600 mb-0.5">Muat Naik Fail PDF Tempatan:</label>
+              <input type="file" id="modal-event-file" accept=".pdf" onchange="handleFileAturcaraSelect(event)" class="w-full text-xs text-slate-500 file:mr-2 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-amber-100 file:text-amber-800 hover:file:bg-amber-200">
+            </div>
+
+            <div class="text-center text-[10px] font-bold text-slate-400 uppercase tracking-widest">- Atau -</div>
+
+            <div>
+              <label class="block text-[10px] font-bold text-slate-600 mb-0.5">Pautan URL Atur Cara (Google Drive / Canva):</label>
+              <input type="url" id="modal-event-url" placeholder="https://..." class="w-full px-3 py-1.5 rounded-lg border border-slate-300 bg-slate-50 text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+            </div>
+          </div>
+        </div>
+
+        <div class="p-3 bg-white rounded-xl border border-slate-300 flex items-center gap-3">
+          <input type="checkbox" id="modal-event-has-gred" class="w-4 h-4 text-amber-600 rounded focus:ring-amber-500 cursor-pointer">
+          <label for="modal-event-has-gred" class="text-xs font-bold text-slate-800 cursor-pointer">
+            Aktifkan Medan Dropdown Gred Jawatan untuk majlis ini
+          </label>
+        </div>
+
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="closeNewEventModal()" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 bg-slate-200 hover:bg-slate-300">Batal</button>
+          <button type="submit" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-950 bg-amber-500 hover:bg-amber-600">Simpan Majlis</button>
+        </div>
       </form>
     </div>
   </div>
 
-  <!-- === 2. PAPARAN SKRIN KEJAYAAN === -->
-  <div id="successSection" class="success-card">
-    <div class="checkmark-circle">✓</div>
-    <h3>Maklumat Anda Telah Didaftarkan!</h3>
-    <p>Terima kasih atas maklum balas anda.<br>Kehadiran telah disimpan.</p>
+  <!-- MODAL 2: EDIT ATTENDANCE RECORD -->
+  <div id="record-modal" class="hidden fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4">
+    <div class="card-grey rounded-2xl sm:rounded-3xl p-5 sm:p-8 max-w-md w-full shadow-2xl border border-slate-300 space-y-4">
+      <h3 class="text-lg sm:text-xl font-black text-slate-900">Edit Rekod Kehadiran Tetamu</h3>
+      <form onsubmit="saveRecordModal(event)" class="space-y-3.5 sm:space-y-4">
+        <input type="hidden" id="edit-record-id">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Nama Tetamu (Berserta Gelaran) <span class="text-red-500">*</span></label>
+          <input type="text" id="edit-record-nama" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+        </div>
+        <div class="grid grid-cols-2 gap-2.5">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Gred Jawatan</label>
+            <input type="text" id="edit-record-gred" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Agensi / Jabatan</label>
+            <input type="text" id="edit-record-agensi" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-2.5">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">No. Telefon <span class="text-red-500">*</span></label>
+            <input type="text" id="edit-record-phone" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Status Kehadiran</label>
+            <select id="edit-record-status" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none font-bold">
+              <option value="Hadir">Hadir</option>
+              <option value="Tidak Hadir">Tidak Hadir</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Nama Pasangan / Wakil (Jika ada)</label>
+          <input type="text" id="edit-record-extra" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="closeRecordModal()" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 bg-slate-200 hover:bg-slate-300">Batal</button>
+          <button type="submit" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-950 bg-amber-500 hover:bg-amber-600">Kemaskini Rekod</button>
+        </div>
+      </form>
+    </div>
   </div>
 
-</div>
+  <footer class="mt-8 text-center text-xs text-slate-400">
+    <p>© 2026 Sistem Kehadiran Majlis Rasmi Negeri Kedah Darul Aman</p>
+  </footer>
 
-<script>
-  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyF2hEwDkf4S-uU15sc_wPUFLTF0sX4g0JGLF6ToMCTHhhImeJJeNyUuygbytyf66c/exec"; 
-  const NOMBOR_URUSETIA_WA = "60134785436"; 
+  <script>
+    // MASUKKAN URL GOOGLE APPS SCRIPT ANDA DI SINI
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyF2hEwDkf4S-uU15sc_wPUFLTF0sX4g0JGLF6ToMCTHhhImeJJeNyUuygbytyf66c/exec";
 
-  // =========================================================================
-  // SETTING HAD MASA PENUTUPAN BORANG: 15 OKTOBER 2026 (5.00 PETANG)
-  // =========================================================================
-  const TARIKH_TUTUP = new Date("2026-10-15T17:00:00"); 
+    let tempFileAturcaraData = "";
 
-  // Semak masa semasa apabila halaman dibuka
-  window.addEventListener("DOMContentLoaded", function() {
-    const masaSemasa = new Date();
+    let events = JSON.parse(localStorage.getItem('kedah_events_data')) || [
+      { id: 'EVT-01', name: "Majlis Anugerah Perkhidmatan Cemerlang 2026", date: "20 November 2026", time: "8:30 Pagi", location: "Dewan Seri Negeri, Alor Setar", adminPhone: "60123456789", isOpen: true, hasGred: true, aturcaraUrl: "" },
+      { id: 'EVT-02', name: "Mesyuarat Agung Khas SUK Kedah", date: "05 Disember 2026", time: "2:30 Petang", location: "Bilik Gerakan SUK", adminPhone: "60198765432", isOpen: true, hasGred: false, aturcaraUrl: "" }
+    ];
 
-    if (masaSemasa > TARIKH_TUTUP) {
-      document.getElementById("formSection").innerHTML = `
-        <div style="text-align: center; padding: 50px 20px;">
-          <div style="font-size: 60px; margin-bottom: 15px;">⛔</div>
-          <h2 style="color: #e53e3e; margin-bottom: 10px; font-size: 22px;">Pendaftaran Telah Ditutup</h2>
-          <p style="color: #4a5568; font-size: 15px; line-height: 1.6;">
-            Tarikh akhir maklum balas bagi program ini telah tamat pada<br>
-            <strong>15 Oktober 2026 (5.00 Petang)</strong>.<br><br>
-            Sila hubungi urusetia jika terdapat sebarang pertanyaan.
-          </p>
-        </div>
-      `;
+    let attendanceRecords = JSON.parse(localStorage.getItem('kedah_attendance_data')) || [];
+
+    function updateSyncStatus(msg, isSuccess = false) {
+      const elText = document.getElementById('sync-status-text');
+      if (elText) elText.textContent = msg;
     }
-  });
 
-  // Logik Hantar Borang
-  document.getElementById("attendanceForm").addEventListener("submit", function(e) {
-    e.preventDefault();
+    async function saveData() {
+      localStorage.setItem('kedah_events_data', JSON.stringify(events));
+      localStorage.setItem('kedah_attendance_data', JSON.stringify(attendanceRecords));
 
-    const submitBtn = document.getElementById("btnSubmit");
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = "⌛ Memproses & Mengirim...";
+      if (GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL !== "MASUKKAN_URL_GOOGLE_APPS_SCRIPT_ANDA_DI_SINI") {
+        updateSyncStatus("Menyimpan ke Cloud...");
+        try {
+          await fetch(GOOGLE_SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ action: "save_all", events: events, records: attendanceRecords })
+          });
+          updateSyncStatus("Synced Cloud (Google Sheets)");
+        } catch (err) {
+          updateSyncStatus("Simpanan Tempatan sahaja");
+        }
+      } else {
+        updateSyncStatus("Mod Offline (Tempatan)");
+      }
+    }
 
-    // Ambil Data dari Borang
-    const gelaran = document.getElementById("gelaran").value;
-    const nama = document.getElementById("nama").value;
-    const jawatan = document.getElementById("jawatan").value;
-    const phone = document.getElementById("phone").value;
-    const perasmian = document.querySelector('input[name="perasmian"]:checked').value;
-    const penutupan = document.querySelector('input[name="penutupan"]:checked').value;
+    async function loadDataFromCloud() {
+      if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL === "MASUKKAN_URL_GOOGLE_APPS_SCRIPT_ANDA_DI_SINI") {
+        updateSyncStatus("Mod Offline (Tempatan)");
+        return;
+      }
 
-    const formData = { gelaran, nama, jawatan, phone, perasmian, penutupan };
+      updateSyncStatus("Menyemak Data Cloud...");
+      try {
+        const res = await fetch(GOOGLE_SCRIPT_URL);
+        const data = await res.json();
+        if (data) {
+          if (data.events && data.events.length > 0) events = data.events;
+          if (data.records && data.records.length > 0) attendanceRecords = data.records;
+          localStorage.setItem('kedah_events_data', JSON.stringify(events));
+          localStorage.setItem('kedah_attendance_data', JSON.stringify(attendanceRecords));
+          updateSyncStatus("Synced Cloud (Google Sheets)");
+        }
+      } catch (err) {
+        updateSyncStatus("Synced Tempatan");
+      }
 
-    // A. Hantar data ke Google Sheets
-    fetch(GOOGLE_SCRIPT_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData)
-    }).catch(err => console.error("Sheets Error:", err));
+      populatePublicEventsDropdown();
+      renderEventsAdminList();
+      renderAttendanceTable();
+    }
 
-    // B. Mesej Format WhatsApp
-    const mesejTeks = 
-`*MAKLUM BALAS KEHADIRAN PROGRAM PENINGKATAN KEMAJUAN KERJAYA PEGAWAI TADBIR NEGERI 2026*
+    document.addEventListener('DOMContentLoaded', () => {
+      populatePublicEventsDropdown();
+      renderEventsAdminList();
+      renderAttendanceTable();
+      loadDataFromCloud();
+    });
 
-*Nama:* ${gelaran} ${nama}
-*Jawatan:* ${jawatan}
-*No Tel:* ${phone}
+    function toggleView() {
+      const publicView = document.getElementById('public-view');
+      const adminView = document.getElementById('admin-view');
+      const toggleBtn = document.getElementById('nav-toggle-btn');
 
-1. *Majlis Perasmian:* ${perasmian === 'Hadir' ? 'HADIR' : 'TIDAK HADIR'}
-2. *Majlis Penutupan:* ${penutupan === 'Hadir' ? 'HADIR' : 'TIDAK HADIR'}`;
+      if (publicView.classList.contains('hidden')) {
+        publicView.classList.remove('hidden');
+        adminView.classList.add('hidden');
+        toggleBtn.textContent = 'Admin Portal';
+        populatePublicEventsDropdown();
+      } else {
+        publicView.classList.add('hidden');
+        adminView.classList.remove('hidden');
+        toggleBtn.textContent = 'Borang Awam';
+      }
+    }
 
-    const mesejDiencode = encodeURIComponent(mesejTeks);
+    function verifyPin(e) {
+      e.preventDefault();
+      const pinInput = document.getElementById('admin-pin');
+      const errorMsg = document.getElementById('pin-error-msg');
 
-    // C. Tukar paparan borang kepada Skrin Kejayaan
-    document.getElementById("formSection").style.display = "none";
-    document.getElementById("successSection").style.display = "block";
+      if (pinInput.value === '6789') {
+        if (errorMsg) errorMsg.classList.add('hidden');
+        document.getElementById('admin-login-card').classList.add('hidden');
+        document.getElementById('admin-content').classList.remove('hidden');
+        renderEventsAdminList();
+        renderAttendanceTable();
+      } else {
+        if (errorMsg) errorMsg.classList.remove('hidden');
+        pinInput.value = '';
+        pinInput.focus();
+      }
+    }
 
-    // D. Buka terus WhatsApp
-    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    function populatePublicEventsDropdown() {
+      const select = document.getElementById('select-event');
+      const inactiveCard = document.getElementById('inactive-card');
+      const activeFormCard = document.getElementById('active-form-card');
 
-    if (isMobile) {
-      window.location.href = `whatsapp://send?phone=${NOMBOR_URUSETIA_WA}&text=${mesejDiencode}`;
-    } else {
-      window.location.href = `whatsapp://send?phone=${NOMBOR_URUSETIA_WA}&text=${mesejDiencode}`;
+      select.innerHTML = '';
+      const openEvents = events.filter(e => e.isOpen);
+
+      if (openEvents.length === 0) {
+        inactiveCard.classList.remove('hidden');
+        activeFormCard.classList.add('hidden');
+      } else {
+        inactiveCard.classList.add('hidden');
+        activeFormCard.classList.remove('hidden');
+
+        openEvents.forEach(evt => {
+          const opt = document.createElement('option');
+          opt.value = evt.id;
+          opt.textContent = evt.name;
+          select.appendChild(opt);
+        });
+        updateSelectedEventInfo();
+      }
+    }
+
+    function updateSelectedEventInfo() {
+      const select = document.getElementById('select-event');
+      const eventId = select.value;
+
+      const evt = events.find(e => e.id === eventId && e.isOpen);
+      if (evt) {
+        document.getElementById('info-tarikh-masa').innerHTML = `<i class="fa-regular fa-calendar-check mr-1"></i> Tarikh & Masa: <b>${evt.date || '-'} (${evt.time || '-'})</b>`;
+        document.getElementById('info-tempat').innerHTML = `<i class="fa-solid fa-location-dot mr-1"></i> Tempat: <b>${evt.location || '-'}</b>`;
+
+        const containerBtnAturcara = document.getElementById('container-btn-aturcara');
+        const btnDownloadAturcara = document.getElementById('btn-download-aturcara');
+
+        if (evt.aturcaraUrl && evt.aturcaraUrl.trim() !== "") {
+          containerBtnAturcara.classList.remove('hidden');
+          btnDownloadAturcara.href = evt.aturcaraUrl;
+        } else {
+          containerBtnAturcara.classList.add('hidden');
+        }
+
+        const containerGred = document.getElementById('container-gred-jawatan');
+        const selectGred = document.getElementById('select-gred');
+        if (evt.hasGred) {
+          containerGred.classList.remove('hidden');
+          selectGred.required = true;
+        } else {
+          containerGred.classList.add('hidden');
+          selectGred.required = false;
+          selectGred.value = 'Tidak Berkenaan';
+        }
+      } else {
+        populatePublicEventsDropdown();
+      }
+    }
+
+    function toggleStatusKehadiran() {
+      const status = document.querySelector('input[name="status"]:checked').value;
+      const secKategori = document.getElementById('section-kategori');
+      if (status === 'Tidak Hadir') {
+        secKategori.classList.add('hidden');
+      } else {
+        secKategori.classList.remove('hidden');
+      }
+    }
+
+    function updateKategoriUI() {
+      const kat = document.querySelector('input[name="kategori_kehadiran"]:checked').value;
+      const box = document.getElementById('box-nama-tambahan');
+      const lbl = document.getElementById('lbl-nama-tambahan');
+      const input = document.getElementById('input-nama-tambahan');
+
+      if (kat === 'Berdua') {
+        box.classList.remove('hidden');
+        lbl.textContent = 'Nama Pasangan / Rakan *';
+        input.placeholder = 'Contoh: Puan Noraini binti Hassan';
+        input.required = true;
+      } else if (kat === 'Diwakili') {
+        box.classList.remove('hidden');
+        lbl.textContent = 'Nama Wakil *';
+        input.placeholder = 'Contoh: En. Mohd Faiz (Wakil Pengarah)';
+        input.required = true;
+      } else {
+        box.classList.add('hidden');
+        input.required = false;
+        input.value = '';
+      }
+    }
+
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+
+      const eventId = document.getElementById('select-event').value;
+      const selectedEvent = events.find(evt => evt.id === eventId);
       
-      setTimeout(() => {
-        window.location.href = `https://web.whatsapp.com/send?phone=${NOMBOR_URUSETIA_WA}&text=${mesejDiencode}`;
-      }, 1200);
-    }
-  });
-</script>
+      if (!selectedEvent || !selectedEvent.isOpen) {
+        alert("Maaf, borang pendaftaran bagi majlis ini telah ditutup.");
+        populatePublicEventsDropdown();
+        return;
+      }
 
+      const gelaran = document.getElementById('select-gelaran').value;
+      const namaAsal = document.getElementById('input-nama').value;
+      const namaPenuh = `${gelaran} ${namaAsal}`;
+      const agensi = document.getElementById('input-agensi').value || '-';
+      const phone = document.getElementById('input-phone').value;
+      const gred = selectedEvent.hasGred ? document.getElementById('select-gred').value : '-';
+      const status = document.querySelector('input[name="status"]:checked').value;
+      
+      let kategori = 'Berseorangan';
+      let namaTambahan = '-';
+
+      if (status === 'Hadir') {
+        kategori = document.querySelector('input[name="kategori_kehadiran"]:checked').value;
+        if (kategori === 'Berdua' || kategori === 'Diwakili') {
+          namaTambahan = document.getElementById('input-nama-tambahan').value || '-';
+        }
+      }
+
+      const time = new Date().toLocaleString('ms-MY');
+
+      const newRecord = {
+        id: Date.now(),
+        eventId: selectedEvent.id,
+        eventName: selectedEvent.name,
+        adminPhone: selectedEvent.adminPhone,
+        gelaran,
+        nama: namaPenuh,
+        gred,
+        agensi,
+        phone,
+        status,
+        kategori,
+        namaTambahan,
+        time
+      };
+
+      attendanceRecords.unshift(newRecord);
+      await saveData();
+
+      let detailTambahan = '';
+      if (kategori === 'Berdua') {
+        detailTambahan = `\n*Nama Pasangan:* ${namaTambahan}`;
+      } else if (kategori === 'Diwakili') {
+        detailTambahan = `\n*Nama Wakil:* ${namaTambahan}`;
+      }
+
+      const gredText = (selectedEvent.hasGred && gred !== '-') ? `\n*Gred Jawatan:* ${gred}` : '';
+
+      const waMsg = `📢 *PENGESAHAN KEHADIRAN MAJLIS*\n` +
+                    `-----------------------------------\n` +
+                    `*Majlis:* ${selectedEvent.name}\n` +
+                    `*Tarikh/Masa:* ${selectedEvent.date || '-'} (${selectedEvent.time || '-'})\n` +
+                    `*Tempat:* ${selectedEvent.location || '-'}\n\n` +
+                    `*Nama Tetamu:* ${namaPenuh}${gredText}\n` +
+                    `*Agensi:* ${agensi}\n` +
+                    `*Status:* ${status}\n` +
+                    `*Bentuk Kehadiran:* ${kategori}${detailTambahan}\n` +
+                    `*Waktu Rekod:* ${time}`;
+
+      const formattedPhone = selectedEvent.adminPhone.replace(/[^0-9]/g, '');
+      const waUrl = `https://wa.me/${formattedPhone}?text=${encodeURIComponent(waMsg)}`;
+
+      const waBtn = document.getElementById('whatsapp-btn');
+      waBtn.href = waUrl;
+
+      document.getElementById('attendance-form').classList.add('hidden');
+      document.getElementById('success-box').classList.remove('hidden');
+
+      setTimeout(() => {
+        window.location.href = waUrl;
+      }, 300);
+    }
+
+    function resetPublicForm() {
+      document.getElementById('attendance-form').reset();
+      document.getElementById('attendance-form').classList.remove('hidden');
+      document.getElementById('success-box').classList.add('hidden');
+      updateKategoriUI();
+      toggleStatusKehadiran();
+      updateSelectedEventInfo();
+    }
+
+    function handleFileAturcaraSelect(e) {
+      const file = e.target.files[0];
+      if (file) {
+        if (file.type !== "application/pdf") {
+          alert("Sila pilih fail berformat PDF sahaja.");
+          e.target.value = "";
+          tempFileAturcaraData = "";
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          tempFileAturcaraData = evt.target.result;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        tempFileAturcaraData = "";
+      }
+    }
+
+    function openNewEventModal() {
+      tempFileAturcaraData = "";
+      document.getElementById('modal-event-title').textContent = "Tambah Majlis Baharu";
+      document.getElementById('modal-event-id').value = '';
+      document.getElementById('modal-event-name').value = '';
+      document.getElementById('modal-event-date').value = '';
+      document.getElementById('modal-event-time').value = '';
+      document.getElementById('modal-event-location').value = '';
+      document.getElementById('modal-event-phone').value = '';
+      document.getElementById('modal-event-url').value = '';
+      document.getElementById('modal-event-file').value = '';
+      document.getElementById('modal-event-has-gred').checked = false;
+      document.getElementById('event-modal').classList.remove('hidden');
+    }
+
+    function openEditEventModal(id) {
+      tempFileAturcaraData = "";
+      const evt = events.find(e => e.id === id);
+      if (evt) {
+        document.getElementById('modal-event-title').textContent = "Edit Maklumat Majlis";
+        document.getElementById('modal-event-id').value = evt.id;
+        document.getElementById('modal-event-name').value = evt.name;
+        document.getElementById('modal-event-date').value = evt.date || '';
+        document.getElementById('modal-event-time').value = evt.time || '';
+        document.getElementById('modal-event-location').value = evt.location || '';
+        document.getElementById('modal-event-phone').value = evt.adminPhone || '';
+        document.getElementById('modal-event-url').value = (evt.aturcaraUrl && !evt.aturcaraUrl.startsWith("data:")) ? evt.aturcaraUrl : '';
+        document.getElementById('modal-event-file').value = '';
+        document.getElementById('modal-event-has-gred').checked = !!evt.hasGred;
+        document.getElementById('event-modal').classList.remove('hidden');
+      }
+    }
+
+    function closeNewEventModal() {
+      document.getElementById('event-modal').classList.add('hidden');
+    }
+
+    async function saveEventModal(e) {
+      e.preventDefault();
+      const id = document.getElementById('modal-event-id').value;
+      const name = document.getElementById('modal-event-name').value.trim();
+      const date = document.getElementById('modal-event-date').value.trim();
+      const time = document.getElementById('modal-event-time').value.trim();
+      const location = document.getElementById('modal-event-location').value.trim();
+      const phone = document.getElementById('modal-event-phone').value.trim();
+      const inputUrl = document.getElementById('modal-event-url').value.trim();
+      const hasGred = document.getElementById('modal-event-has-gred').checked;
+
+      let finalAturcara = tempFileAturcaraData !== "" ? tempFileAturcaraData : inputUrl;
+
+      if (id) {
+        const evt = events.find(e => e.id === id);
+        if (evt) {
+          evt.name = name;
+          evt.date = date;
+          evt.time = time;
+          evt.location = location;
+          evt.adminPhone = phone;
+          evt.hasGred = hasGred;
+          if (finalAturcara !== "") {
+            evt.aturcaraUrl = finalAturcara;
+          }
+        }
+      } else {
+        events.push({
+          id: 'EVT-' + Date.now().toString().slice(-4),
+          name,
+          date,
+          time,
+          location,
+          adminPhone: phone,
+          hasGred,
+          aturcaraUrl: finalAturcara,
+          isOpen: true
+        });
+      }
+
+      await saveData();
+      renderEventsAdminList();
+      populatePublicEventsDropdown();
+      closeNewEventModal();
+    }
+
+    function openEditRecordModal(id) {
+      const rec = attendanceRecords.find(r => String(r.id) === String(id));
+      if (rec) {
+        document.getElementById('edit-record-id').value = rec.id;
+        document.getElementById('edit-record-nama').value = rec.nama;
+        document.getElementById('edit-record-gred').value = rec.gred || '';
+        document.getElementById('edit-record-agensi').value = rec.agensi || '';
+        document.getElementById('edit-record-phone').value = rec.phone || '';
+        document.getElementById('edit-record-status').value = rec.status;
+        document.getElementById('edit-record-extra').value = rec.namaTambahan || '';
+        document.getElementById('record-modal').classList.remove('hidden');
+      }
+    }
+
+    function closeRecordModal() {
+      document.getElementById('record-modal').classList.add('hidden');
+    }
+
+    async function saveRecordModal(e) {
+      e.preventDefault();
+      const id = document.getElementById('edit-record-id').value;
+      const rec = attendanceRecords.find(r => String(r.id) === String(id));
+      if (rec) {
+        rec.nama = document.getElementById('edit-record-nama').value.trim();
+        rec.gred = document.getElementById('edit-record-gred').value.trim() || '-';
+        rec.agensi = document.getElementById('edit-record-agensi').value.trim() || '-';
+        rec.phone = document.getElementById('edit-record-phone').value.trim();
+        rec.status = document.getElementById('edit-record-status').value;
+        rec.namaTambahan = document.getElementById('edit-record-extra').value.trim() || '-';
+
+        await saveData();
+        renderAttendanceTable();
+        closeRecordModal();
+      }
+    }
+
+    async function toggleEventStatus(id) {
+      const evt = events.find(e => e.id === id);
+      if (evt) {
+        evt.isOpen = !evt.isOpen;
+        await saveData();
+        renderEventsAdminList();
+        populatePublicEventsDropdown();
+      }
+    }
+
+    async function deleteEvent(id) {
+      if (confirm("Adakah anda pasti untuk memadam majlis ini?")) {
+        events = events.filter(e => e.id !== id);
+        await saveData();
+        renderEventsAdminList();
+        populatePublicEventsDropdown();
+      }
+    }
+
+    function renderEventsAdminList() {
+      const container = document.getElementById('events-list-container');
+      const filterSelect = document.getElementById('filter-event');
+      const searchInput = document.getElementById('search-event-input');
+      const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+
+      container.innerHTML = '';
+      
+      const currentFilterVal = filterSelect.value;
+      filterSelect.innerHTML = '<option value="ALL">Semua Majlis</option>';
+      events.forEach((evt) => {
+        const opt = document.createElement('option');
+        opt.value = evt.id;
+        opt.textContent = evt.name;
+        filterSelect.appendChild(opt);
+      });
+      if (currentFilterVal) filterSelect.value = currentFilterVal;
+
+      let filteredEvents = events;
+      if (query) {
+        filteredEvents = events.filter(evt => 
+          evt.name.toLowerCase().includes(query) ||
+          (evt.date && evt.date.toLowerCase().includes(query)) ||
+          (evt.location && evt.location.toLowerCase().includes(query))
+        );
+      }
+
+      if (filteredEvents.length === 0) {
+        container.innerHTML = `<div class="p-4 text-center text-slate-500 bg-white rounded-2xl border border-slate-300 text-xs">Tiada majlis dijumpai mengikut carian.</div>`;
+        return;
+      }
+
+      filteredEvents.forEach((evt) => {
+        const item = document.createElement('div');
+        item.className = 'bg-white p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-300 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-sm';
+        item.innerHTML = `
+          <div>
+            <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+              <span class="font-black text-slate-900 text-xs sm:text-sm">${evt.name}</span>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${evt.isOpen ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
+                ${evt.isOpen ? 'BUKA' : 'TUTUP'}
+              </span>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${evt.hasGred ? 'bg-amber-100 text-amber-900' : 'bg-slate-100 text-slate-600'}">
+                ${evt.hasGred ? 'Gred: YA' : 'Gred: TIDAK'}
+              </span>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${evt.aturcaraUrl ? 'bg-blue-100 text-blue-900' : 'bg-slate-100 text-slate-500'}">
+                ${evt.aturcaraUrl ? 'Atur Cara: Ada' : 'Atur Cara: Tiada'}
+              </span>
+            </div>
+            <div class="text-[11px] sm:text-xs text-slate-500 mt-1">
+              📅 ${evt.date || '-'} (${evt.time || '-'}) | 📍 ${evt.location || '-'}
+            </div>
+            <div class="text-[11px] sm:text-xs text-slate-500 mt-0.5">
+              WhatsApp Urusetia: <span class="font-bold text-slate-700">${evt.adminPhone}</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 w-full sm:w-auto justify-end flex-wrap pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
+            <button onclick="openEditEventModal('${evt.id}')" class="px-3 py-1.5 rounded-xl text-xs font-bold transition-all border border-slate-300 bg-slate-100 hover:bg-slate-200 text-slate-800">
+              <i class="fa-solid fa-pen-to-square mr-1"></i> Edit
+            </button>
+            <button onclick="toggleEventStatus('${evt.id}')" class="px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${evt.isOpen ? 'bg-amber-100 text-amber-800 hover:bg-amber-200' : 'bg-emerald-100 text-emerald-800 hover:bg-emerald-200'}">
+              ${evt.isOpen ? 'Tutup Borang' : 'Buka Borang'}
+            </button>
+            <button onclick="deleteEvent('${evt.id}')" class="text-rose-600 hover:text-rose-800 p-2 text-xs">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    function renderAttendanceTable() {
+      const tbody = document.getElementById('attendance-tbody');
+      tbody.innerHTML = '';
+      let filtered = getFilteredRecords();
+
+      document.getElementById('stat-total').textContent = filtered.length;
+      document.getElementById('stat-hadir').textContent = filtered.filter(r => r.status === 'Hadir').length;
+      document.getElementById('stat-absent').textContent = filtered.filter(r => r.status === 'Tidak Hadir').length;
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="10" class="p-6 text-center text-slate-400">Tiada rekod kehadiran dijumpai.</td></tr>`;
+        return;
+      }
+
+      filtered.forEach(r => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-50 border-b border-slate-200';
+        tr.innerHTML = `
+          <td class="p-3 text-slate-500 whitespace-nowrap">${r.time}</td>
+          <td class="p-3 font-semibold text-slate-900">${r.eventName}</td>
+          <td class="p-3 font-bold text-slate-900">${r.nama}</td>
+          <td class="p-3 font-medium text-amber-800">${r.gred || '-'}</td>
+          <td class="p-3 text-slate-600">${r.agensi}</td>
+          <td class="p-3 text-slate-600">${r.phone}</td>
+          <td class="p-3 font-semibold text-amber-700">${r.kategori || 'Berseorangan'}</td>
+          <td class="p-3 text-slate-600">${r.namaTambahan || '-'}</td>
+          <td class="p-3">
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${r.status === 'Hadir' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
+              ${r.status}
+            </span>
+          </td>
+          <td class="p-3 text-center whitespace-nowrap space-x-1">
+            <button onclick="openEditRecordModal('${r.id}')" class="text-amber-600 hover:text-amber-800 p-1" title="Edit Rekod">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+            <button onclick="deleteRecord('${r.id}')" class="text-rose-500 hover:text-rose-700 p-1" title="Padam Rekod">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function getFilteredRecords() {
+      const filterEvtId = document.getElementById('filter-event').value;
+      const searchQuery = document.getElementById('search-input').value.toLowerCase();
+      let filtered = attendanceRecords;
+
+      if (filterEvtId && filterEvtId !== 'ALL') {
+        filtered = filtered.filter(r => String(r.eventId) === String(filterEvtId));
+      }
+
+      if (searchQuery) {
+        filtered = filtered.filter(r => 
+          r.nama.toLowerCase().includes(searchQuery) ||
+          (r.gred && r.gred.toLowerCase().includes(searchQuery)) ||
+          r.agensi.toLowerCase().includes(searchQuery) ||
+          r.phone.includes(searchQuery) ||
+          (r.namaTambahan && r.namaTambahan.toLowerCase().includes(searchQuery))
+        );
+      }
+      return filtered;
+    }
+
+    async function deleteRecord(id) {
+      if (confirm("Padam rekod ini?")) {
+        attendanceRecords = attendanceRecords.filter(r => String(r.id) !== String(id));
+        await saveData();
+        renderAttendanceTable();
+      }
+    }
+
+    function exportToCSV() {
+      const filtered = getFilteredRecords();
+      if (filtered.length === 0) {
+        alert("Tiada rekod untuk dimuat turun.");
+        return;
+      }
+
+      const headers = ["Waktu Tarikh Rekod", "Nama Majlis", "Gelaran & Nama Tetamu", "Gred Jawatan", "Agensi/Jabatan", "No. Telefon", "Status Kehadiran", "Bentuk Kehadiran", "Nama Pasangan/Wakil"];
+      const rows = filtered.map(r => [
+        `"${r.time}"`,
+        `"${r.eventName}"`,
+        `"${r.nama}"`,
+        `"${r.gred || '-'}"`,
+        `"${r.agensi}"`,
+        `"${r.phone}"`,
+        `"${r.status}"`,
+        `"${r.kategori || 'Berseorangan'}"`,
+        `"${r.namaTambahan || '-'}"`
+      ]);
+
+      const csvContent = "\uFEFF" + [headers.join(","), ...rows.map(e => e.join(","))].join("\n");
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", `Kehadiran_Majlis_${new Date().toISOString().slice(0,10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function exportToPDF() {
+      const filtered = getFilteredRecords();
+      if (filtered.length === 0) {
+        alert("Tiada rekod pendaftaran untuk dijana ke PDF.");
+        return;
+      }
+
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ orientation: 'landscape' });
+
+      doc.setFontSize(14);
+      doc.setFont("helvetica", "bold");
+      doc.text("SENARAI KEHADIRAN TETAMU JEMPUTAN", 14, 15);
+      
+      doc.setFontSize(10);
+      doc.setFont("helvetica", "normal");
+      doc.text("Sistem Kehadiran Majlis Rasmi Negeri Kedah Darul Aman", 14, 21);
+      doc.text(`Tarikh Cetakan: ${new Date().toLocaleString('ms-MY')}`, 14, 26);
+
+      const headers = [["Bil", "Masa Rekod", "Majlis", "Nama Tetamu", "Gred", "Agensi/Jabatan", "No. Tel", "Bentuk", "Wakil/Pasangan", "Status"]];
+      
+      const data = filtered.map((r, index) => [
+        index + 1,
+        r.time,
+        r.eventName,
+        r.nama,
+        r.gred || '-',
+        r.agensi || '-',
+        r.phone,
+        r.kategori || 'Berseorangan',
+        r.namaTambahan || '-',
+        r.status
+      ]);
+
+      doc.autoTable({
+        startY: 32,
+        head: headers,
+        body: data,
+        theme: 'grid',
+        headStyles: { fillColor: [15, 23, 42], textColor: [255, 255, 255], fontStyle: 'bold', fontSize: 8 },
+        bodyStyles: { fontSize: 7.5 },
+        columnStyles: {
+          0: { cellWidth: 10, halign: 'center' },
+          1: { cellWidth: 28 },
+          2: { cellWidth: 45 },
+          3: { cellWidth: 45, fontStyle: 'bold' },
+          4: { cellWidth: 20 },
+          5: { cellWidth: 30 },
+          6: { cellWidth: 24 },
+          7: { cellWidth: 24 },
+          8: { cellWidth: 30 },
+          9: { cellWidth: 20, halign: 'center', fontStyle: 'bold' }
+        },
+        didParseCell: function(data) {
+          if (data.section === 'body' && data.column.index === 9) {
+            if (data.cell.raw === 'Hadir') {
+              data.cell.styles.textColor = [16, 185, 129];
+            } else {
+              data.cell.styles.textColor = [225, 29, 72];
+            }
+          }
+        }
+      });
+
+      doc.save(`Senarai_Kehadiran_Majlis_${new Date().toISOString().slice(0,10)}.pdf`);
+    }
+  </script>
 </body>
 </html>
