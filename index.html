@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kehadiran Majlis</title>
+  <title>Kehadiran Majlis Rasmi</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   
@@ -21,31 +21,31 @@
     }
   </style>
 </head>
-<body class="min-h-screen text-slate-800 flex flex-col justify-between p-4 sm:p-6 md:p-10">
+<body class="min-h-screen text-slate-800 flex flex-col justify-between p-3 sm:p-6 md:p-8">
 
-  <div class="max-w-4xl w-full mx-auto space-y-6">
+  <div class="max-w-5xl w-full mx-auto space-y-4 sm:space-y-6">
 
     <!-- HEADER / NAVIGATION BAR -->
-    <header class="card-grey rounded-3xl p-4 sm:p-5 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-4 border border-slate-300">
-      <div class="flex items-center gap-4">
+    <header class="card-grey rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 border border-slate-300">
+      <div class="flex items-center gap-3 sm:gap-4 w-full sm:w-auto">
         <!-- GAMBAR LOGO KEDAH -->
-        <img src="https://i.postimg.cc/gk64HYT5/logo-kedah.png" alt="Logo Emblem Rasmi" class="w-14 h-14 object-contain shrink-0 drop-shadow-md">
+        <img src="https://i.postimg.cc/gk64HYT5/logo-kedah.png" alt="Logo Emblem Rasmi" class="w-12 h-12 sm:w-14 sm:h-14 object-contain shrink-0 drop-shadow-md">
         
         <div>
-          <h1 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight leading-none uppercase">
+          <h1 class="text-lg sm:text-2xl font-black text-slate-900 tracking-tight leading-tight uppercase">
             Kehadiran Majlis
           </h1>
-          <p class="text-xs sm:text-sm font-bold text-amber-600 tracking-wider mt-1 uppercase">
+          <p class="text-[10px] sm:text-sm font-bold text-amber-600 tracking-wider mt-0.5 uppercase">
             Negeri Kedah Darul Aman
           </p>
         </div>
       </div>
 
-      <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
-        <button id="btn-portal-tag" class="border-2 border-amber-500/80 text-amber-700 bg-amber-500/10 hover:bg-amber-500/20 px-4 py-2 rounded-full font-bold text-xs sm:text-sm tracking-wide uppercase transition-all">
+      <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-300/60">
+        <button id="btn-portal-tag" class="border border-amber-500/80 text-amber-700 bg-amber-500/10 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full font-bold text-[11px] sm:text-xs md:text-sm tracking-wide uppercase">
           PORTAL JEMPUTAN
         </button>
-        <button id="nav-toggle-btn" onclick="toggleView()" class="bg-slate-900 text-white hover:bg-slate-800 px-4 py-2 rounded-full text-xs font-semibold transition-all">
+        <button id="nav-toggle-btn" onclick="toggleView()" class="bg-slate-900 text-white hover:bg-slate-800 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-semibold transition-all shadow">
           Admin Portal
         </button>
       </div>
@@ -55,29 +55,29 @@
     <main id="public-view" class="space-y-6">
       
       <!-- INACTIVE WARNING CARD -->
-      <div id="inactive-card" class="hidden card-grey rounded-3xl p-10 sm:p-16 text-center shadow-2xl border border-slate-300 flex flex-col items-center justify-center min-h-[350px]">
-        <div class="text-amber-500 text-6xl sm:text-7xl mb-4 animate-bounce">⚠️</div>
-        <h2 class="text-2xl sm:text-4xl font-black text-slate-900 mb-2">Borang Belum Diaktifkan</h2>
-        <p class="text-slate-600 text-base sm:text-lg max-w-md mx-auto">Pendaftaran bagi semua majlis telah ditutup.</p>
+      <div id="inactive-card" class="hidden card-grey rounded-2xl sm:rounded-3xl p-8 sm:p-16 text-center shadow-2xl border border-slate-300 flex flex-col items-center justify-center min-h-[300px]">
+        <div class="text-amber-500 text-5xl sm:text-7xl mb-4 animate-bounce">⚠️</div>
+        <h2 class="text-xl sm:text-4xl font-black text-slate-900 mb-2">Borang Belum Diaktifkan</h2>
+        <p class="text-slate-600 text-sm sm:text-lg max-w-md mx-auto">Pendaftaran bagi semua majlis telah ditutup buat masa ini.</p>
       </div>
 
       <!-- ACTIVE ATTENDANCE FORM CARD -->
-      <div id="active-form-card" class="card-grey rounded-3xl p-6 sm:p-10 shadow-2xl border border-slate-300">
-        <div class="mb-6 pb-4 border-b border-slate-300">
-          <h2 class="text-2xl font-extrabold text-slate-900">Borang Kehadiran Tetamu</h2>
-          <p class="text-slate-600 text-sm mt-1">Sila pilih majlis dan lengkapkan maklumat anda di bawah.</p>
+      <div id="active-form-card" class="card-grey rounded-2xl sm:rounded-3xl p-4 sm:p-8 md:p-10 shadow-2xl border border-slate-300">
+        <div class="mb-5 sm:mb-6 pb-3 sm:pb-4 border-b border-slate-300">
+          <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">Borang Kehadiran Tetamu</h2>
+          <p class="text-slate-600 text-xs sm:text-sm mt-1">Sila pilih majlis dan lengkapkan maklumat anda di bawah.</p>
         </div>
 
-        <form id="attendance-form" onsubmit="handleFormSubmit(event)" class="space-y-5">
+        <form id="attendance-form" onsubmit="handleFormSubmit(event)" class="space-y-4 sm:space-y-5">
           <!-- EVENT SELECTION -->
           <div>
-            <label class="block text-sm font-bold text-slate-700 mb-1">Pilih Majlis <span class="text-red-500">*</span></label>
-            <select id="select-event" required onchange="updateSelectedEventInfo()" class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 font-bold focus:ring-2 focus:ring-amber-500 focus:outline-none text-sm">
+            <label class="block text-xs sm:text-sm font-bold text-slate-700 mb-1">Pilih Majlis <span class="text-red-500">*</span></label>
+            <select id="select-event" required onchange="updateSelectedEventInfo()" class="w-full px-3.5 sm:px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 font-bold focus:ring-2 focus:ring-amber-500 focus:outline-none text-xs sm:text-sm">
             </select>
           </div>
 
           <!-- EVENT DETAILS INFO DISPLAY BOX + BUTANG DOWNLOAD ATURCARA -->
-          <div id="event-info-box" class="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-slate-800 text-xs space-y-2">
+          <div id="event-info-box" class="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-amber-500/10 border border-amber-500/30 text-slate-800 text-xs space-y-2">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div class="font-bold text-amber-700 flex items-center gap-1.5"><i class="fa-solid fa-circle-info"></i> MAKLUMAT MAJLIS:</div>
               <!-- BUTANG DOWNLOAD ATURCARA TETAMU -->
@@ -92,10 +92,10 @@
           </div>
 
           <!-- GELARAN / SALUTASI & NAMA PENUH -->
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
             <div>
-              <label class="block text-sm font-bold text-slate-700 mb-1">Gelaran <span class="text-red-500">*</span></label>
-              <select id="select-gelaran" required class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-amber-500 focus:outline-none text-sm font-medium">
+              <label class="block text-xs sm:text-sm font-bold text-slate-700 mb-1">Gelaran <span class="text-red-500">*</span></label>
+              <select id="select-gelaran" required class="w-full px-3.5 sm:px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-amber-500 focus:outline-none text-xs sm:text-sm font-medium">
                 <option value="Encik">Encik</option>
                 <option value="Puan">Puan</option>
                 <option value="Cik">Cik</option>
@@ -125,27 +125,27 @@
                 <option value="Puan Hajah">Puan Hajah</option>
               </select>
             </div>
-            <div class="sm:col-span-2">
-              <label class="block text-sm font-bold text-slate-700 mb-1">Nama Penuh <span class="text-red-500">*</span></label>
-              <input type="text" id="input-nama" required placeholder="Contoh: Ahmad bin Razali" class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-amber-500 focus:outline-none text-sm">
+            <div class="md:col-span-2">
+              <label class="block text-xs sm:text-sm font-bold text-slate-700 mb-1">Nama Penuh <span class="text-red-500">*</span></label>
+              <input type="text" id="input-nama" required placeholder="Contoh: Ahmad bin Razali" class="w-full px-3.5 sm:px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-amber-500 focus:outline-none text-xs sm:text-sm">
             </div>
           </div>
 
           <!-- AGENSI, NO TEL & DROPDOWN GRED -->
-          <div id="grid-agensi-gred" class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div id="grid-agensi-gred" class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <div>
-              <label class="block text-sm font-bold text-slate-700 mb-1">Agensi / Jabatan / Organisasi</label>
-              <input type="text" id="input-agensi" placeholder="Contoh: SUK Kedah / Awam" class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-amber-500 focus:outline-none text-sm">
+              <label class="block text-xs sm:text-sm font-bold text-slate-700 mb-1">Agensi / Jabatan / Organisasi</label>
+              <input type="text" id="input-agensi" placeholder="Contoh: SUK Kedah / Awam" class="w-full px-3.5 sm:px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-amber-500 focus:outline-none text-xs sm:text-sm">
             </div>
             <div>
-              <label class="block text-sm font-bold text-slate-700 mb-1">Nombor Telefon (WhatsApp) <span class="text-red-500">*</span></label>
-              <input type="tel" id="input-phone" required placeholder="Contoh: 0123456789" class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-amber-500 focus:outline-none text-sm">
+              <label class="block text-xs sm:text-sm font-bold text-slate-700 mb-1">Nombor Telefon (WhatsApp) <span class="text-red-500">*</span></label>
+              <input type="tel" id="input-phone" required placeholder="Contoh: 0123456789" class="w-full px-3.5 sm:px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-amber-500 focus:outline-none text-xs sm:text-sm">
             </div>
 
             <!-- GRED JAWATAN DROPDOWN -->
             <div id="container-gred-jawatan" class="hidden sm:col-span-2">
-              <label class="block text-sm font-bold text-slate-700 mb-1">Gred Jawatan <span class="text-red-500">*</span></label>
-              <select id="select-gred" class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-amber-500 focus:outline-none text-sm font-medium">
+              <label class="block text-xs sm:text-sm font-bold text-slate-700 mb-1">Gred Jawatan <span class="text-red-500">*</span></label>
+              <select id="select-gred" class="w-full px-3.5 sm:px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-amber-500 focus:outline-none text-xs sm:text-sm font-medium">
                 <option value="Tidak Berkenaan">-- Sila Pilih Gred Jawatan --</option>
                 <optgroup label="Pengurusan Tertinggi / JUSA / Turus">
                   <option value="Turus 1 / 2 / 3">Turus 1 / 2 / 3</option>
@@ -182,24 +182,24 @@
 
           <!-- STATUS KEHADIRAN -->
           <div>
-            <label class="block text-sm font-bold text-slate-700 mb-1">Status Kehadiran <span class="text-red-500">*</span></label>
-            <div class="grid grid-cols-2 gap-4">
+            <label class="block text-xs sm:text-sm font-bold text-slate-700 mb-1">Status Kehadiran <span class="text-red-500">*</span></label>
+            <div class="grid grid-cols-2 gap-3 sm:gap-4">
               <label class="flex items-center justify-center p-3 rounded-xl bg-white border border-slate-300 cursor-pointer hover:bg-slate-50 transition-all">
                 <input type="radio" name="status" value="Hadir" checked onchange="toggleStatusKehadiran()" class="w-4 h-4 text-amber-600 focus:ring-amber-500">
-                <span class="ml-2 text-sm font-bold text-slate-800">Hadir</span>
+                <span class="ml-2 text-xs sm:text-sm font-bold text-slate-800">Hadir</span>
               </label>
               <label class="flex items-center justify-center p-3 rounded-xl bg-white border border-slate-300 cursor-pointer hover:bg-slate-50 transition-all">
                 <input type="radio" name="status" value="Tidak Hadir" onchange="toggleStatusKehadiran()" class="w-4 h-4 text-amber-600 focus:ring-amber-500">
-                <span class="ml-2 text-sm font-bold text-slate-800">Tidak Hadir</span>
+                <span class="ml-2 text-xs sm:text-sm font-bold text-slate-800">Tidak Hadir</span>
               </label>
             </div>
           </div>
 
           <!-- BAHAGIAN PASANGAN / WAKIL -->
-          <div id="section-kategori" class="space-y-3 p-4 rounded-2xl bg-slate-200/70 border border-slate-300">
-            <label class="block text-sm font-bold text-slate-800">Jenis Kehadiran <span class="text-red-500">*</span></label>
+          <div id="section-kategori" class="space-y-3 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-200/70 border border-slate-300">
+            <label class="block text-xs sm:text-sm font-bold text-slate-800">Jenis Kehadiran <span class="text-red-500">*</span></label>
             
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
               <label class="flex items-center p-3 rounded-xl bg-white border border-slate-300 cursor-pointer hover:bg-slate-50">
                 <input type="radio" name="kategori_kehadiran" value="Berseorangan" checked onchange="updateKategoriUI()" class="w-4 h-4 text-amber-600">
                 <span class="ml-2 text-xs font-bold text-slate-800">Berseorangan</span>
@@ -218,24 +218,24 @@
 
             <div id="box-nama-tambahan" class="hidden mt-3 pt-3 border-t border-slate-300">
               <label id="lbl-nama-tambahan" class="block text-xs font-bold text-slate-800 mb-1">Nama Pasangan / Wakil</label>
-              <input type="text" id="input-nama-tambahan" placeholder="Masukkan nama..." class="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-amber-500 focus:outline-none text-sm">
+              <input type="text" id="input-nama-tambahan" placeholder="Masukkan nama..." class="w-full px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-amber-500 focus:outline-none text-xs sm:text-sm">
             </div>
           </div>
 
-          <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-black py-4 rounded-xl shadow-lg transition-all text-base tracking-wide uppercase mt-4 flex items-center justify-center gap-2">
-            <i class="fa-brands fa-whatsapp text-xl"></i> Rekod & Hantar Kehadiran (Ke WhatsApp)
+          <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-black py-3.5 sm:py-4 rounded-xl shadow-lg transition-all text-sm sm:text-base tracking-wide uppercase mt-4 flex items-center justify-center gap-2">
+            <i class="fa-brands fa-whatsapp text-lg sm:text-xl"></i> Rekod & Hantar Kehadiran (WhatsApp)
           </button>
         </form>
 
         <!-- SUCCESS MESSAGE & DIRECT WHATSAPP BUTTON -->
-        <div id="success-box" class="hidden mt-6 p-6 rounded-2xl bg-emerald-100 border border-emerald-300 text-center space-y-4">
-          <div class="text-emerald-700 text-4xl animate-bounce">✅</div>
-          <h3 class="text-xl font-bold text-emerald-900">Kehadiran Berjaya Direkodkan!</h3>
-          <p class="text-sm text-emerald-800">Sila tekan butang hijau di bawah sekiranya aplikasi WhatsApp tidak terbuka secara automatik:</p>
-          <a id="whatsapp-btn" href="#" target="_blank" class="inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3.5 rounded-xl shadow-lg transition-all text-sm w-full">
-            <i class="fa-brands fa-whatsapp text-xl"></i> Buka WhatsApp Urusetia Sekarang
+        <div id="success-box" class="hidden mt-6 p-5 sm:p-6 rounded-2xl bg-emerald-100 border border-emerald-300 text-center space-y-3 sm:space-y-4">
+          <div class="text-emerald-700 text-3xl sm:text-4xl animate-bounce">✅</div>
+          <h3 class="text-lg sm:text-xl font-bold text-emerald-900">Kehadiran Berjaya Direkodkan!</h3>
+          <p class="text-xs sm:text-sm text-emerald-800">Sila tekan butang hijau di bawah sekiranya aplikasi WhatsApp tidak terbuka secara automatik:</p>
+          <a id="whatsapp-btn" href="#" target="_blank" class="inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl shadow-lg transition-all text-xs sm:text-sm w-full">
+            <i class="fa-brands fa-whatsapp text-lg sm:text-xl"></i> Buka WhatsApp Urusetia Sekarang
           </a>
-          <div class="pt-2">
+          <div class="pt-1">
             <button onclick="resetPublicForm()" class="text-xs font-bold text-slate-600 underline hover:text-slate-900">Isi Borang Baharu</button>
           </div>
         </div>
@@ -246,16 +246,16 @@
     <main id="admin-view" class="hidden space-y-6">
       
       <!-- PIN AUTHENTICATION CARD -->
-      <div id="admin-login-card" class="card-grey rounded-3xl p-8 shadow-2xl border border-slate-300 max-w-md mx-auto text-center">
-        <h2 class="text-xl font-black text-slate-900 mb-2">Akses Urusetia Admin</h2>
-        <p class="text-xs text-slate-600 mb-6">Masukkan PIN keselamatan untuk menguruskan majlis & kehadiran.</p>
+      <div id="admin-login-card" class="card-grey rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-300 max-w-md mx-auto text-center">
+        <h2 class="text-lg sm:text-xl font-black text-slate-900 mb-1.5">Akses Urusetia Admin</h2>
+        <p class="text-xs text-slate-600 mb-5 sm:mb-6">Masukkan PIN keselamatan untuk menguruskan majlis & kehadiran.</p>
         <form onsubmit="verifyPin(event)" class="space-y-4">
           <div>
-            <input type="password" id="admin-pin" placeholder="Masukkan PIN" class="w-full text-center tracking-widest text-lg font-bold px-4 py-3 rounded-xl border border-slate-300 bg-white focus:ring-2 focus:ring-amber-500 focus:outline-none">
+            <input type="password" id="admin-pin" placeholder="Masukkan PIN" class="w-full text-center tracking-widest text-base sm:text-lg font-bold px-4 py-3 rounded-xl border border-slate-300 bg-white focus:ring-2 focus:ring-amber-500 focus:outline-none">
             <!-- MESEJ NOTIS WRONG PIN -->
             <p id="pin-error-msg" class="hidden text-xs text-rose-600 font-extrabold mt-2 animate-pulse">❌ Wrong PIN</p>
           </div>
-          <button type="submit" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl text-sm transition-all">
+          <button type="submit" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl text-xs sm:text-sm transition-all shadow">
             Lanjut ke Dashboard
           </button>
         </form>
@@ -265,20 +265,20 @@
       <div id="admin-content" class="hidden space-y-6">
         
         <!-- CONTROL PANEL: MULTI-EVENT MANAGEMENT -->
-        <div class="card-grey rounded-3xl p-6 shadow-2xl border border-slate-300 space-y-4">
-          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-slate-300">
+        <div class="card-grey rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl border border-slate-300 space-y-3.5 sm:space-y-4">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-3 sm:pb-4 border-b border-slate-300">
             <div>
-              <h2 class="text-xl font-black text-slate-900 uppercase">Pengurusan Majlis</h2>
-              <p class="text-xs text-slate-600">Tambah/Edit majlis, urus status Buka/Tutup, atur cara, dan nombor urusetia.</p>
+              <h2 class="text-lg sm:text-xl font-black text-slate-900 uppercase">Pengurusan Majlis</h2>
+              <p class="text-[11px] sm:text-xs text-slate-600">Tambah/Edit majlis, urus status Buka/Tutup, atur cara, dan nombor urusetia.</p>
             </div>
-            <button onclick="openNewEventModal()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs transition-all shadow">
+            <button onclick="openNewEventModal()" class="w-full sm:w-auto bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-4 py-2.5 rounded-xl text-xs transition-all shadow shrink-0">
               + Tambah Majlis Baharu
             </button>
           </div>
 
           <!-- KOTAK CARIAN MAJLIS ADMIN -->
           <div>
-            <input type="text" id="search-event-input" onkeyup="renderEventsAdminList()" placeholder="🔍 Cari nama majlis, tarikh, atau lokasi..." class="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+            <input type="text" id="search-event-input" onkeyup="renderEventsAdminList()" placeholder="🔍 Cari nama majlis, tarikh, atau lokasi..." class="w-full px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
           </div>
 
           <!-- EVENTS LIST -->
@@ -286,48 +286,48 @@
         </div>
 
         <!-- ATTENDANCE RECORDS & DATA EXPORT -->
-        <div class="card-grey rounded-3xl p-6 shadow-2xl border border-slate-300 space-y-4">
-          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-slate-300">
+        <div class="card-grey rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl border border-slate-300 space-y-4">
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 pb-3 sm:pb-4 border-b border-slate-300">
             <div>
-              <h2 class="text-xl font-black text-slate-900 uppercase">Senarai Kehadiran Tetamu</h2>
-              <p class="text-xs text-slate-600">Paparan maklumat rekod pendaftaran mengikut majlis.</p>
+              <h2 class="text-lg sm:text-xl font-black text-slate-900 uppercase">Senarai Kehadiran Tetamu</h2>
+              <p class="text-[11px] sm:text-xs text-slate-600">Paparan maklumat rekod pendaftaran mengikut majlis.</p>
             </div>
             
             <!-- DUA BUTANG DOWNLOAD: EXCEL / CSV & PDF -->
-            <div class="flex flex-wrap items-center gap-2">
-              <select id="filter-event" onchange="renderAttendanceTable()" class="px-3 py-2 rounded-xl border border-slate-300 bg-white text-xs font-bold text-slate-800 focus:outline-none">
+            <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
+              <select id="filter-event" onchange="renderAttendanceTable()" class="w-full sm:w-auto flex-1 sm:flex-none px-3 py-2 rounded-xl border border-slate-300 bg-white text-xs font-bold text-slate-800 focus:outline-none">
               </select>
-              <button onclick="exportToCSV()" class="bg-emerald-700 hover:bg-emerald-800 text-white font-bold px-3 py-2 rounded-xl text-xs transition-all flex items-center gap-1.5 shadow" title="Muat Turun Fail Excel / CSV">
+              <button onclick="exportToCSV()" class="bg-emerald-700 hover:bg-emerald-800 text-white font-bold px-3 py-2 rounded-xl text-xs transition-all flex items-center justify-center gap-1.5 shadow flex-1 sm:flex-none" title="Muat Turun Fail Excel / CSV">
                 <i class="fa-solid fa-file-excel"></i> CSV / Sheets
               </button>
-              <button onclick="exportToPDF()" class="bg-rose-700 hover:bg-rose-800 text-white font-bold px-3 py-2 rounded-xl text-xs transition-all flex items-center gap-1.5 shadow" title="Muat Turun Dokumen PDF">
+              <button onclick="exportToPDF()" class="bg-rose-700 hover:bg-rose-800 text-white font-bold px-3 py-2 rounded-xl text-xs transition-all flex items-center justify-center gap-1.5 shadow flex-1 sm:flex-none" title="Muat Turun Dokumen PDF">
                 <i class="fa-solid fa-file-pdf"></i> Muat Turun PDF
               </button>
             </div>
           </div>
 
           <!-- STATS OVERVIEW -->
-          <div class="grid grid-cols-3 gap-4 text-center">
-            <div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-sm">
-              <div class="text-xs text-slate-500 font-bold uppercase">Jumlah Rekod</div>
-              <div id="stat-total" class="text-xl font-black text-slate-900">0</div>
+          <div class="grid grid-cols-3 gap-2.5 sm:gap-4 text-center">
+            <div class="bg-white p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border border-slate-200 shadow-sm">
+              <div class="text-[10px] sm:text-xs text-slate-500 font-bold uppercase">Jumlah Rekod</div>
+              <div id="stat-total" class="text-base sm:text-xl font-black text-slate-900 mt-0.5">0</div>
             </div>
-            <div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-sm">
-              <div class="text-xs text-emerald-600 font-bold uppercase">Hadir</div>
-              <div id="stat-hadir" class="text-xl font-black text-emerald-600">0</div>
+            <div class="bg-white p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border border-slate-200 shadow-sm">
+              <div class="text-[10px] sm:text-xs text-emerald-600 font-bold uppercase">Hadir</div>
+              <div id="stat-hadir" class="text-base sm:text-xl font-black text-emerald-600 mt-0.5">0</div>
             </div>
-            <div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-sm">
-              <div class="text-xs text-rose-600 font-bold uppercase">Tidak Hadir</div>
-              <div id="stat-absent" class="text-xl font-black text-rose-600">0</div>
+            <div class="bg-white p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border border-slate-200 shadow-sm">
+              <div class="text-[10px] sm:text-xs text-rose-600 font-bold uppercase">Tidak Hadir</div>
+              <div id="stat-absent" class="text-base sm:text-xl font-black text-rose-600 mt-0.5">0</div>
             </div>
           </div>
 
           <!-- SEARCH INPUT -->
-          <input type="text" id="search-input" onkeyup="renderAttendanceTable()" placeholder="Cari nama, gred, agensi, wakil..." class="w-full px-4 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+          <input type="text" id="search-input" onkeyup="renderAttendanceTable()" placeholder="Cari nama, gred, agensi, wakil..." class="w-full px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
 
           <!-- TABLE DATA -->
-          <div class="overflow-x-auto rounded-2xl border border-slate-300 bg-white shadow-sm">
-            <table class="w-full text-left border-collapse text-xs">
+          <div class="overflow-x-auto rounded-xl sm:rounded-2xl border border-slate-300 bg-white shadow-sm">
+            <table class="w-full text-left border-collapse text-xs whitespace-nowrap">
               <thead>
                 <tr class="bg-slate-100 text-slate-700 font-bold border-b border-slate-300">
                   <th class="p-3">Masa Rekod</th>
@@ -353,35 +353,35 @@
   </div>
 
   <!-- MODAL 1: ADD/EDIT EVENT -->
-  <div id="event-modal" class="hidden fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-    <div class="card-grey rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-slate-300 space-y-4 max-h-[90vh] overflow-y-auto">
-      <h3 id="modal-event-title" class="text-xl font-black text-slate-900">Tambah Majlis Baharu</h3>
-      <form onsubmit="saveEventModal(event)" class="space-y-4">
+  <div id="event-modal" class="hidden fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4">
+    <div class="card-grey rounded-2xl sm:rounded-3xl p-5 sm:p-8 max-w-md w-full shadow-2xl border border-slate-300 space-y-4 max-h-[90vh] overflow-y-auto">
+      <h3 id="modal-event-title" class="text-lg sm:text-xl font-black text-slate-900">Tambah Majlis Baharu</h3>
+      <form onsubmit="saveEventModal(event)" class="space-y-3.5 sm:space-y-4">
         <input type="hidden" id="modal-event-id">
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Nama Majlis <span class="text-red-500">*</span></label>
-          <input type="text" id="modal-event-name" required placeholder="Contoh: Majlis Anugerah Cemerlang" class="w-full px-4 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+          <input type="text" id="modal-event-name" required placeholder="Contoh: Majlis Anugerah Cemerlang" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
         </div>
         
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid grid-cols-2 gap-2.5">
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">Tarikh Majlis</label>
-            <input type="text" id="modal-event-date" placeholder="Contoh: 15 Nov 2026" class="w-full px-4 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+            <input type="text" id="modal-event-date" placeholder="Contoh: 15 Nov 2026" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">Masa Majlis</label>
-            <input type="text" id="modal-event-time" placeholder="Contoh: 8:30 Pagi" class="w-full px-4 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+            <input type="text" id="modal-event-time" placeholder="Contoh: 8:30 Pagi" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
           </div>
         </div>
 
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Tempat / Lokasi</label>
-          <input type="text" id="modal-event-location" placeholder="Contoh: Dewan Seri Negeri, Alor Setar" class="w-full px-4 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+          <input type="text" id="modal-event-location" placeholder="Contoh: Dewan Seri Negeri, Alor Setar" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
         </div>
 
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Nombor WhatsApp Urusetia <span class="text-red-500">*</span></label>
-          <input type="text" id="modal-event-phone" required placeholder="Contoh: 60123456789" class="w-full px-4 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+          <input type="text" id="modal-event-phone" required placeholder="Contoh: 60123456789" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
         </div>
 
         <!-- PILIHAN PENGURUSAN ATURCARA MAJLIS (MUAT NAIK FAIL / PAUTAN URL) -->
@@ -422,33 +422,33 @@
   </div>
 
   <!-- MODAL 2: EDIT ATTENDANCE RECORD -->
-  <div id="record-modal" class="hidden fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-    <div class="card-grey rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-slate-300 space-y-4">
-      <h3 class="text-xl font-black text-slate-900">Edit Rekod Kehadiran Tetamu</h3>
-      <form onsubmit="saveRecordModal(event)" class="space-y-4">
+  <div id="record-modal" class="hidden fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4">
+    <div class="card-grey rounded-2xl sm:rounded-3xl p-5 sm:p-8 max-w-md w-full shadow-2xl border border-slate-300 space-y-4">
+      <h3 class="text-lg sm:text-xl font-black text-slate-900">Edit Rekod Kehadiran Tetamu</h3>
+      <form onsubmit="saveRecordModal(event)" class="space-y-3.5 sm:space-y-4">
         <input type="hidden" id="edit-record-id">
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Nama Tetamu (Berserta Gelaran) <span class="text-red-500">*</span></label>
-          <input type="text" id="edit-record-nama" required class="w-full px-4 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+          <input type="text" id="edit-record-nama" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
         </div>
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid grid-cols-2 gap-2.5">
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">Gred Jawatan</label>
-            <input type="text" id="edit-record-gred" class="w-full px-4 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+            <input type="text" id="edit-record-gred" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">Agensi / Jabatan</label>
-            <input type="text" id="edit-record-agensi" class="w-full px-4 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+            <input type="text" id="edit-record-agensi" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
           </div>
         </div>
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid grid-cols-2 gap-2.5">
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">No. Telefon <span class="text-red-500">*</span></label>
-            <input type="text" id="edit-record-phone" required class="w-full px-4 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+            <input type="text" id="edit-record-phone" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">Status Kehadiran</label>
-            <select id="edit-record-status" class="w-full px-4 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none font-bold">
+            <select id="edit-record-status" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none font-bold">
               <option value="Hadir">Hadir</option>
               <option value="Tidak Hadir">Tidak Hadir</option>
             </select>
@@ -456,7 +456,7 @@
         </div>
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Nama Pasangan / Wakil (Jika ada)</label>
-          <input type="text" id="edit-record-extra" class="w-full px-4 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+          <input type="text" id="edit-record-extra" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
         </div>
         <div class="flex justify-end gap-2 pt-2">
           <button type="button" onclick="closeRecordModal()" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 bg-slate-200 hover:bg-slate-300">Batal</button>
@@ -467,13 +467,13 @@
   </div>
 
   <!-- FOOTER -->
-  <footer class="mt-10 text-center text-xs text-slate-400">
+  <footer class="mt-8 text-center text-xs text-slate-400">
     <p>© 2026 Sistem Kehadiran Majlis Rasmi Negeri Kedah Darul Aman</p>
   </footer>
 
   <!-- JAVASCRIPT LOGIC -->
   <script>
-    let tempFileAturcaraData = ""; // Pemegang sementara fail Base64 PDF
+    let tempFileAturcaraData = "";
 
     let events = JSON.parse(localStorage.getItem('kedah_events_data')) || [
       { id: 'EVT-01', name: "Majlis Anugerah Perkhidmatan Cemerlang 2026", date: "20 November 2026", time: "8:30 Pagi", location: "Dewan Seri Negeri, Alor Setar", adminPhone: "60123456789", isOpen: true, hasGred: true, aturcaraUrl: "" },
@@ -562,7 +562,6 @@
         document.getElementById('info-tarikh-masa').innerHTML = `<i class="fa-regular fa-calendar-check mr-1"></i> Tarikh & Masa: <b>${evt.date || '-'} (${evt.time || '-'})</b>`;
         document.getElementById('info-tempat').innerHTML = `<i class="fa-solid fa-location-dot mr-1"></i> Tempat: <b>${evt.location || '-'}</b>`;
 
-        // SEMAK DAN PAPARKAN BUTANG MUAT TURUN ATURCARA TETAMU
         const containerBtnAturcara = document.getElementById('container-btn-aturcara');
         const btnDownloadAturcara = document.getElementById('btn-download-aturcara');
 
@@ -715,7 +714,6 @@
       updateSelectedEventInfo();
     }
 
-    // FUNGSI MEMBACA FAIL PDF ATURCARA KE FORMAT BASE64
     function handleFileAturcaraSelect(e) {
       const file = e.target.files[0];
       if (file) {
@@ -784,7 +782,6 @@
       const inputUrl = document.getElementById('modal-event-url').value.trim();
       const hasGred = document.getElementById('modal-event-has-gred').checked;
 
-      // Utamakan fail muat naik tempatan, jika tiada guna input URL
       let finalAturcara = tempFileAturcaraData !== "" ? tempFileAturcaraData : inputUrl;
 
       if (id) {
@@ -885,7 +882,6 @@
 
       container.innerHTML = '';
       
-      // Kemaskini senarai dropdown penapis tetamu
       const currentFilterVal = filterSelect.value;
       filterSelect.innerHTML = '<option value="ALL">Semua Majlis</option>';
       events.forEach((evt) => {
@@ -896,7 +892,6 @@
       });
       if (currentFilterVal) filterSelect.value = currentFilterVal;
 
-      // Saring majlis mengikut carian
       let filteredEvents = events;
       if (query) {
         filteredEvents = events.filter(evt => 
@@ -913,11 +908,11 @@
 
       filteredEvents.forEach((evt) => {
         const item = document.createElement('div');
-        item.className = 'bg-white p-4 rounded-2xl border border-slate-300 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-sm';
+        item.className = 'bg-white p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-300 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-sm';
         item.innerHTML = `
           <div>
-            <div class="flex items-center gap-2 flex-wrap">
-              <span class="font-black text-slate-900 text-sm">${evt.name}</span>
+            <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+              <span class="font-black text-slate-900 text-xs sm:text-sm">${evt.name}</span>
               <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${evt.isOpen ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
                 ${evt.isOpen ? 'BUKA' : 'TUTUP'}
               </span>
@@ -928,14 +923,14 @@
                 ${evt.aturcaraUrl ? 'Atur Cara: Ada' : 'Atur Cara: Tiada'}
               </span>
             </div>
-            <div class="text-xs text-slate-500 mt-1">
+            <div class="text-[11px] sm:text-xs text-slate-500 mt-1">
               📅 ${evt.date || '-'} (${evt.time || '-'}) | 📍 ${evt.location || '-'}
             </div>
-            <div class="text-xs text-slate-500 mt-0.5">
+            <div class="text-[11px] sm:text-xs text-slate-500 mt-0.5">
               WhatsApp Urusetia: <span class="font-bold text-slate-700">${evt.adminPhone}</span>
             </div>
           </div>
-          <div class="flex items-center gap-2 w-full sm:w-auto justify-end flex-wrap">
+          <div class="flex items-center gap-2 w-full sm:w-auto justify-end flex-wrap pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
             <button onclick="openEditEventModal('${evt.id}')" class="px-3 py-1.5 rounded-xl text-xs font-bold transition-all border border-slate-300 bg-slate-100 hover:bg-slate-200 text-slate-800">
               <i class="fa-solid fa-pen-to-square mr-1"></i> Edit
             </button>
