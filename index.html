@@ -24,8 +24,8 @@
 
   <!-- INDIKATOR STATUS SYNC DATA -->
   <div id="sync-status" class="fixed top-2 right-2 sm:top-4 sm:right-4 z-50 bg-slate-900/90 text-white px-3 py-1.5 rounded-full text-[11px] font-bold shadow-lg flex items-center gap-2 border border-slate-700">
-    <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
-    <span id="sync-status-text">Memuatkan data...</span>
+    <span id="sync-icon-dot" class="w-2 h-2 rounded-full bg-emerald-400"></span>
+    <span id="sync-status-text">Sedia</span>
   </div>
 
   <div class="max-w-5xl w-full mx-auto space-y-4 sm:space-y-6">
@@ -464,57 +464,72 @@
 
     let attendanceRecords = JSON.parse(localStorage.getItem('kedah_attendance_data')) || [];
 
-    function updateSyncStatus(msg, isSuccess = false) {
+    function updateSyncStatus(msg, state = "normal") {
       const elText = document.getElementById('sync-status-text');
+      const elDot = document.getElementById('sync-icon-dot');
       if (elText) elText.textContent = msg;
+      
+      if (elDot) {
+        if (state === "syncing") {
+          elDot.className = "w-2 h-2 rounded-full bg-amber-400 animate-ping";
+        } else if (state === "success") {
+          elDot.className = "w-2 h-2 rounded-full bg-emerald-400";
+        } else {
+          elDot.className = "w-2 h-2 rounded-full bg-slate-400";
+        }
+      }
     }
 
-    async function saveData() {
+    // FUNGSI SIMPAN PANTAS (PENTING: FAST ASYNC SAVE)
+    function saveData() {
+      // 1. Simpan ke peranti terus secara instant (0.001 saat)
       localStorage.setItem('kedah_events_data', JSON.stringify(events));
       localStorage.setItem('kedah_attendance_data', JSON.stringify(attendanceRecords));
 
+      // 2. Hantar ke Google Sheets di latar belakang tanpa sekat paparan
       if (GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL !== "MASUKKAN_URL_GOOGLE_APPS_SCRIPT_ANDA_DI_SINI") {
-        updateSyncStatus("Menyimpan ke Cloud...");
-        try {
-          await fetch(GOOGLE_SCRIPT_URL, {
-            method: "POST",
-            mode: "no-cors",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ action: "save_all", events: events, records: attendanceRecords })
-          });
-          updateSyncStatus("Synced Cloud (Google Sheets)");
-        } catch (err) {
-          updateSyncStatus("Simpanan Tempatan sahaja");
-        }
+        updateSyncStatus("Menyimpan ke Cloud...", "syncing");
+        
+        fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ action: "save_all", events: events, records: attendanceRecords })
+        }).then(() => {
+          updateSyncStatus("Synced Cloud", "success");
+        }).catch(() => {
+          updateSyncStatus("Simpanan Tempatan", "normal");
+        });
       } else {
-        updateSyncStatus("Mod Offline (Tempatan)");
+        updateSyncStatus("Offline (Local)", "normal");
       }
     }
 
-    async function loadDataFromCloud() {
+    function loadDataFromCloud() {
       if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL === "MASUKKAN_URL_GOOGLE_APPS_SCRIPT_ANDA_DI_SINI") {
-        updateSyncStatus("Mod Offline (Tempatan)");
+        updateSyncStatus("Offline (Local)", "normal");
         return;
       }
 
-      updateSyncStatus("Menyemak Data Cloud...");
-      try {
-        const res = await fetch(GOOGLE_SCRIPT_URL);
-        const data = await res.json();
-        if (data) {
-          if (data.events && data.events.length > 0) events = data.events;
-          if (data.records && data.records.length > 0) attendanceRecords = data.records;
-          localStorage.setItem('kedah_events_data', JSON.stringify(events));
-          localStorage.setItem('kedah_attendance_data', JSON.stringify(attendanceRecords));
-          updateSyncStatus("Synced Cloud (Google Sheets)");
-        }
-      } catch (err) {
-        updateSyncStatus("Synced Tempatan");
-      }
-
-      populatePublicEventsDropdown();
-      renderEventsAdminList();
-      renderAttendanceTable();
+      updateSyncStatus("Menyemak Data...", "syncing");
+      fetch(GOOGLE_SCRIPT_URL)
+        .then(res => res.json())
+        .then(data => {
+          if (data) {
+            if (data.events && data.events.length > 0) events = data.events;
+            if (data.records && data.records.length > 0) attendanceRecords = data.records;
+            localStorage.setItem('kedah_events_data', JSON.stringify(events));
+            localStorage.setItem('kedah_attendance_data', JSON.stringify(attendanceRecords));
+            updateSyncStatus("Synced Cloud", "success");
+            
+            populatePublicEventsDropdown();
+            renderEventsAdminList();
+            renderAttendanceTable();
+          }
+        })
+        .catch(() => {
+          updateSyncStatus("Synced Local", "normal");
+        });
     }
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -651,7 +666,7 @@
       }
     }
 
-    async function handleFormSubmit(e) {
+    function handleFormSubmit(e) {
       e.preventDefault();
 
       const eventId = document.getElementById('select-event').value;
@@ -700,7 +715,9 @@
       };
 
       attendanceRecords.unshift(newRecord);
-      await saveData();
+      
+      // Simpan pantas
+      saveData();
 
       let detailTambahan = '';
       if (kategori === 'Berdua') {
@@ -731,9 +748,8 @@
       document.getElementById('attendance-form').classList.add('hidden');
       document.getElementById('success-box').classList.remove('hidden');
 
-      setTimeout(() => {
-        window.location.href = waUrl;
-      }, 300);
+      // Buka WhatsApp serta-merta tanpa sebarang penangguhan
+      window.location.href = waUrl;
     }
 
     function resetPublicForm() {
@@ -801,7 +817,7 @@
       document.getElementById('event-modal').classList.add('hidden');
     }
 
-    async function saveEventModal(e) {
+    function saveEventModal(e) {
       e.preventDefault();
       const id = document.getElementById('modal-event-id').value;
       const name = document.getElementById('modal-event-name').value.trim();
@@ -841,7 +857,7 @@
         });
       }
 
-      await saveData();
+      saveData();
       renderEventsAdminList();
       populatePublicEventsDropdown();
       closeNewEventModal();
@@ -865,7 +881,7 @@
       document.getElementById('record-modal').classList.add('hidden');
     }
 
-    async function saveRecordModal(e) {
+    function saveRecordModal(e) {
       e.preventDefault();
       const id = document.getElementById('edit-record-id').value;
       const rec = attendanceRecords.find(r => String(r.id) === String(id));
@@ -877,26 +893,26 @@
         rec.status = document.getElementById('edit-record-status').value;
         rec.namaTambahan = document.getElementById('edit-record-extra').value.trim() || '-';
 
-        await saveData();
+        saveData();
         renderAttendanceTable();
         closeRecordModal();
       }
     }
 
-    async function toggleEventStatus(id) {
+    function toggleEventStatus(id) {
       const evt = events.find(e => e.id === id);
       if (evt) {
         evt.isOpen = !evt.isOpen;
-        await saveData();
+        saveData();
         renderEventsAdminList();
         populatePublicEventsDropdown();
       }
     }
 
-    async function deleteEvent(id) {
+    function deleteEvent(id) {
       if (confirm("Adakah anda pasti untuk memadam majlis ini?")) {
         events = events.filter(e => e.id !== id);
-        await saveData();
+        saveData();
         renderEventsAdminList();
         populatePublicEventsDropdown();
       }
@@ -1039,10 +1055,10 @@
       return filtered;
     }
 
-    async function deleteRecord(id) {
+    function deleteRecord(id) {
       if (confirm("Padam rekod ini?")) {
         attendanceRecords = attendanceRecords.filter(r => String(r.id) !== String(id));
-        await saveData();
+        saveData();
         renderAttendanceTable();
       }
     }
