@@ -136,7 +136,7 @@
             </div>
             <div>
               <label class="block text-xs sm:text-sm font-bold text-slate-700 mb-1">Nombor Telefon (WhatsApp) <span class="text-red-500">*</span></label>
-              <input type="tel" id="input-phone" required placeholder="Contoh: 0123456789" class="w-full px-3.5 sm:px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-amber-500 focus:outline-none text-xs sm:text-sm">
+              <input type="tel" id="input-phone" required placeholder="Contoh: 012-3456789" class="w-full px-3.5 sm:px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-amber-500 focus:outline-none text-xs sm:text-sm">
             </div>
 
             <div id="container-gred-jawatan" class="hidden sm:col-span-2">
@@ -173,6 +173,21 @@
                   <option value="Tidak Berkenaan">Tidak Berkenaan (Awam/Bukan Penjawat Awam)</option>
                 </optgroup>
               </select>
+            </div>
+          </div>
+
+          <!-- RUANGAN PILIHAN SESI (Dua-dua sekali boleh dipilih) -->
+          <div id="container-pilihan-sesi" class="hidden p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-200/70 border border-slate-300 space-y-2">
+            <label class="block text-xs sm:text-sm font-bold text-slate-800">Sesi Kehadiran (Boleh pilih satu atau dua-dua) <span class="text-red-500">*</span></label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <label class="flex items-center p-3 rounded-xl bg-white border border-slate-300 cursor-pointer hover:bg-slate-50">
+                <input type="checkbox" id="chk-perasmian" value="Majlis Perasmian" class="w-4 h-4 text-amber-600 rounded focus:ring-amber-500">
+                <span class="ml-2 text-xs font-bold text-slate-800">Majlis Perasmian</span>
+              </label>
+              <label class="flex items-center p-3 rounded-xl bg-white border border-slate-300 cursor-pointer hover:bg-slate-50">
+                <input type="checkbox" id="chk-penutup" value="Majlis Penutup" class="w-4 h-4 text-amber-600 rounded focus:ring-amber-500">
+                <span class="ml-2 text-xs font-bold text-slate-800">Majlis Penutup</span>
+              </label>
             </div>
           </div>
 
@@ -306,7 +321,7 @@
             </div>
           </div>
 
-          <input type="text" id="search-input" onkeyup="renderAttendanceTable()" placeholder="Cari nama, gred, agensi, wakil..." class="w-full px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+          <input type="text" id="search-input" onkeyup="renderAttendanceTable()" placeholder="Cari nama, gred, agensi, sesi, wakil..." class="w-full px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
 
           <div class="overflow-x-auto rounded-xl sm:rounded-2xl border border-slate-300 bg-white shadow-sm">
             <table class="w-full text-left border-collapse text-xs whitespace-nowrap">
@@ -318,6 +333,7 @@
                   <th class="p-3">Gred</th>
                   <th class="p-3">Agensi</th>
                   <th class="p-3">No. Tel</th>
+                  <th class="p-3">Sesi Dipilih</th>
                   <th class="p-3">Kategori</th>
                   <th class="p-3">Pasangan / Wakil</th>
                   <th class="p-3">Status</th>
@@ -345,14 +361,27 @@
           <input type="text" id="modal-event-name" required placeholder="Contoh: Majlis Anugerah Cemerlang" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
         </div>
         
-        <div class="grid grid-cols-2 gap-2.5">
+        <div class="grid grid-cols-3 gap-2">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Hari</label>
+            <select id="modal-event-day" class="w-full px-2.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none font-bold">
+              <option value="">- Pilih -</option>
+              <option value="Isnin">Isnin</option>
+              <option value="Selasa">Selasa</option>
+              <option value="Rabu">Rabu</option>
+              <option value="Khamis">Khamis</option>
+              <option value="Jumaat">Jumaat</option>
+              <option value="Sabtu">Sabtu</option>
+              <option value="Ahad">Ahad</option>
+            </select>
+          </div>
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">Tarikh Majlis</label>
-            <input type="text" id="modal-event-date" placeholder="Contoh: 15 Nov 2026" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+            <input type="text" id="modal-event-date" placeholder="15 Nov 2026" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">Masa Majlis</label>
-            <input type="text" id="modal-event-time" placeholder="Contoh: 8:30 Pagi" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+            <input type="text" id="modal-event-time" placeholder="8:30 Pagi" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
           </div>
         </div>
 
@@ -387,11 +416,20 @@
           </div>
         </div>
 
-        <div class="p-3 bg-white rounded-xl border border-slate-300 flex items-center gap-3">
-          <input type="checkbox" id="modal-event-has-gred" class="w-4 h-4 text-amber-600 rounded focus:ring-amber-500 cursor-pointer">
-          <label for="modal-event-has-gred" class="text-xs font-bold text-slate-800 cursor-pointer">
-            Aktifkan Medan Dropdown Gred Jawatan untuk majlis ini
-          </label>
+        <!-- TETAPAN ADMIN: DROP DOWN GRED & PILIHAN SESI -->
+        <div class="p-3 bg-white rounded-xl border border-slate-300 space-y-2">
+          <div class="flex items-center gap-3">
+            <input type="checkbox" id="modal-event-has-gred" class="w-4 h-4 text-amber-600 rounded focus:ring-amber-500 cursor-pointer">
+            <label for="modal-event-has-gred" class="text-xs font-bold text-slate-800 cursor-pointer">
+              Aktifkan Dropdown Gred Jawatan
+            </label>
+          </div>
+          <div class="flex items-center gap-3 border-t border-slate-100 pt-2">
+            <input type="checkbox" id="modal-event-has-sesi" class="w-4 h-4 text-amber-600 rounded focus:ring-amber-500 cursor-pointer">
+            <label for="modal-event-has-sesi" class="text-xs font-bold text-slate-800 cursor-pointer">
+              Aktifkan Pilihan Sesi (Majlis Perasmian & Majlis Penutup)
+            </label>
+          </div>
         </div>
 
         <div class="flex justify-end gap-2 pt-2">
@@ -421,6 +459,10 @@
             <label class="block text-xs font-bold text-slate-700 mb-1">Agensi / Jabatan</label>
             <input type="text" id="edit-record-agensi" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
           </div>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Sesi Dipilih</label>
+          <input type="text" id="edit-record-sesi" placeholder="Contoh: Majlis Perasmian, Majlis Penutup" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
         </div>
         <div class="grid grid-cols-2 gap-2.5">
           <div>
@@ -452,14 +494,13 @@
   </footer>
 
   <script>
-    // MASUKKAN URL GOOGLE APPS SCRIPT ANDA DI SINI
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyF2hEwDkf4S-uU15sc_wPUFLTF0sX4g0JGLF6ToMCTHhhImeJJeNyUuygbytyf66c/exec";
 
     let tempFileAturcaraData = "";
 
     let events = JSON.parse(localStorage.getItem('kedah_events_data')) || [
-      { id: 'EVT-01', name: "Majlis Anugerah Perkhidmatan Cemerlang 2026", date: "20 November 2026", time: "8:30 Pagi", location: "Dewan Seri Negeri, Alor Setar", adminPhone: "60123456789", isOpen: true, hasGred: true, aturcaraUrl: "" },
-      { id: 'EVT-02', name: "Mesyuarat Agung Khas SUK Kedah", date: "05 Disember 2026", time: "2:30 Petang", location: "Bilik Gerakan SUK", adminPhone: "60198765432", isOpen: true, hasGred: false, aturcaraUrl: "" }
+      { id: 'EVT-01', name: "Majlis Anugerah Perkhidmatan Cemerlang 2026", day: "Sabtu", date: "20 Nov 2026", time: "8:30 Pagi", location: "Dewan Seri Negeri, Alor Setar", adminPhone: "60123456789", isOpen: true, hasGred: true, hasSesi: true, aturcaraUrl: "" },
+      { id: 'EVT-02', name: "Mesyuarat Agung Khas SUK Kedah", day: "Rabu", date: "05 Dis 2026", time: "2:30 Petang", location: "Bilik Gerakan SUK", adminPhone: "60198765432", isOpen: true, hasGred: false, hasSesi: false, aturcaraUrl: "" }
     ];
 
     let attendanceRecords = JSON.parse(localStorage.getItem('kedah_attendance_data')) || [];
@@ -480,13 +521,10 @@
       }
     }
 
-    // FUNGSI SIMPAN PANTAS (PENTING: FAST ASYNC SAVE)
     function saveData() {
-      // 1. Simpan ke peranti terus secara instant (0.001 saat)
       localStorage.setItem('kedah_events_data', JSON.stringify(events));
       localStorage.setItem('kedah_attendance_data', JSON.stringify(attendanceRecords));
 
-      // 2. Hantar ke Google Sheets di latar belakang tanpa sekat paparan
       if (GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL !== "MASUKKAN_URL_GOOGLE_APPS_SCRIPT_ANDA_DI_SINI") {
         updateSyncStatus("Menyimpan ke Cloud...", "syncing");
         
@@ -599,13 +637,27 @@
       }
     }
 
+    function formatTarikhClean(dateStr) {
+      if (!dateStr) return '-';
+      if (dateStr.includes('GMT') || dateStr.includes('00:00:00')) {
+        const d = new Date(dateStr);
+        if (!isNaN(d.getTime())) {
+          return d.toLocaleDateString('ms-MY', { day: '2-digit', month: 'short', year: 'numeric' });
+        }
+      }
+      return dateStr;
+    }
+
     function updateSelectedEventInfo() {
       const select = document.getElementById('select-event');
       const eventId = select.value;
 
       const evt = events.find(e => e.id === eventId && e.isOpen);
       if (evt) {
-        document.getElementById('info-tarikh-masa').innerHTML = `<i class="fa-regular fa-calendar-check mr-1"></i> Tarikh & Masa: <b>${evt.date || '-'} (${evt.time || '-'})</b>`;
+        const tarikhKemas = formatTarikhClean(evt.date);
+        const hariText = evt.day ? `${evt.day}, ` : '';
+        
+        document.getElementById('info-tarikh-masa').innerHTML = `<i class="fa-regular fa-calendar-check mr-1"></i> Tarikh & Masa: <b>${hariText}${tarikhKemas} (${evt.time || '-'})</b>`;
         document.getElementById('info-tempat').innerHTML = `<i class="fa-solid fa-location-dot mr-1"></i> Tempat: <b>${evt.location || '-'}</b>`;
 
         const containerBtnAturcara = document.getElementById('container-btn-aturcara');
@@ -628,6 +680,16 @@
           selectGred.required = false;
           selectGred.value = 'Tidak Berkenaan';
         }
+
+        const containerSesi = document.getElementById('container-pilihan-sesi');
+        if (evt.hasSesi) {
+          containerSesi.classList.remove('hidden');
+        } else {
+          containerSesi.classList.add('hidden');
+          document.getElementById('chk-perasmian').checked = false;
+          document.getElementById('chk-penutup').checked = false;
+        }
+
       } else {
         populatePublicEventsDropdown();
       }
@@ -678,6 +740,18 @@
         return;
       }
 
+      let sesiDipilih = [];
+      if (selectedEvent.hasSesi) {
+        if (document.getElementById('chk-perasmian').checked) sesiDipilih.push("Majlis Perasmian");
+        if (document.getElementById('chk-penutup').checked) sesiDipilih.push("Majlis Penutup");
+
+        if (sesiDipilih.length === 0) {
+          alert("Sila pilih sekurang-kurangnya satu sesi majlis (Majlis Perasmian / Majlis Penutup).");
+          return;
+        }
+      }
+
+      const sesiText = sesiDipilih.length > 0 ? sesiDipilih.join(", ") : "-";
       const gelaran = document.getElementById('select-gelaran').value;
       const namaAsal = document.getElementById('input-nama').value;
       const namaPenuh = `${gelaran} ${namaAsal}`;
@@ -708,6 +782,7 @@
         gred,
         agensi,
         phone,
+        sesi: sesiText,
         status,
         kategori,
         namaTambahan,
@@ -715,8 +790,6 @@
       };
 
       attendanceRecords.unshift(newRecord);
-      
-      // Simpan pantas
       saveData();
 
       let detailTambahan = '';
@@ -727,13 +800,15 @@
       }
 
       const gredText = (selectedEvent.hasGred && gred !== '-') ? `\n*Gred Jawatan:* ${gred}` : '';
+      const sesiWhatsappText = selectedEvent.hasSesi ? `\n*Sesi Dipilih:* ${sesiText}` : '';
+      const hariTarikhText = selectedEvent.day ? `${selectedEvent.day}, ${formatTarikhClean(selectedEvent.date)}` : formatTarikhClean(selectedEvent.date);
 
       const waMsg = `📢 *PENGESAHAN KEHADIRAN MAJLIS*\n` +
                     `-----------------------------------\n` +
                     `*Majlis:* ${selectedEvent.name}\n` +
-                    `*Tarikh/Masa:* ${selectedEvent.date || '-'} (${selectedEvent.time || '-'})\n` +
+                    `*Tarikh/Masa:* ${hariTarikhText} (${selectedEvent.time || '-'})\n` +
                     `*Tempat:* ${selectedEvent.location || '-'}\n\n` +
-                    `*Nama Tetamu:* ${namaPenuh}${gredText}\n` +
+                    `*Nama Tetamu:* ${namaPenuh}${gredText}${sesiWhatsappText}\n` +
                     `*Agensi:* ${agensi}\n` +
                     `*Status:* ${status}\n` +
                     `*Bentuk Kehadiran:* ${kategori}${detailTambahan}\n` +
@@ -748,7 +823,6 @@
       document.getElementById('attendance-form').classList.add('hidden');
       document.getElementById('success-box').classList.remove('hidden');
 
-      // Buka WhatsApp serta-merta tanpa sebarang penangguhan
       window.location.href = waUrl;
     }
 
@@ -785,6 +859,7 @@
       document.getElementById('modal-event-title').textContent = "Tambah Majlis Baharu";
       document.getElementById('modal-event-id').value = '';
       document.getElementById('modal-event-name').value = '';
+      document.getElementById('modal-event-day').value = '';
       document.getElementById('modal-event-date').value = '';
       document.getElementById('modal-event-time').value = '';
       document.getElementById('modal-event-location').value = '';
@@ -792,6 +867,7 @@
       document.getElementById('modal-event-url').value = '';
       document.getElementById('modal-event-file').value = '';
       document.getElementById('modal-event-has-gred').checked = false;
+      document.getElementById('modal-event-has-sesi').checked = false;
       document.getElementById('event-modal').classList.remove('hidden');
     }
 
@@ -802,6 +878,7 @@
         document.getElementById('modal-event-title').textContent = "Edit Maklumat Majlis";
         document.getElementById('modal-event-id').value = evt.id;
         document.getElementById('modal-event-name').value = evt.name;
+        document.getElementById('modal-event-day').value = evt.day || '';
         document.getElementById('modal-event-date').value = evt.date || '';
         document.getElementById('modal-event-time').value = evt.time || '';
         document.getElementById('modal-event-location').value = evt.location || '';
@@ -809,6 +886,7 @@
         document.getElementById('modal-event-url').value = (evt.aturcaraUrl && !evt.aturcaraUrl.startsWith("data:")) ? evt.aturcaraUrl : '';
         document.getElementById('modal-event-file').value = '';
         document.getElementById('modal-event-has-gred').checked = !!evt.hasGred;
+        document.getElementById('modal-event-has-sesi').checked = !!evt.hasSesi;
         document.getElementById('event-modal').classList.remove('hidden');
       }
     }
@@ -821,12 +899,14 @@
       e.preventDefault();
       const id = document.getElementById('modal-event-id').value;
       const name = document.getElementById('modal-event-name').value.trim();
+      const day = document.getElementById('modal-event-day').value;
       const date = document.getElementById('modal-event-date').value.trim();
       const time = document.getElementById('modal-event-time').value.trim();
       const location = document.getElementById('modal-event-location').value.trim();
       const phone = document.getElementById('modal-event-phone').value.trim();
       const inputUrl = document.getElementById('modal-event-url').value.trim();
       const hasGred = document.getElementById('modal-event-has-gred').checked;
+      const hasSesi = document.getElementById('modal-event-has-sesi').checked;
 
       let finalAturcara = tempFileAturcaraData !== "" ? tempFileAturcaraData : inputUrl;
 
@@ -834,11 +914,13 @@
         const evt = events.find(e => e.id === id);
         if (evt) {
           evt.name = name;
+          evt.day = day;
           evt.date = date;
           evt.time = time;
           evt.location = location;
           evt.adminPhone = phone;
           evt.hasGred = hasGred;
+          evt.hasSesi = hasSesi;
           if (finalAturcara !== "") {
             evt.aturcaraUrl = finalAturcara;
           }
@@ -847,11 +929,13 @@
         events.push({
           id: 'EVT-' + Date.now().toString().slice(-4),
           name,
+          day,
           date,
           time,
           location,
           adminPhone: phone,
           hasGred,
+          hasSesi,
           aturcaraUrl: finalAturcara,
           isOpen: true
         });
@@ -871,6 +955,7 @@
         document.getElementById('edit-record-gred').value = rec.gred || '';
         document.getElementById('edit-record-agensi').value = rec.agensi || '';
         document.getElementById('edit-record-phone').value = rec.phone || '';
+        document.getElementById('edit-record-sesi').value = rec.sesi || '-';
         document.getElementById('edit-record-status').value = rec.status;
         document.getElementById('edit-record-extra').value = rec.namaTambahan || '';
         document.getElementById('record-modal').classList.remove('hidden');
@@ -890,6 +975,7 @@
         rec.gred = document.getElementById('edit-record-gred').value.trim() || '-';
         rec.agensi = document.getElementById('edit-record-agensi').value.trim() || '-';
         rec.phone = document.getElementById('edit-record-phone').value.trim();
+        rec.sesi = document.getElementById('edit-record-sesi').value.trim() || '-';
         rec.status = document.getElementById('edit-record-status').value;
         rec.namaTambahan = document.getElementById('edit-record-extra').value.trim() || '-';
 
@@ -953,6 +1039,9 @@
       filteredEvents.forEach((evt) => {
         const item = document.createElement('div');
         item.className = 'bg-white p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-300 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-sm';
+        
+        const hariTarikhText = evt.day ? `${evt.day}, ${formatTarikhClean(evt.date)}` : formatTarikhClean(evt.date);
+        
         item.innerHTML = `
           <div>
             <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
@@ -963,12 +1052,15 @@
               <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${evt.hasGred ? 'bg-amber-100 text-amber-900' : 'bg-slate-100 text-slate-600'}">
                 ${evt.hasGred ? 'Gred: YA' : 'Gred: TIDAK'}
               </span>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${evt.hasSesi ? 'bg-purple-100 text-purple-900' : 'bg-slate-100 text-slate-600'}">
+                ${evt.hasSesi ? 'Pilihan Sesi: YA' : 'Pilihan Sesi: TIDAK'}
+              </span>
               <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${evt.aturcaraUrl ? 'bg-blue-100 text-blue-900' : 'bg-slate-100 text-slate-500'}">
                 ${evt.aturcaraUrl ? 'Atur Cara: Ada' : 'Atur Cara: Tiada'}
               </span>
             </div>
             <div class="text-[11px] sm:text-xs text-slate-500 mt-1">
-              📅 ${evt.date || '-'} (${evt.time || '-'}) | 📍 ${evt.location || '-'}
+              📅 ${hariTarikhText} (${evt.time || '-'}) | 📍 ${evt.location || '-'}
             </div>
             <div class="text-[11px] sm:text-xs text-slate-500 mt-0.5">
               WhatsApp Urusetia: <span class="font-bold text-slate-700">${evt.adminPhone}</span>
@@ -1000,7 +1092,7 @@
       document.getElementById('stat-absent').textContent = filtered.filter(r => r.status === 'Tidak Hadir').length;
 
       if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="10" class="p-6 text-center text-slate-400">Tiada rekod kehadiran dijumpai.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="11" class="p-6 text-center text-slate-400">Tiada rekod kehadiran dijumpai.</td></tr>`;
         return;
       }
 
@@ -1014,6 +1106,7 @@
           <td class="p-3 font-medium text-amber-800">${r.gred || '-'}</td>
           <td class="p-3 text-slate-600">${r.agensi}</td>
           <td class="p-3 text-slate-600">${r.phone}</td>
+          <td class="p-3 font-semibold text-purple-800">${r.sesi || '-'}</td>
           <td class="p-3 font-semibold text-amber-700">${r.kategori || 'Berseorangan'}</td>
           <td class="p-3 text-slate-600">${r.namaTambahan || '-'}</td>
           <td class="p-3">
@@ -1049,6 +1142,7 @@
           (r.gred && r.gred.toLowerCase().includes(searchQuery)) ||
           r.agensi.toLowerCase().includes(searchQuery) ||
           r.phone.includes(searchQuery) ||
+          (r.sesi && r.sesi.toLowerCase().includes(searchQuery)) ||
           (r.namaTambahan && r.namaTambahan.toLowerCase().includes(searchQuery))
         );
       }
@@ -1070,7 +1164,7 @@
         return;
       }
 
-      const headers = ["Waktu Tarikh Rekod", "Nama Majlis", "Gelaran & Nama Tetamu", "Gred Jawatan", "Agensi/Jabatan", "No. Telefon", "Status Kehadiran", "Bentuk Kehadiran", "Nama Pasangan/Wakil"];
+      const headers = ["Waktu Tarikh Rekod", "Nama Majlis", "Gelaran & Nama Tetamu", "Gred Jawatan", "Agensi/Jabatan", "No. Telefon", "Sesi Dipilih", "Status Kehadiran", "Bentuk Kehadiran", "Nama Pasangan/Wakil"];
       const rows = filtered.map(r => [
         `"${r.time}"`,
         `"${r.eventName}"`,
@@ -1078,6 +1172,7 @@
         `"${r.gred || '-'}"`,
         `"${r.agensi}"`,
         `"${r.phone}"`,
+        `"${r.sesi || '-'}"`,
         `"${r.status}"`,
         `"${r.kategori || 'Berseorangan'}"`,
         `"${r.namaTambahan || '-'}"`
@@ -1113,7 +1208,7 @@
       doc.text("Sistem Kehadiran Majlis Rasmi Negeri Kedah Darul Aman", 14, 21);
       doc.text(`Tarikh Cetakan: ${new Date().toLocaleString('ms-MY')}`, 14, 26);
 
-      const headers = [["Bil", "Masa Rekod", "Majlis", "Nama Tetamu", "Gred", "Agensi/Jabatan", "No. Tel", "Bentuk", "Wakil/Pasangan", "Status"]];
+      const headers = [["Bil", "Masa Rekod", "Majlis", "Nama Tetamu", "Gred", "Agensi/Jabatan", "No. Tel", "Sesi Dipilih", "Bentuk", "Wakil/Pasangan", "Status"]];
       
       const data = filtered.map((r, index) => [
         index + 1,
@@ -1123,6 +1218,7 @@
         r.gred || '-',
         r.agensi || '-',
         r.phone,
+        r.sesi || '-',
         r.kategori || 'Berseorangan',
         r.namaTambahan || '-',
         r.status
@@ -1136,19 +1232,20 @@
         headStyles: { fillColor: [15, 23, 42], textColor: [255, 255, 255], fontStyle: 'bold', fontSize: 8 },
         bodyStyles: { fontSize: 7.5 },
         columnStyles: {
-          0: { cellWidth: 10, halign: 'center' },
-          1: { cellWidth: 28 },
-          2: { cellWidth: 45 },
-          3: { cellWidth: 45, fontStyle: 'bold' },
-          4: { cellWidth: 20 },
-          5: { cellWidth: 30 },
-          6: { cellWidth: 24 },
-          7: { cellWidth: 24 },
-          8: { cellWidth: 30 },
-          9: { cellWidth: 20, halign: 'center', fontStyle: 'bold' }
+          0: { cellWidth: 8, halign: 'center' },
+          1: { cellWidth: 26 },
+          2: { cellWidth: 40 },
+          3: { cellWidth: 40, fontStyle: 'bold' },
+          4: { cellWidth: 18 },
+          5: { cellWidth: 25 },
+          6: { cellWidth: 22 },
+          7: { cellWidth: 32 },
+          8: { cellWidth: 22 },
+          9: { cellWidth: 25 },
+          10: { cellWidth: 18, halign: 'center', fontStyle: 'bold' }
         },
         didParseCell: function(data) {
-          if (data.section === 'body' && data.column.index === 9) {
+          if (data.section === 'body' && data.column.index === 10) {
             if (data.cell.raw === 'Hadir') {
               data.cell.styles.textColor = [16, 185, 129];
             } else {
