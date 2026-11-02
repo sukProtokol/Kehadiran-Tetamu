@@ -124,7 +124,7 @@
               </select>
             </div>
             <div class="md:col-span-2">
-              <label class="block text-xs sm:text-sm font-bold text-slate-700 mb-1">Nama Penuh <span class="text-red-500">*</span></label>
+              <label class="block text-xs sm:text-sm font-bold text-slate-700 mb-1">Nama Penuh Jemputan <span class="text-red-500">*</span></label>
               <input type="text" id="input-nama" required placeholder="Contoh: Ahmad bin Razali" class="w-full px-3.5 sm:px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-amber-500 focus:outline-none text-xs sm:text-sm">
             </div>
           </div>
@@ -176,35 +176,95 @@
             </div>
           </div>
 
-          <!-- RUANGAN PILIHAN SESI (Dua-dua sekali boleh dipilih) -->
-          <div id="container-pilihan-sesi" class="hidden p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-200/70 border border-slate-300 space-y-2">
-            <label class="block text-xs sm:text-sm font-bold text-slate-800">Sesi Kehadiran (Boleh pilih satu atau dua-dua) <span class="text-red-500">*</span></label>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <label class="flex items-center p-3 rounded-xl bg-white border border-slate-300 cursor-pointer hover:bg-slate-50">
-                <input type="checkbox" id="chk-perasmian" value="Majlis Perasmian" class="w-4 h-4 text-amber-600 rounded focus:ring-amber-500">
-                <span class="ml-2 text-xs font-bold text-slate-800">Majlis Perasmian</span>
-              </label>
-              <label class="flex items-center p-3 rounded-xl bg-white border border-slate-300 cursor-pointer hover:bg-slate-50">
-                <input type="checkbox" id="chk-penutup" value="Majlis Penutup" class="w-4 h-4 text-amber-600 rounded focus:ring-amber-500">
-                <span class="ml-2 text-xs font-bold text-slate-800">Majlis Penutup</span>
-              </label>
+          <!-- RUANGAN PILIHAN SESI TERPERINCI -->
+          <div id="container-pilihan-sesi" class="hidden space-y-4">
+            <label class="block text-xs sm:text-sm font-bold text-slate-800">Status Kehadiran Mengikut Sesi <span class="text-red-500">*</span></label>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              
+              <!-- 1. Sesi Perasmian -->
+              <div class="bg-white p-4 rounded-2xl border border-slate-300 space-y-3 shadow-sm">
+                <span class="text-xs sm:text-sm font-black text-purple-900 block border-b border-slate-100 pb-2">
+                  <i class="fa-solid fa-ribbon mr-1"></i> Majlis Perasmian
+                </span>
+                
+                <div class="space-y-2 text-xs font-semibold">
+                  <label class="flex items-center p-2 rounded-lg hover:bg-slate-50 cursor-pointer">
+                    <input type="radio" name="opt_perasmian" value="Tidak Hadir" checked onchange="updateSesiUI()" class="w-4 h-4 text-amber-600 focus:ring-amber-500">
+                    <span class="ml-2 text-slate-800">Tidak Hadir</span>
+                  </label>
+                  <label class="flex items-center p-2 rounded-lg hover:bg-slate-50 cursor-pointer">
+                    <input type="radio" name="opt_perasmian" value="Berseorangan" onchange="updateSesiUI()" class="w-4 h-4 text-amber-600 focus:ring-amber-500">
+                    <span class="ml-2 text-slate-800">Hadir (Berseorangan)</span>
+                  </label>
+                  <label class="flex items-center p-2 rounded-lg hover:bg-slate-50 cursor-pointer">
+                    <input type="radio" name="opt_perasmian" value="Berdua" onchange="updateSesiUI()" class="w-4 h-4 text-amber-600 focus:ring-amber-500">
+                    <span class="ml-2 text-slate-800">Hadir (Berdua / Pasangan)</span>
+                  </label>
+                  <label class="flex items-center p-2 rounded-lg hover:bg-slate-50 cursor-pointer">
+                    <input type="radio" name="opt_perasmian" value="Wakil" onchange="updateSesiUI()" class="w-4 h-4 text-amber-600 focus:ring-amber-500">
+                    <span class="ml-2 text-slate-800">Hadir Wakil</span>
+                  </label>
+                </div>
+
+                <!-- Input Nama Pasangan/Wakil Perasmian -->
+                <div id="box-extra-perasmian" class="hidden pt-2 border-t border-slate-200">
+                  <label id="lbl-extra-perasmian" class="block text-[11px] font-bold text-slate-700 mb-1"></label>
+                  <input type="text" id="input-extra-perasmian" placeholder="Masukkan nama..." class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-slate-50 text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+                </div>
+              </div>
+
+              <!-- 2. Sesi Penutup -->
+              <div class="bg-white p-4 rounded-2xl border border-slate-300 space-y-3 shadow-sm">
+                <span class="text-xs sm:text-sm font-black text-purple-900 block border-b border-slate-100 pb-2">
+                  <i class="fa-solid fa-flag-checkered mr-1"></i> Majlis Penutup
+                </span>
+
+                <div class="space-y-2 text-xs font-semibold">
+                  <label class="flex items-center p-2 rounded-lg hover:bg-slate-50 cursor-pointer">
+                    <input type="radio" name="opt_penutup" value="Tidak Hadir" checked onchange="updateSesiUI()" class="w-4 h-4 text-amber-600 focus:ring-amber-500">
+                    <span class="ml-2 text-slate-800">Tidak Hadir</span>
+                  </label>
+                  <label class="flex items-center p-2 rounded-lg hover:bg-slate-50 cursor-pointer">
+                    <input type="radio" name="opt_penutup" value="Berseorangan" onchange="updateSesiUI()" class="w-4 h-4 text-amber-600 focus:ring-amber-500">
+                    <span class="ml-2 text-slate-800">Hadir (Berseorangan)</span>
+                  </label>
+                  <label class="flex items-center p-2 rounded-lg hover:bg-slate-50 cursor-pointer">
+                    <input type="radio" name="opt_penutup" value="Berdua" onchange="updateSesiUI()" class="w-4 h-4 text-amber-600 focus:ring-amber-500">
+                    <span class="ml-2 text-slate-800">Hadir (Berdua / Pasangan)</span>
+                  </label>
+                  <label class="flex items-center p-2 rounded-lg hover:bg-slate-50 cursor-pointer">
+                    <input type="radio" name="opt_penutup" value="Wakil" onchange="updateSesiUI()" class="w-4 h-4 text-amber-600 focus:ring-amber-500">
+                    <span class="ml-2 text-slate-800">Hadir Wakil</span>
+                  </label>
+                </div>
+
+                <!-- Input Nama Pasangan/Wakil Penutup -->
+                <div id="box-extra-penutup" class="hidden pt-2 border-t border-slate-200">
+                  <label id="lbl-extra-penutup" class="block text-[11px] font-bold text-slate-700 mb-1"></label>
+                  <input type="text" id="input-extra-penutup" placeholder="Masukkan nama..." class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-slate-50 text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+                </div>
+              </div>
+
             </div>
           </div>
 
-          <div>
+          <!-- STATUS KEHADIRAN GENERAL (JIKA MAJLIS TIADA SESI) -->
+          <div id="container-status-keseluruhan">
             <label class="block text-xs sm:text-sm font-bold text-slate-700 mb-1">Status Kehadiran <span class="text-red-500">*</span></label>
             <div class="grid grid-cols-2 gap-3 sm:gap-4">
               <label class="flex items-center justify-center p-3 rounded-xl bg-white border border-slate-300 cursor-pointer hover:bg-slate-50 transition-all">
-                <input type="radio" name="status" value="Hadir" checked onchange="toggleStatusKehadiran()" class="w-4 h-4 text-amber-600 focus:ring-amber-500">
+                <input type="radio" name="status" value="Hadir" checked onchange="toggleGeneralStatus()" class="w-4 h-4 text-amber-600 focus:ring-amber-500">
                 <span class="ml-2 text-xs sm:text-sm font-bold text-slate-800">Hadir</span>
               </label>
               <label class="flex items-center justify-center p-3 rounded-xl bg-white border border-slate-300 cursor-pointer hover:bg-slate-50 transition-all">
-                <input type="radio" name="status" value="Tidak Hadir" onchange="toggleStatusKehadiran()" class="w-4 h-4 text-amber-600 focus:ring-amber-500">
+                <input type="radio" name="status" value="Tidak Hadir" onchange="toggleGeneralStatus()" class="w-4 h-4 text-amber-600 focus:ring-amber-500">
                 <span class="ml-2 text-xs sm:text-sm font-bold text-slate-800">Tidak Hadir</span>
               </label>
             </div>
           </div>
 
+          <!-- JENIS KEHADIRAN GENERAL (JIKA MAJLIS TIADA SESI) -->
           <div id="section-kategori" class="space-y-3 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-200/70 border border-slate-300">
             <label class="block text-xs sm:text-sm font-bold text-slate-800">Jenis Kehadiran <span class="text-red-500">*</span></label>
             
@@ -333,10 +393,10 @@
                   <th class="p-3">Gred</th>
                   <th class="p-3">Agensi</th>
                   <th class="p-3">No. Tel</th>
-                  <th class="p-3">Sesi Dipilih</th>
+                  <th class="p-3">Status Sesi Dipilih</th>
                   <th class="p-3">Kategori</th>
                   <th class="p-3">Pasangan / Wakil</th>
-                  <th class="p-3">Status</th>
+                  <th class="p-3">Status Keseluruhan</th>
                   <th class="p-3 text-center">Tindakan</th>
                 </tr>
               </thead>
@@ -461,8 +521,8 @@
           </div>
         </div>
         <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">Sesi Dipilih</label>
-          <input type="text" id="edit-record-sesi" placeholder="Contoh: Majlis Perasmian, Majlis Penutup" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+          <label class="block text-xs font-bold text-slate-700 mb-1">Status Sesi Dipilih</label>
+          <input type="text" id="edit-record-sesi" placeholder="Contoh: Perasmian: Hadir | Penutup: Tidak Hadir" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
         </div>
         <div class="grid grid-cols-2 gap-2.5">
           <div>
@@ -682,12 +742,19 @@
         }
 
         const containerSesi = document.getElementById('container-pilihan-sesi');
+        const containerGeneralStatus = document.getElementById('container-status-keseluruhan');
+        const sectionGeneralKategori = document.getElementById('section-kategori');
+
         if (evt.hasSesi) {
           containerSesi.classList.remove('hidden');
+          containerGeneralStatus.classList.add('hidden');
+          sectionGeneralKategori.classList.add('hidden');
+          updateSesiUI();
         } else {
           containerSesi.classList.add('hidden');
-          document.getElementById('chk-perasmian').checked = false;
-          document.getElementById('chk-penutup').checked = false;
+          containerGeneralStatus.classList.remove('hidden');
+          sectionGeneralKategori.classList.remove('hidden');
+          toggleGeneralStatus();
         }
 
       } else {
@@ -695,13 +762,59 @@
       }
     }
 
-    function toggleStatusKehadiran() {
-      const status = document.querySelector('input[name="status"]:checked').value;
-      const secKategori = document.getElementById('section-kategori');
-      if (status === 'Tidak Hadir') {
-        secKategori.classList.add('hidden');
+    function updateSesiUI() {
+      // Logic untuk Majlis Perasmian
+      const optPerasmian = document.querySelector('input[name="opt_perasmian"]:checked').value;
+      const boxPerasmian = document.getElementById('box-extra-perasmian');
+      const lblPerasmian = document.getElementById('lbl-extra-perasmian');
+      const inputPerasmian = document.getElementById('input-extra-perasmian');
+
+      if (optPerasmian === 'Berdua') {
+        boxPerasmian.classList.remove('hidden');
+        lblPerasmian.textContent = 'Nama Pasangan / Rakan (Perasmian) *';
+        inputPerasmian.placeholder = 'Contoh: Puan Noraini binti Hassan';
+        inputPerasmian.required = true;
+      } else if (optPerasmian === 'Wakil') {
+        boxPerasmian.classList.remove('hidden');
+        lblPerasmian.textContent = 'Nama Wakil (Perasmian) *';
+        inputPerasmian.placeholder = 'Contoh: En. Mohd Faiz (Wakil)';
+        inputPerasmian.required = true;
       } else {
+        boxPerasmian.classList.add('hidden');
+        inputPerasmian.required = false;
+        inputPerasmian.value = '';
+      }
+
+      // Logic untuk Majlis Penutup
+      const optPenutup = document.querySelector('input[name="opt_penutup"]:checked').value;
+      const boxPenutup = document.getElementById('box-extra-penutup');
+      const lblPenutup = document.getElementById('lbl-extra-penutup');
+      const inputPenutup = document.getElementById('input-extra-penutup');
+
+      if (optPenutup === 'Berdua') {
+        boxPenutup.classList.remove('hidden');
+        lblPenutup.textContent = 'Nama Pasangan / Rakan (Penutup) *';
+        inputPenutup.placeholder = 'Contoh: Puan Noraini binti Hassan';
+        inputPenutup.required = true;
+      } else if (optPenutup === 'Wakil') {
+        boxPenutup.classList.remove('hidden');
+        lblPenutup.textContent = 'Nama Wakil (Penutup) *';
+        inputPenutup.placeholder = 'Contoh: En. Mohd Faiz (Wakil)';
+        inputPenutup.required = true;
+      } else {
+        boxPenutup.classList.add('hidden');
+        inputPenutup.required = false;
+        inputPenutup.value = '';
+      }
+    }
+
+    function toggleGeneralStatus() {
+      const statusRadio = document.querySelector('input[name="status"]:checked');
+      const secKategori = document.getElementById('section-kategori');
+      if (statusRadio && statusRadio.value === 'Hadir') {
         secKategori.classList.remove('hidden');
+      } else {
+        secKategori.classList.add('hidden');
       }
     }
 
@@ -740,35 +853,71 @@
         return;
       }
 
-      let sesiDipilih = [];
-      if (selectedEvent.hasSesi) {
-        if (document.getElementById('chk-perasmian').checked) sesiDipilih.push("Majlis Perasmian");
-        if (document.getElementById('chk-penutup').checked) sesiDipilih.push("Majlis Penutup");
+      let statusOverall = 'Hadir';
+      let sesiText = '-';
+      let kategoriSummary = 'Berseorangan';
+      let namaTambahanSummary = '-';
 
-        if (sesiDipilih.length === 0) {
-          alert("Sila pilih sekurang-kurangnya satu sesi majlis (Majlis Perasmian / Majlis Penutup).");
-          return;
+      if (selectedEvent.hasSesi) {
+        const optPerasmian = document.querySelector('input[name="opt_perasmian"]:checked').value;
+        const optPenutup = document.querySelector('input[name="opt_penutup"]:checked').value;
+
+        const extraPerasmian = document.getElementById('input-extra-perasmian').value.trim();
+        const extraPenutup = document.getElementById('input-extra-penutup').value.trim();
+
+        let detailP = optPerasmian;
+        if ((optPerasmian === 'Berdua' || optPerasmian === 'Wakil') && extraPerasmian) {
+          detailP += ` (${extraPerasmian})`;
+        }
+
+        let detailN = optPenutup;
+        if ((optPenutup === 'Berdua' || optPenutup === 'Wakil') && extraPenutup) {
+          detailN += ` (${extraPenutup})`;
+        }
+
+        sesiText = `Perasmian: ${detailP} | Penutup: ${detailN}`;
+        
+        if (optPerasmian === 'Tidak Hadir' && optPenutup === 'Tidak Hadir') {
+          statusOverall = 'Tidak Hadir';
+          kategoriSummary = '-';
+          namaTambahanSummary = '-';
+        } else {
+          statusOverall = 'Hadir';
+          
+          let listKategori = [];
+          let listNamaExtra = [];
+
+          if (optPerasmian !== 'Tidak Hadir') {
+            listKategori.push(`Perasmian: ${optPerasmian}`);
+            if (extraPerasmian) listNamaExtra.push(`Perasmian: ${extraPerasmian}`);
+          }
+          if (optPenutup !== 'Tidak Hadir') {
+            listKategori.push(`Penutup: ${optPenutup}`);
+            if (extraPenutup) listNamaExtra.push(`Penutup: ${extraPenutup}`);
+          }
+
+          kategoriSummary = listKategori.join(', ');
+          namaTambahanSummary = listNamaExtra.length > 0 ? listNamaExtra.join(' | ') : '-';
+        }
+      } else {
+        statusOverall = document.querySelector('input[name="status"]:checked').value;
+        if (statusOverall === 'Hadir') {
+          kategoriSummary = document.querySelector('input[name="kategori_kehadiran"]:checked').value;
+          if (kategoriSummary === 'Berdua' || kategoriSummary === 'Diwakili') {
+            namaTambahanSummary = document.getElementById('input-nama-tambahan').value || '-';
+          }
+        } else {
+          kategoriSummary = '-';
+          namaTambahanSummary = '-';
         }
       }
 
-      const sesiText = sesiDipilih.length > 0 ? sesiDipilih.join(", ") : "-";
       const gelaran = document.getElementById('select-gelaran').value;
       const namaAsal = document.getElementById('input-nama').value;
       const namaPenuh = `${gelaran} ${namaAsal}`;
       const agensi = document.getElementById('input-agensi').value || '-';
       const phone = document.getElementById('input-phone').value;
       const gred = selectedEvent.hasGred ? document.getElementById('select-gred').value : '-';
-      const status = document.querySelector('input[name="status"]:checked').value;
-      
-      let kategori = 'Berseorangan';
-      let namaTambahan = '-';
-
-      if (status === 'Hadir') {
-        kategori = document.querySelector('input[name="kategori_kehadiran"]:checked').value;
-        if (kategori === 'Berdua' || kategori === 'Diwakili') {
-          namaTambahan = document.getElementById('input-nama-tambahan').value || '-';
-        }
-      }
 
       const time = new Date().toLocaleString('ms-MY');
 
@@ -783,24 +932,17 @@
         agensi,
         phone,
         sesi: sesiText,
-        status,
-        kategori,
-        namaTambahan,
+        status: statusOverall,
+        kategori: kategoriSummary,
+        namaTambahan: namaTambahanSummary,
         time
       };
 
       attendanceRecords.unshift(newRecord);
       saveData();
 
-      let detailTambahan = '';
-      if (kategori === 'Berdua') {
-        detailTambahan = `\n*Nama Pasangan:* ${namaTambahan}`;
-      } else if (kategori === 'Diwakili') {
-        detailTambahan = `\n*Nama Wakil:* ${namaTambahan}`;
-      }
-
       const gredText = (selectedEvent.hasGred && gred !== '-') ? `\n*Gred Jawatan:* ${gred}` : '';
-      const sesiWhatsappText = selectedEvent.hasSesi ? `\n*Sesi Dipilih:* ${sesiText}` : '';
+      const sesiWhatsappText = selectedEvent.hasSesi ? `\n*Sesi Kehadiran:* ${sesiText}` : '';
       const hariTarikhText = selectedEvent.day ? `${selectedEvent.day}, ${formatTarikhClean(selectedEvent.date)}` : formatTarikhClean(selectedEvent.date);
 
       const waMsg = `📢 *PENGESAHAN KEHADIRAN MAJLIS*\n` +
@@ -808,10 +950,11 @@
                     `*Majlis:* ${selectedEvent.name}\n` +
                     `*Tarikh/Masa:* ${hariTarikhText} (${selectedEvent.time || '-'})\n` +
                     `*Tempat:* ${selectedEvent.location || '-'}\n\n` +
-                    `*Nama Tetamu:* ${namaPenuh}${gredText}${sesiWhatsappText}\n` +
+                    `*Nama Tetamu Jemputan:* ${namaPenuh}${gredText}${sesiWhatsappText}\n` +
                     `*Agensi:* ${agensi}\n` +
-                    `*Status:* ${status}\n` +
-                    `*Bentuk Kehadiran:* ${kategori}${detailTambahan}\n` +
+                    `*Status Keseluruhan:* ${statusOverall}\n` +
+                    `*Bentuk Kehadiran:* ${kategoriSummary}\n` +
+                    `*Maklumat Pasangan/Wakil:* ${namaTambahanSummary}\n` +
                     `*Waktu Rekod:* ${time}`;
 
       const formattedPhone = selectedEvent.adminPhone.replace(/[^0-9]/g, '');
@@ -830,8 +973,8 @@
       document.getElementById('attendance-form').reset();
       document.getElementById('attendance-form').classList.remove('hidden');
       document.getElementById('success-box').classList.add('hidden');
+      updateSesiUI();
       updateKategoriUI();
-      toggleStatusKehadiran();
       updateSelectedEventInfo();
     }
 
@@ -1164,7 +1307,7 @@
         return;
       }
 
-      const headers = ["Waktu Tarikh Rekod", "Nama Majlis", "Gelaran & Nama Tetamu", "Gred Jawatan", "Agensi/Jabatan", "No. Telefon", "Sesi Dipilih", "Status Kehadiran", "Bentuk Kehadiran", "Nama Pasangan/Wakil"];
+      const headers = ["Waktu Tarikh Rekod", "Nama Majlis", "Gelaran & Nama Tetamu", "Gred Jawatan", "Agensi/Jabatan", "No. Telefon", "Status Sesi Dipilih", "Status Keseluruhan", "Bentuk Kehadiran", "Nama Pasangan/Wakil"];
       const rows = filtered.map(r => [
         `"${r.time}"`,
         `"${r.eventName}"`,
@@ -1208,7 +1351,7 @@
       doc.text("Sistem Kehadiran Majlis Rasmi Negeri Kedah Darul Aman", 14, 21);
       doc.text(`Tarikh Cetakan: ${new Date().toLocaleString('ms-MY')}`, 14, 26);
 
-      const headers = [["Bil", "Masa Rekod", "Majlis", "Nama Tetamu", "Gred", "Agensi/Jabatan", "No. Tel", "Sesi Dipilih", "Bentuk", "Wakil/Pasangan", "Status"]];
+      const headers = [["Bil", "Masa Rekod", "Majlis", "Nama Tetamu", "Gred", "Agensi/Jabatan", "No. Tel", "Status Sesi Dipilih", "Bentuk", "Wakil/Pasangan", "Status"]];
       
       const data = filtered.map((r, index) => [
         index + 1,
@@ -1239,7 +1382,7 @@
           4: { cellWidth: 18 },
           5: { cellWidth: 25 },
           6: { cellWidth: 22 },
-          7: { cellWidth: 32 },
+          7: { cellWidth: 40 },
           8: { cellWidth: 22 },
           9: { cellWidth: 25 },
           10: { cellWidth: 18, halign: 'center', fontStyle: 'bold' }
