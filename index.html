@@ -540,7 +540,7 @@
           <input type="text" id="modal-event-phone" required placeholder="Contoh: 60123456789" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
         </div>
 
-        <!-- RUANGAN PAUTAN ATUR CARA MAJLIS (DIKEMASKINI: TANPA CHOOSE FILE) -->
+        <!-- RUANGAN PAUTAN ATUR CARA MAJLIS -->
         <div class="p-3 bg-white rounded-xl border border-slate-300 space-y-2">
           <label class="block text-xs font-bold text-slate-800">
             <i class="fa-solid fa-link text-amber-600 mr-1"></i> Pautan URL Atur Cara Majlis (Pilihan)
@@ -789,9 +789,12 @@
       }
     }
 
+    // FUNGSI MEMBERSIHKAN FORMAT TARIKH DARI ISO (GOOGLE SHEETS)
     function formatTarikhClean(dateStr) {
       if (!dateStr) return '-';
-      if (dateStr.includes('GMT') || dateStr.includes('00:00:00')) {
+      
+      // Jika data bertukar jadi ISO String (cth: 2026-11-12T16:00:00.000Z)
+      if (typeof dateStr === 'string' && (dateStr.includes('T') || dateStr.includes('Z') || dateStr.includes('00:00:00'))) {
         const d = new Date(dateStr);
         if (!isNaN(d.getTime())) {
           return d.toLocaleDateString('ms-MY', { day: '2-digit', month: 'short', year: 'numeric' });
@@ -863,12 +866,12 @@
       if (optPerasmian === 'Berdua') {
         boxPerasmian.classList.remove('hidden');
         lblPerasmian.textContent = 'Nama Pasangan / Rakan (Perasmian) *';
-        inputPerasmian.placeholder = 'Contoh: Puan Noraini binti Hassan';
+        inputPerasmian.placeholder = 'Contoh: Noraini binti Hassan';
         inputPerasmian.required = true;
       } else if (optPerasmian === 'Wakil') {
         boxPerasmian.classList.remove('hidden');
         lblPerasmian.textContent = 'Nama Wakil (Perasmian) *';
-        inputPerasmian.placeholder = 'Contoh: En. Mohd Faiz (Wakil)';
+        inputPerasmian.placeholder = 'Contoh: Mohd Faiz (Wakil)';
         inputPerasmian.required = true;
       } else {
         boxPerasmian.classList.add('hidden');
@@ -884,12 +887,12 @@
       if (optPenutup === 'Berdua') {
         boxPenutup.classList.remove('hidden');
         lblPenutup.textContent = 'Nama Pasangan / Rakan (Penutup) *';
-        inputPenutup.placeholder = 'Contoh: Puan Noraini binti Hassan';
+        inputPenutup.placeholder = 'Contoh: Noraini binti Hassan';
         inputPenutup.required = true;
       } else if (optPenutup === 'Wakil') {
         boxPenutup.classList.remove('hidden');
         lblPenutup.textContent = 'Nama Wakil (Penutup) *';
-        inputPenutup.placeholder = 'Contoh: En. Mohd Faiz (Wakil)';
+        inputPenutup.placeholder = 'Contoh: Mohd Faiz (Wakil)';
         inputPenutup.required = true;
       } else {
         boxPenutup.classList.add('hidden');
@@ -917,12 +920,12 @@
       if (kat === 'Berdua') {
         box.classList.remove('hidden');
         lbl.textContent = 'Nama Pasangan / Rakan *';
-        input.placeholder = 'Contoh: Puan Noraini binti Hassan';
+        input.placeholder = 'Contoh: Noraini binti Hassan';
         input.required = true;
       } else if (kat === 'Diwakili') {
         box.classList.remove('hidden');
         lbl.textContent = 'Nama Wakil *';
-        input.placeholder = 'Contoh: En. Mohd Faiz (Wakil Pengarah)';
+        input.placeholder = 'Contoh: Mohd Faiz (Wakil Pengarah)';
         input.required = true;
       } else {
         box.classList.add('hidden');
@@ -1097,7 +1100,10 @@
         document.getElementById('modal-event-id').value = evt.id;
         document.getElementById('modal-event-name').value = evt.name;
         document.getElementById('modal-event-day').value = evt.day || '';
-        document.getElementById('modal-event-date').value = evt.date || '';
+        
+        // Memastikan tarikh dibersihkan dahulu apabila dibuka dalam modal edit
+        document.getElementById('modal-event-date').value = formatTarikhClean(evt.date);
+        
         document.getElementById('modal-event-time').value = evt.time || '';
         document.getElementById('modal-event-location').value = evt.location || '';
         document.getElementById('modal-event-phone').value = evt.adminPhone || '';
