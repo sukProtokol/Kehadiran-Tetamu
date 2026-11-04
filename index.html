@@ -47,7 +47,7 @@
 
       <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-300/60">
         <button id="btn-portal-tag" class="border border-amber-500/80 text-amber-700 bg-amber-500/10 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full font-bold text-[11px] sm:text-xs md:text-sm tracking-wide uppercase">
-          PORTAL JEMPUTAN
+          PORTAL KEHADIRAN
         </button>
         <button id="nav-toggle-btn" onclick="toggleView()" class="bg-slate-900 text-white hover:bg-slate-800 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-semibold transition-all shadow">
           Admin Portal
@@ -124,7 +124,7 @@
               </select>
             </div>
             <div class="md:col-span-2">
-              <label class="block text-xs sm:text-sm font-bold text-slate-700 mb-1">Nama Penuh Jemputan <span class="text-red-500">*</span></label>
+              <label class="block text-xs sm:text-sm font-bold text-slate-700 mb-1">Nama Penuh <span class="text-red-500">*</span></label>
               <input type="text" id="input-nama" required placeholder="Contoh: Ahmad bin Razali" class="w-full px-3.5 sm:px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-amber-500 focus:outline-none text-xs sm:text-sm">
             </div>
           </div>
@@ -136,7 +136,7 @@
             </div>
             <div>
               <label class="block text-xs sm:text-sm font-bold text-slate-700 mb-1">Nombor Telefon (WhatsApp) <span class="text-red-500">*</span></label>
-              <input type="tel" id="input-phone" required placeholder="Contoh: 012-3456789" class="w-full px-3.5 sm:px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-amber-500 focus:outline-none text-xs sm:text-sm">
+              <input type="tel" id="input-phone" required placeholder="Contoh: 012-3456789 atau 0123456789" class="w-full px-3.5 sm:px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-amber-500 focus:outline-none text-xs sm:text-sm">
             </div>
 
             <div id="container-gred-jawatan" class="hidden sm:col-span-2">
@@ -537,7 +537,7 @@
 
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Nombor WhatsApp Urusetia <span class="text-red-500">*</span></label>
-          <input type="text" id="modal-event-phone" required placeholder="Contoh: 60123456789" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+          <input type="text" id="modal-event-phone" required placeholder="Contoh: 0123456789" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
         </div>
 
         <!-- RUANGAN PAUTAN ATUR CARA MAJLIS -->
@@ -630,11 +630,21 @@
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyF2hEwDkf4S-uU15sc_wPUFLTF0sX4g0JGLF6ToMCTHhhImeJJeNyUuygbytyf66c/exec";
 
     let events = JSON.parse(localStorage.getItem('kedah_events_data')) || [
-      { id: 'EVT-01', name: "Majlis Anugerah Perkhidmatan Cemerlang 2026", day: "Sabtu", date: "20 Nov 2026", time: "8:30 Pagi", location: "Dewan Seri Negeri, Alor Setar", adminPhone: "60123456789", isOpen: true, hasGred: true, hasSesi: true, aturcaraUrl: "" },
-      { id: 'EVT-02', name: "Mesyuarat Agung Khas SUK Kedah", day: "Rabu", date: "05 Dis 2026", time: "2:30 Petang", location: "Bilik Gerakan SUK", adminPhone: "60198765432", isOpen: true, hasGred: false, hasSesi: false, aturcaraUrl: "" }
+      { id: 'EVT-01', name: "Majlis Anugerah Perkhidmatan Cemerlang 2026", day: "Sabtu", date: "20 Nov 2026", time: "8:30 Pagi", location: "Dewan Seri Negeri, Alor Setar", adminPhone: "0123456789", isOpen: true, hasGred: true, hasSesi: true, aturcaraUrl: "" },
+      { id: 'EVT-02', name: "Mesyuarat Agung Khas SUK Kedah", day: "Rabu", date: "05 Dis 2026", time: "2:30 Petang", location: "Bilik Gerakan SUK", adminPhone: "0198765432", isOpen: true, hasGred: false, hasSesi: false, aturcaraUrl: "" }
     ];
 
     let attendanceRecords = JSON.parse(localStorage.getItem('kedah_attendance_data')) || [];
+
+    // FUNGSI MEMBERSIHKAN PAPARAN NOMBOR TELEFON (MEMBUANG ' DI HADAPAN JIKA ADA)
+    function cleanPhoneNumber(phone) {
+      if (!phone) return '-';
+      let str = String(phone).trim();
+      if (str.startsWith("'")) {
+        str = str.substring(1);
+      }
+      return str;
+    }
 
     function updateSyncStatus(msg, state = "normal") {
       const elText = document.getElementById('sync-status-text');
@@ -789,11 +799,8 @@
       }
     }
 
-    // FUNGSI MEMBERSIHKAN FORMAT TARIKH DARI ISO (GOOGLE SHEETS)
     function formatTarikhClean(dateStr) {
       if (!dateStr) return '-';
-      
-      // Jika data bertukar jadi ISO String (cth: 2026-11-12T16:00:00.000Z)
       if (typeof dateStr === 'string' && (dateStr.includes('T') || dateStr.includes('Z') || dateStr.includes('00:00:00'))) {
         const d = new Date(dateStr);
         if (!isNaN(d.getTime())) {
@@ -981,7 +988,6 @@
           namaTambahanSummary = '-';
         } else {
           statusOverall = 'Hadir';
-          
           let listKategori = [];
           let listNamaExtra = [];
 
@@ -1016,8 +1022,22 @@
       const namaAsal = document.getElementById('input-nama').value;
       const namaPenuh = `${gelaran} ${namaAsal}`;
       const agensi = document.getElementById('input-agensi').value || '-';
-      const phone = document.getElementById('input-phone').value;
       const gred = selectedEvent.hasGred ? document.getElementById('select-gred').value : '-';
+
+      // ==========================================
+      // PEMPROSESAN KEMAS NOMBOR TELEFON 0 DI HADAPAN
+      // ==========================================
+      let rawPhone = document.getElementById('input-phone').value.trim();
+      rawPhone = rawPhone.replace(/[^0-9]/g, ''); // Ambil digit sahaja
+      if (rawPhone.startsWith('1')) {
+        rawPhone = '0' + rawPhone; // Tambah 0 automatik jika terlupa
+      } else if (rawPhone.startsWith('60')) {
+        rawPhone = '0' + rawPhone.substring(2); // Tukar 601... jadi 01...
+      }
+      
+      // Letak "'" untuk maksa Google Sheets simpan sebagai teks tanpa padam '0'
+      const phone = "'" + rawPhone;
+      const displayPhone = rawPhone; // Untuk tujuan Whatsapp & Paparan
 
       const time = new Date().toLocaleString('ms-MY');
 
@@ -1030,7 +1050,7 @@
         nama: namaPenuh,
         gred,
         agensi,
-        phone,
+        phone: phone,
         sesi: sesiText,
         status: statusOverall,
         kategori: kategoriSummary,
@@ -1051,14 +1071,15 @@
                     `*Tarikh/Masa:* ${hariTarikhText} (${selectedEvent.time || '-'})\n` +
                     `*Tempat:* ${selectedEvent.location || '-'}\n\n` +
                     `*Nama Tetamu Jemputan:* ${namaPenuh}${gredText}${sesiWhatsappText}\n` +
+                    `*No. Telefon:* ${displayPhone}\n` +
                     `*Agensi:* ${agensi}\n` +
                     `*Status Keseluruhan:* ${statusOverall}\n` +
                     `*Bentuk Kehadiran:* ${kategoriSummary}\n` +
                     `*Maklumat Pasangan/Wakil:* ${namaTambahanSummary}\n` +
                     `*Waktu Rekod:* ${time}`;
 
-      const formattedPhone = selectedEvent.adminPhone.replace(/[^0-9]/g, '');
-      const waUrl = `https://wa.me/${formattedPhone}?text=${encodeURIComponent(waMsg)}`;
+      const formattedAdminPhone = selectedEvent.adminPhone.replace(/[^0-9]/g, '');
+      const waUrl = `https://wa.me/${formattedAdminPhone}?text=${encodeURIComponent(waMsg)}`;
 
       const waBtn = document.getElementById('whatsapp-btn');
       waBtn.href = waUrl;
@@ -1100,13 +1121,10 @@
         document.getElementById('modal-event-id').value = evt.id;
         document.getElementById('modal-event-name').value = evt.name;
         document.getElementById('modal-event-day').value = evt.day || '';
-        
-        // Memastikan tarikh dibersihkan dahulu apabila dibuka dalam modal edit
         document.getElementById('modal-event-date').value = formatTarikhClean(evt.date);
-        
         document.getElementById('modal-event-time').value = evt.time || '';
         document.getElementById('modal-event-location').value = evt.location || '';
-        document.getElementById('modal-event-phone').value = evt.adminPhone || '';
+        document.getElementById('modal-event-phone').value = cleanPhoneNumber(evt.adminPhone);
         document.getElementById('modal-event-url').value = evt.aturcaraUrl || '';
         document.getElementById('modal-event-has-gred').checked = !!evt.hasGred;
         document.getElementById('modal-event-has-sesi').checked = !!evt.hasSesi;
@@ -1127,7 +1145,12 @@
       const date = document.getElementById('modal-event-date').value.trim();
       const time = document.getElementById('modal-event-time').value.trim();
       const location = document.getElementById('modal-event-location').value.trim();
-      const phone = document.getElementById('modal-event-phone').value.trim();
+      
+      let rawPhone = document.getElementById('modal-event-phone').value.trim();
+      rawPhone = rawPhone.replace(/[^0-9]/g, '');
+      if (rawPhone.startsWith('1')) rawPhone = '0' + rawPhone;
+      const phone = "'" + rawPhone;
+
       const inputUrl = document.getElementById('modal-event-url').value.trim();
       const hasGred = document.getElementById('modal-event-has-gred').checked;
       const hasSesi = document.getElementById('modal-event-has-sesi').checked;
@@ -1174,7 +1197,7 @@
         document.getElementById('edit-record-nama').value = rec.nama;
         document.getElementById('edit-record-gred').value = rec.gred || '';
         document.getElementById('edit-record-agensi').value = rec.agensi || '';
-        document.getElementById('edit-record-phone').value = rec.phone || '';
+        document.getElementById('edit-record-phone').value = cleanPhoneNumber(rec.phone);
         document.getElementById('edit-record-sesi').value = rec.sesi || '-';
         document.getElementById('edit-record-status').value = rec.status;
         document.getElementById('edit-record-extra').value = rec.namaTambahan || '';
@@ -1194,7 +1217,12 @@
         rec.nama = document.getElementById('edit-record-nama').value.trim();
         rec.gred = document.getElementById('edit-record-gred').value.trim() || '-';
         rec.agensi = document.getElementById('edit-record-agensi').value.trim() || '-';
-        rec.phone = document.getElementById('edit-record-phone').value.trim();
+        
+        let rawPhone = document.getElementById('edit-record-phone').value.trim();
+        rawPhone = rawPhone.replace(/[^0-9]/g, '');
+        if (rawPhone.startsWith('1')) rawPhone = '0' + rawPhone;
+        rec.phone = "'" + rawPhone;
+
         rec.sesi = document.getElementById('edit-record-sesi').value.trim() || '-';
         rec.status = document.getElementById('edit-record-status').value;
         rec.namaTambahan = document.getElementById('edit-record-extra').value.trim() || '-';
@@ -1261,7 +1289,8 @@
         item.className = 'bg-white p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-300 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-sm';
         
         const hariTarikhText = evt.day ? `${evt.day}, ${formatTarikhClean(evt.date)}` : formatTarikhClean(evt.date);
-        
+        const displayAdminPhone = cleanPhoneNumber(evt.adminPhone);
+
         item.innerHTML = `
           <div>
             <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
@@ -1283,7 +1312,7 @@
               📅 ${hariTarikhText} (${evt.time || '-'}) | 📍 ${evt.location || '-'}
             </div>
             <div class="text-[11px] sm:text-xs text-slate-500 mt-0.5">
-              WhatsApp Urusetia: <span class="font-bold text-slate-700">${evt.adminPhone}</span>
+              WhatsApp Urusetia: <span class="font-bold text-slate-700">${displayAdminPhone}</span>
             </div>
           </div>
           <div class="flex items-center gap-2 w-full sm:w-auto justify-end flex-wrap pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
@@ -1319,13 +1348,15 @@
       filtered.forEach(r => {
         const tr = document.createElement('tr');
         tr.className = 'hover:bg-slate-50 border-b border-slate-200';
+        const displayPhone = cleanPhoneNumber(r.phone);
+
         tr.innerHTML = `
           <td class="p-3 text-slate-500 whitespace-nowrap">${r.time}</td>
           <td class="p-3 font-semibold text-slate-900">${r.eventName}</td>
           <td class="p-3 font-bold text-slate-900">${r.nama}</td>
           <td class="p-3 font-medium text-amber-800">${r.gred || '-'}</td>
           <td class="p-3 text-slate-600">${r.agensi}</td>
-          <td class="p-3 text-slate-600">${r.phone}</td>
+          <td class="p-3 text-slate-600 font-mono">${displayPhone}</td>
           <td class="p-3 font-semibold text-purple-800">${r.sesi || '-'}</td>
           <td class="p-3 font-semibold text-amber-700">${r.kategori || 'Berseorangan'}</td>
           <td class="p-3 text-slate-600">${r.namaTambahan || '-'}</td>
@@ -1361,7 +1392,7 @@
           r.nama.toLowerCase().includes(searchQuery) ||
           (r.gred && r.gred.toLowerCase().includes(searchQuery)) ||
           r.agensi.toLowerCase().includes(searchQuery) ||
-          r.phone.includes(searchQuery) ||
+          cleanPhoneNumber(r.phone).includes(searchQuery) ||
           (r.sesi && r.sesi.toLowerCase().includes(searchQuery)) ||
           (r.namaTambahan && r.namaTambahan.toLowerCase().includes(searchQuery))
         );
@@ -1391,7 +1422,7 @@
         `"${r.nama}"`,
         `"${r.gred || '-'}"`,
         `"${r.agensi}"`,
-        `"${r.phone}"`,
+        `"${cleanPhoneNumber(r.phone)}"`,
         `"${r.sesi || '-'}"`,
         `"${r.status}"`,
         `"${r.kategori || 'Berseorangan'}"`,
@@ -1437,7 +1468,7 @@
         r.nama,
         r.gred || '-',
         r.agensi || '-',
-        r.phone,
+        cleanPhoneNumber(r.phone),
         r.sesi || '-',
         r.kategori || 'Berseorangan',
         r.namaTambahan || '-',
