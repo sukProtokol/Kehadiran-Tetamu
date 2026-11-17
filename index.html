@@ -23,7 +23,8 @@
 <body class="min-h-screen text-slate-800 flex flex-col justify-between p-3 sm:p-6 md:p-8">
 
   <!-- INDIKATOR STATUS SYNC DATA -->
-  <div id="sync-status" class="fixed top-2 right-2 sm:top-4 sm:right-4 z-50 bg-slate-900/90 text-white px-3 py-1.5 rounded-full text-[11px] font-bold shadow-lg flex items-center gap-2 border border-slate-700">
+<!-- INDIKATOR STATUS SYNC DATA -->
+  <div id="sync-status" class="hidden fixed top-2 right-2 sm:top-4 sm:right-4 z-50 bg-slate-900/90 text-white px-3 py-1.5 rounded-full text-[11px] font-bold shadow-lg flex items-center gap-2 border border-slate-700">
     <span id="sync-icon-dot" class="w-2 h-2 rounded-full bg-emerald-400"></span>
     <span id="sync-status-text">Sedia</span>
   </div>
@@ -739,40 +740,55 @@
       loadDataFromCloud();
     });
 
-    function toggleView() {
-      const publicView = document.getElementById('public-view');
-      const adminView = document.getElementById('admin-view');
-      const toggleBtn = document.getElementById('nav-toggle-btn');
+  function toggleView() {
+        const publicView = document.getElementById('public-view');
+        const adminView = document.getElementById('admin-view');
+        const toggleBtn = document.getElementById('nav-toggle-btn');
+        const syncStatus = document.getElementById('sync-status');
 
-      if (publicView.classList.contains('hidden')) {
-        publicView.classList.remove('hidden');
-        adminView.classList.add('hidden');
-        toggleBtn.textContent = 'Admin Portal';
-        populatePublicEventsDropdown();
-      } else {
-        publicView.classList.add('hidden');
-        adminView.classList.remove('hidden');
-        toggleBtn.textContent = 'Borang Awam';
+        if (publicView.classList.contains('hidden')) {
+          publicView.classList.remove('hidden');
+          adminView.classList.add('hidden');
+          toggleBtn.textContent = 'Admin Portal';
+          
+          // Sembunyikan status sync di paparan borang awam
+          if (syncStatus) syncStatus.classList.add('hidden');
+          
+          populatePublicEventsDropdown();
+        } else {
+          publicView.classList.add('hidden');
+          adminView.classList.remove('hidden');
+          toggleBtn.textContent = 'Borang Awam';
+          
+          // Paparkan status sync hanya jika admin sudah berjaya log masuk PIN
+          const isAdminLoggedIn = !document.getElementById('admin-content').classList.contains('hidden');
+          if (syncStatus && isAdminLoggedIn) {
+            syncStatus.classList.remove('hidden');
+          }
+        }
       }
-    }
 
     function verifyPin(e) {
-      e.preventDefault();
-      const pinInput = document.getElementById('admin-pin');
-      const errorMsg = document.getElementById('pin-error-msg');
+          e.preventDefault();
+          const pinInput = document.getElementById('admin-pin');
+          const errorMsg = document.getElementById('pin-error-msg');
 
-      if (pinInput.value === '6789') {
-        if (errorMsg) errorMsg.classList.add('hidden');
-        document.getElementById('admin-login-card').classList.add('hidden');
-        document.getElementById('admin-content').classList.remove('hidden');
-        renderEventsAdminList();
-        renderAttendanceTable();
-      } else {
-        if (errorMsg) errorMsg.classList.remove('hidden');
-        pinInput.value = '';
-        pinInput.focus();
-      }
-    }
+          if (pinInput.value === '6789') {
+            if (errorMsg) errorMsg.classList.add('hidden');
+            document.getElementById('admin-login-card').classList.add('hidden');
+            document.getElementById('admin-content').classList.remove('hidden');
+            
+            // Paparkan indikator status sync apabila masuk admin dashboard
+            document.getElementById('sync-status').classList.remove('hidden');
+            
+            renderEventsAdminList();
+            renderAttendanceTable();
+          } else {
+            if (errorMsg) errorMsg.classList.remove('hidden');
+            pinInput.value = '';
+            pinInput.focus();
+          }
+        }
 
     function populatePublicEventsDropdown() {
       const select = document.getElementById('select-event');
