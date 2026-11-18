@@ -22,8 +22,7 @@
 </head>
 <body class="min-h-screen text-slate-800 flex flex-col justify-between p-3 sm:p-6 md:p-8">
 
-  <!-- INDIKATOR STATUS SYNC DATA -->
-<!-- INDIKATOR STATUS SYNC DATA -->
+  <!-- INDIKATOR STATUS SYNC DATA (HANYA MUNCUL DI ADMIN) -->
   <div id="sync-status" class="hidden fixed top-2 right-2 sm:top-4 sm:right-4 z-50 bg-slate-900/90 text-white px-3 py-1.5 rounded-full text-[11px] font-bold shadow-lg flex items-center gap-2 border border-slate-700">
     <span id="sync-icon-dot" class="w-2 h-2 rounded-full bg-emerald-400"></span>
     <span id="sync-status-text">Sedia</span>
@@ -89,6 +88,7 @@
             </div>
             <div id="info-tarikh-masa" class="font-medium text-slate-700"><i class="fa-regular fa-calendar-check mr-1"></i> <span>-</span></div>
             <div id="info-tempat" class="font-medium text-slate-700"><i class="fa-solid fa-location-dot mr-1"></i> <span>-</span></div>
+            <div id="info-pakaian" class="hidden font-medium text-slate-700"><i class="fa-solid fa-shirt mr-1"></i> <span>-</span></div>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
@@ -198,11 +198,11 @@
                     <input type="radio" name="opt_perasmian" value="Berseorangan" onchange="updateSesiUI()" class="w-4 h-4 text-amber-600 focus:ring-amber-500">
                     <span class="ml-2 text-slate-800">Hadir (Berseorangan)</span>
                   </label>
-                  <label class="flex items-center p-2 rounded-lg hover:bg-slate-50 cursor-pointer">
+                  <label id="lbl-sesi-perasmian-berdua" class="flex items-center p-2 rounded-lg hover:bg-slate-50 cursor-pointer">
                     <input type="radio" name="opt_perasmian" value="Berdua" onchange="updateSesiUI()" class="w-4 h-4 text-amber-600 focus:ring-amber-500">
                     <span class="ml-2 text-slate-800">Hadir (Berdua / Pasangan)</span>
                   </label>
-                  <label class="flex items-center p-2 rounded-lg hover:bg-slate-50 cursor-pointer">
+                  <label id="lbl-sesi-perasmian-wakil" class="flex items-center p-2 rounded-lg hover:bg-slate-50 cursor-pointer">
                     <input type="radio" name="opt_perasmian" value="Wakil" onchange="updateSesiUI()" class="w-4 h-4 text-amber-600 focus:ring-amber-500">
                     <span class="ml-2 text-slate-800">Hadir Wakil</span>
                   </label>
@@ -257,11 +257,11 @@
                     <input type="radio" name="opt_penutup" value="Berseorangan" onchange="updateSesiUI()" class="w-4 h-4 text-amber-600 focus:ring-amber-500">
                     <span class="ml-2 text-slate-800">Hadir (Berseorangan)</span>
                   </label>
-                  <label class="flex items-center p-2 rounded-lg hover:bg-slate-50 cursor-pointer">
+                  <label id="lbl-sesi-penutup-berdua" class="flex items-center p-2 rounded-lg hover:bg-slate-50 cursor-pointer">
                     <input type="radio" name="opt_penutup" value="Berdua" onchange="updateSesiUI()" class="w-4 h-4 text-amber-600 focus:ring-amber-500">
                     <span class="ml-2 text-slate-800">Hadir (Berdua / Pasangan)</span>
                   </label>
-                  <label class="flex items-center p-2 rounded-lg hover:bg-slate-50 cursor-pointer">
+                  <label id="lbl-sesi-penutup-wakil" class="flex items-center p-2 rounded-lg hover:bg-slate-50 cursor-pointer">
                     <input type="radio" name="opt_penutup" value="Wakil" onchange="updateSesiUI()" class="w-4 h-4 text-amber-600 focus:ring-amber-500">
                     <span class="ml-2 text-slate-800">Hadir Wakil</span>
                   </label>
@@ -323,18 +323,18 @@
           <div id="section-kategori" class="space-y-3 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-200/70 border border-slate-300">
             <label class="block text-xs sm:text-sm font-bold text-slate-800">Jenis Kehadiran <span class="text-red-500">*</span></label>
             
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
+            <div id="grid-kategori-general" class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
               <label class="flex items-center p-3 rounded-xl bg-white border border-slate-300 cursor-pointer hover:bg-slate-50">
                 <input type="radio" name="kategori_kehadiran" value="Berseorangan" checked onchange="updateKategoriUI()" class="w-4 h-4 text-amber-600">
                 <span class="ml-2 text-xs font-bold text-slate-800">Berseorangan</span>
               </label>
 
-              <label class="flex items-center p-3 rounded-xl bg-white border border-slate-300 cursor-pointer hover:bg-slate-50">
+              <label id="lbl-general-berdua" class="flex items-center p-3 rounded-xl bg-white border border-slate-300 cursor-pointer hover:bg-slate-50">
                 <input type="radio" name="kategori_kehadiran" value="Berdua" onchange="updateKategoriUI()" class="w-4 h-4 text-amber-600">
                 <span class="ml-2 text-xs font-bold text-slate-800">Berdua (Pasangan)</span>
               </label>
 
-              <label class="flex items-center p-3 rounded-xl bg-white border border-slate-300 cursor-pointer hover:bg-slate-50">
+              <label id="lbl-general-wakil" class="flex items-center p-3 rounded-xl bg-white border border-slate-300 cursor-pointer hover:bg-slate-50">
                 <input type="radio" name="kategori_kehadiran" value="Diwakili" onchange="updateKategoriUI()" class="w-4 h-4 text-amber-600">
                 <span class="ml-2 text-xs font-bold text-slate-800">Hadir Wakil</span>
               </label>
@@ -374,7 +374,7 @@
             </div>
           </div>
 
-          <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-black py-3.5 sm:py-4 rounded-xl shadow-lg transition-all text-sm sm:text-base tracking-wide uppercase mt-4 flex items-center justify-center gap-2">
+          <button type="submit" id="btn-submit-public" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-black py-3.5 sm:py-4 rounded-xl shadow-lg transition-all text-sm sm:text-base tracking-wide uppercase mt-4 flex items-center justify-center gap-2">
             <i class="fa-brands fa-whatsapp text-lg sm:text-xl"></i> Rekod & Hantar Kehadiran (WhatsApp)
           </button>
         </form>
@@ -412,24 +412,35 @@
 
       <div id="admin-content" class="hidden space-y-6">
         
+        <!-- PENGURUSAN MAJLIS -->
         <div class="card-grey rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl border border-slate-300 space-y-3.5 sm:space-y-4">
           <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-3 sm:pb-4 border-b border-slate-300">
             <div>
               <h2 class="text-lg sm:text-xl font-black text-slate-900 uppercase">Pengurusan Majlis</h2>
-              <p class="text-[11px] sm:text-xs text-slate-600">Tambah/Edit majlis, urus status Buka/Tutup, atur cara, dan nombor urusetia.</p>
+              <p class="text-[11px] sm:text-xs text-slate-600">Tambah/Edit majlis, urus status Buka/Tutup, atur cara, pakaian, dan nombor urusetia.</p>
             </div>
-            <button onclick="openNewEventModal()" class="w-full sm:w-auto bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-4 py-2.5 rounded-xl text-xs transition-all shadow shrink-0">
-              + Tambah Majlis Baharu
-            </button>
+            <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+              <button id="btn-delete-selected-events" onclick="deleteSelectedEvents()" class="hidden w-full sm:w-auto bg-rose-600 hover:bg-rose-700 text-white font-bold px-4 py-2.5 rounded-xl text-xs transition-all shadow shrink-0 flex items-center justify-center gap-1.5">
+                <i class="fa-solid fa-trash-can"></i> Padam Dipilih (<span id="count-selected-events">0</span>)
+              </button>
+              <button onclick="openNewEventModal()" class="w-full sm:w-auto bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-4 py-2.5 rounded-xl text-xs transition-all shadow shrink-0">
+                + Tambah Majlis Baharu
+              </button>
+            </div>
           </div>
 
-          <div>
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+            <label class="flex items-center gap-2 bg-white px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs font-bold text-slate-700 cursor-pointer shrink-0 select-none hover:bg-slate-50">
+              <input type="checkbox" id="select-all-events" onchange="toggleSelectAllEvents(this.checked)" class="w-4 h-4 text-rose-600 rounded focus:ring-rose-500 cursor-pointer">
+              <span>Pilih Semua</span>
+            </label>
             <input type="text" id="search-event-input" onkeyup="renderEventsAdminList()" placeholder="🔍 Cari nama majlis, tarikh, atau lokasi..." class="w-full px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
           </div>
 
           <div id="events-list-container" class="space-y-3"></div>
         </div>
 
+        <!-- SENARAI KEHADIRAN TETAMU -->
         <div class="card-grey rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl border border-slate-300 space-y-4">
           <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 pb-3 sm:pb-4 border-b border-slate-300">
             <div>
@@ -438,6 +449,9 @@
             </div>
             
             <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
+              <button id="btn-delete-selected-records" onclick="deleteSelectedRecords()" class="hidden bg-rose-600 hover:bg-rose-700 text-white font-bold px-3 py-2 rounded-xl text-xs transition-all flex items-center justify-center gap-1.5 shadow flex-1 sm:flex-none">
+                <i class="fa-solid fa-trash-can"></i> Padam Dipilih (<span id="count-selected-records">0</span>)
+              </button>
               <select id="filter-event" onchange="renderAttendanceTable()" class="w-full sm:w-auto flex-1 sm:flex-none px-3 py-2 rounded-xl border border-slate-300 bg-white text-xs font-bold text-slate-800 focus:outline-none">
               </select>
               <button onclick="refreshAttendanceData()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-3 py-2 rounded-xl text-xs transition-all flex items-center justify-center gap-1.5 shadow flex-1 sm:flex-none" title="Muat Semula Rekod Terkini dari Cloud">
@@ -473,6 +487,9 @@
             <table class="w-full text-left border-collapse text-xs whitespace-nowrap">
               <thead>
                 <tr class="bg-slate-100 text-slate-700 font-bold border-b border-slate-300">
+                  <th class="p-3 w-10 text-center">
+                    <input type="checkbox" id="select-all-records" onchange="toggleSelectAllRecords(this.checked)" class="w-4 h-4 text-rose-600 rounded focus:ring-rose-500 cursor-pointer" title="Pilih Semua Rekod">
+                  </th>
                   <th class="p-3">Masa Rekod</th>
                   <th class="p-3">Majlis</th>
                   <th class="p-3">Nama Tetamu</th>
@@ -537,6 +554,11 @@
         </div>
 
         <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Pakaian / Kod Etika Pakaian (Pilihan)</label>
+          <input type="text" id="modal-event-pakaian" placeholder="Contoh: Baju Kebangsaan / Batik / Lounge Suit" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+        </div>
+
+        <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Nombor WhatsApp Urusetia <span class="text-red-500">*</span></label>
           <input type="text" id="modal-event-phone" required placeholder="Contoh: 0123456789" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
         </div>
@@ -550,19 +572,39 @@
           <input type="url" id="modal-event-url" placeholder="https://drive.google.com/..." class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-slate-50 text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none font-medium">
         </div>
 
-        <!-- TETAPAN ADMIN: DROP DOWN GRED & PILIHAN SESI -->
-        <div class="p-3 bg-white rounded-xl border border-slate-300 space-y-2">
+        <!-- TETAPAN ADMIN: GRED, SESI, & JENIS KEHADIRAN (BERDUA / WAKIL) -->
+        <div class="p-3 bg-white rounded-xl border border-slate-300 space-y-2.5">
+          <div class="text-[11px] font-black text-slate-500 uppercase tracking-wider">Tetapan Medan Borang Tetamu</div>
+          
           <div class="flex items-center gap-3">
             <input type="checkbox" id="modal-event-has-gred" class="w-4 h-4 text-amber-600 rounded focus:ring-amber-500 cursor-pointer">
             <label for="modal-event-has-gred" class="text-xs font-bold text-slate-800 cursor-pointer">
               Aktifkan Dropdown Gred Jawatan
             </label>
           </div>
+          
           <div class="flex items-center gap-3 border-t border-slate-100 pt-2">
             <input type="checkbox" id="modal-event-has-sesi" class="w-4 h-4 text-amber-600 rounded focus:ring-amber-500 cursor-pointer">
             <label for="modal-event-has-sesi" class="text-xs font-bold text-slate-800 cursor-pointer">
               Aktifkan Pilihan Sesi (Majlis Perasmian & Majlis Penutup)
             </label>
+          </div>
+
+          <div class="border-t border-slate-100 pt-2 space-y-2">
+            <div class="text-[11px] font-bold text-amber-700">Pilihan Kehadiran Tetamu (Berlaku untuk Majlis Biasa & Sesi Perasmian/Penutup):</div>
+            <div class="flex items-center gap-3">
+              <input type="checkbox" id="modal-event-allow-berdua" checked class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500 cursor-pointer">
+              <label for="modal-event-allow-berdua" class="text-xs font-bold text-slate-800 cursor-pointer">
+                Benarkan Hadir Berdua (Pasangan)
+              </label>
+            </div>
+            <div class="flex items-center gap-3">
+              <input type="checkbox" id="modal-event-allow-wakil" checked class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500 cursor-pointer">
+              <label for="modal-event-allow-wakil" class="text-xs font-bold text-slate-800 cursor-pointer">
+                Benarkan Hadir Wakil
+              </label>
+            </div>
+            <p class="text-[10px] text-slate-500 italic">* Pilihan "Berseorangan" sentiasa tersedia secara lalai.</p>
           </div>
         </div>
 
@@ -631,13 +673,15 @@
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyF2hEwDkf4S-uU15sc_wPUFLTF0sX4g0JGLF6ToMCTHhhImeJJeNyUuygbytyf66c/exec";
 
     let events = JSON.parse(localStorage.getItem('kedah_events_data')) || [
-      { id: 'EVT-01', name: "Majlis Anugerah Perkhidmatan Cemerlang 2026", day: "Sabtu", date: "20 Nov 2026", time: "8:30 Pagi", location: "Dewan Seri Negeri, Alor Setar", adminPhone: "0123456789", isOpen: true, hasGred: true, hasSesi: true, aturcaraUrl: "" },
-      { id: 'EVT-02', name: "Mesyuarat Agung Khas SUK Kedah", day: "Rabu", date: "05 Dis 2026", time: "2:30 Petang", location: "Bilik Gerakan SUK", adminPhone: "0198765432", isOpen: true, hasGred: false, hasSesi: false, aturcaraUrl: "" }
+      { id: 'EVT-01', name: "Majlis Anugerah Perkhidmatan Cemerlang 2026", day: "Sabtu", date: "20 Nov 2026", time: "8:30 Pagi", location: "Dewan Seri Negeri, Alor Setar", pakaian: "Baju Kebangsaan / Pakaian Rasmi", adminPhone: "0123456789", isOpen: true, hasGred: true, hasSesi: true, allowBerdua: true, allowWakil: true, aturcaraUrl: "" },
+      { id: 'EVT-02', name: "Mesyuarat Agung Khas SUK Kedah", day: "Rabu", date: "05 Dis 2026", time: "2:30 Petang", location: "Bilik Gerakan SUK", pakaian: "Pakaian Pejabat", adminPhone: "0198765432", isOpen: true, hasGred: false, hasSesi: false, allowBerdua: false, allowWakil: true, aturcaraUrl: "" }
     ];
 
     let attendanceRecords = JSON.parse(localStorage.getItem('kedah_attendance_data')) || [];
 
-    // FUNGSI MEMBERSIHKAN PAPARAN NOMBOR TELEFON (MEMBUANG ' DI HADAPAN JIKA ADA)
+    let selectedEventIds = new Set();
+    let selectedRecordIds = new Set();
+
     function cleanPhoneNumber(phone) {
       if (!phone) return '-';
       let str = String(phone).trim();
@@ -660,6 +704,27 @@
         } else {
           elDot.className = "w-2 h-2 rounded-full bg-slate-400";
         }
+      }
+    }
+
+    function appendRecordToCloud(newRecord) {
+      localStorage.setItem('kedah_attendance_data', JSON.stringify(attendanceRecords));
+
+      if (GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL !== "MASUKKAN_URL_GOOGLE_APPS_SCRIPT_ANDA_DI_SINI") {
+        updateSyncStatus("Menghantar Rekod...", "syncing");
+        
+        fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ action: "append_record", record: newRecord })
+        }).then(() => {
+          updateSyncStatus("Synced Cloud", "success");
+        }).catch(() => {
+          updateSyncStatus("Simpanan Tempatan", "normal");
+        });
+      } else {
+        updateSyncStatus("Offline (Local)", "normal");
       }
     }
 
@@ -699,13 +764,19 @@
             if (data.events && data.events.length > 0) {
               events = data.events.map(cloudEvt => {
                 const localEvt = events.find(l => l.id === cloudEvt.id);
-                if (localEvt && localEvt.aturcaraUrl && !cloudEvt.aturcaraUrl) {
-                  cloudEvt.aturcaraUrl = localEvt.aturcaraUrl;
+                if (localEvt) {
+                  if (localEvt.aturcaraUrl && !cloudEvt.aturcaraUrl) cloudEvt.aturcaraUrl = localEvt.aturcaraUrl;
+                  if (localEvt.pakaian && !cloudEvt.pakaian) cloudEvt.pakaian = localEvt.pakaian;
+                  if (cloudEvt.allowBerdua === undefined) cloudEvt.allowBerdua = localEvt.allowBerdua !== undefined ? localEvt.allowBerdua : true;
+                  if (cloudEvt.allowWakil === undefined) cloudEvt.allowWakil = localEvt.allowWakil !== undefined ? localEvt.allowWakil : true;
+                } else {
+                  if (cloudEvt.allowBerdua === undefined) cloudEvt.allowBerdua = true;
+                  if (cloudEvt.allowWakil === undefined) cloudEvt.allowWakil = true;
                 }
                 return cloudEvt;
               });
             }
-            if (data.records && data.records.length > 0) attendanceRecords = data.records;
+            if (data.records) attendanceRecords = data.records;
             
             localStorage.setItem('kedah_events_data', JSON.stringify(events));
             localStorage.setItem('kedah_attendance_data', JSON.stringify(attendanceRecords));
@@ -740,55 +811,53 @@
       loadDataFromCloud();
     });
 
-  function toggleView() {
-        const publicView = document.getElementById('public-view');
-        const adminView = document.getElementById('admin-view');
-        const toggleBtn = document.getElementById('nav-toggle-btn');
-        const syncStatus = document.getElementById('sync-status');
+    function toggleView() {
+      const publicView = document.getElementById('public-view');
+      const adminView = document.getElementById('admin-view');
+      const toggleBtn = document.getElementById('nav-toggle-btn');
+      const syncStatus = document.getElementById('sync-status');
 
-        if (publicView.classList.contains('hidden')) {
-          publicView.classList.remove('hidden');
-          adminView.classList.add('hidden');
-          toggleBtn.textContent = 'Admin Portal';
-          
-          // Sembunyikan status sync di paparan borang awam
-          if (syncStatus) syncStatus.classList.add('hidden');
-          
-          populatePublicEventsDropdown();
-        } else {
-          publicView.classList.add('hidden');
-          adminView.classList.remove('hidden');
-          toggleBtn.textContent = 'Borang Awam';
-          
-          // Paparkan status sync hanya jika admin sudah berjaya log masuk PIN
-          const isAdminLoggedIn = !document.getElementById('admin-content').classList.contains('hidden');
-          if (syncStatus && isAdminLoggedIn) {
-            syncStatus.classList.remove('hidden');
-          }
+      if (publicView.classList.contains('hidden')) {
+        publicView.classList.remove('hidden');
+        adminView.classList.add('hidden');
+        toggleBtn.textContent = 'Admin Portal';
+        
+        if (syncStatus) syncStatus.classList.add('hidden');
+        
+        populatePublicEventsDropdown();
+      } else {
+        publicView.classList.add('hidden');
+        adminView.classList.remove('hidden');
+        toggleBtn.textContent = 'Borang Awam';
+        
+        const isAdminLoggedIn = !document.getElementById('admin-content').classList.contains('hidden');
+        if (syncStatus && isAdminLoggedIn) {
+          syncStatus.classList.remove('hidden');
         }
       }
+    }
 
     function verifyPin(e) {
-          e.preventDefault();
-          const pinInput = document.getElementById('admin-pin');
-          const errorMsg = document.getElementById('pin-error-msg');
+      e.preventDefault();
+      const pinInput = document.getElementById('admin-pin');
+      const errorMsg = document.getElementById('pin-error-msg');
 
-          if (pinInput.value === '6789') {
-            if (errorMsg) errorMsg.classList.add('hidden');
-            document.getElementById('admin-login-card').classList.add('hidden');
-            document.getElementById('admin-content').classList.remove('hidden');
-            
-            // Paparkan indikator status sync apabila masuk admin dashboard
-            document.getElementById('sync-status').classList.remove('hidden');
-            
-            renderEventsAdminList();
-            renderAttendanceTable();
-          } else {
-            if (errorMsg) errorMsg.classList.remove('hidden');
-            pinInput.value = '';
-            pinInput.focus();
-          }
-        }
+      if (pinInput.value === '6789') {
+        if (errorMsg) errorMsg.classList.add('hidden');
+        document.getElementById('admin-login-card').classList.add('hidden');
+        document.getElementById('admin-content').classList.remove('hidden');
+        
+        document.getElementById('sync-status').classList.remove('hidden');
+        
+        loadDataFromCloud();
+        renderEventsAdminList();
+        renderAttendanceTable();
+      } else {
+        if (errorMsg) errorMsg.classList.remove('hidden');
+        pinInput.value = '';
+        pinInput.focus();
+      }
+    }
 
     function populatePublicEventsDropdown() {
       const select = document.getElementById('select-event');
@@ -838,6 +907,14 @@
         document.getElementById('info-tarikh-masa').innerHTML = `<i class="fa-regular fa-calendar-check mr-1"></i> Tarikh & Masa: <b>${hariText}${tarikhKemas} (${evt.time || '-'})</b>`;
         document.getElementById('info-tempat').innerHTML = `<i class="fa-solid fa-location-dot mr-1"></i> Tempat: <b>${evt.location || '-'}</b>`;
 
+        const infoPakaian = document.getElementById('info-pakaian');
+        if (evt.pakaian && evt.pakaian.trim() !== "") {
+          infoPakaian.classList.remove('hidden');
+          infoPakaian.innerHTML = `<i class="fa-solid fa-shirt mr-1"></i> Pakaian: <b>${evt.pakaian}</b>`;
+        } else {
+          infoPakaian.classList.add('hidden');
+        }
+
         const containerBtnAturcara = document.getElementById('container-btn-aturcara');
         const btnDownloadAturcara = document.getElementById('btn-download-aturcara');
 
@@ -859,6 +936,45 @@
           selectGred.value = 'Tidak Berkenaan';
         }
 
+        const allowBerdua = evt.allowBerdua !== undefined ? evt.allowBerdua : true;
+        const allowWakil  = evt.allowWakil  !== undefined ? evt.allowWakil  : true;
+
+        const lblPerasmianBerdua = document.getElementById('lbl-sesi-perasmian-berdua');
+        const lblPerasmianWakil  = document.getElementById('lbl-sesi-perasmian-wakil');
+        const lblPenutupBerdua   = document.getElementById('lbl-sesi-penutup-berdua');
+        const lblPenutupWakil    = document.getElementById('lbl-sesi-penutup-wakil');
+
+        if (lblPerasmianBerdua) lblPerasmianBerdua.classList.toggle('hidden', !allowBerdua);
+        if (lblPerasmianWakil)  lblPerasmianWakil.classList.toggle('hidden', !allowWakil);
+        if (lblPenutupBerdua)   lblPenutupBerdua.classList.toggle('hidden', !allowBerdua);
+        if (lblPenutupWakil)    lblPenutupWakil.classList.toggle('hidden', !allowWakil);
+
+        const curPerasmian = document.querySelector('input[name="opt_perasmian"]:checked');
+        if (curPerasmian && ((curPerasmian.value === 'Berdua' && !allowBerdua) || (curPerasmian.value === 'Wakil' && !allowWakil))) {
+          document.querySelector('input[name="opt_perasmian"][value="Tidak Hadir"]').checked = true;
+        }
+        const curPenutup = document.querySelector('input[name="opt_penutup"]:checked');
+        if (curPenutup && ((curPenutup.value === 'Berdua' && !allowBerdua) || (curPenutup.value === 'Wakil' && !allowWakil))) {
+          document.querySelector('input[name="opt_penutup"][value="Tidak Hadir"]').checked = true;
+        }
+
+        const lblGenBerdua = document.getElementById('lbl-general-berdua');
+        const lblGenWakil  = document.getElementById('lbl-general-wakil');
+        const gridGenKat   = document.getElementById('grid-kategori-general');
+
+        if (lblGenBerdua) lblGenBerdua.classList.toggle('hidden', !allowBerdua);
+        if (lblGenWakil)  lblGenWakil.classList.toggle('hidden', !allowWakil);
+
+        const activeCount = 1 + (allowBerdua ? 1 : 0) + (allowWakil ? 1 : 0);
+        if (gridGenKat) {
+          gridGenKat.className = `grid grid-cols-1 sm:grid-cols-${activeCount} gap-2.5 sm:gap-3`;
+        }
+
+        const curGenKat = document.querySelector('input[name="kategori_kehadiran"]:checked');
+        if (curGenKat && ((curGenKat.value === 'Berdua' && !allowBerdua) || (curGenKat.value === 'Diwakili' && !allowWakil))) {
+          document.querySelector('input[name="kategori_kehadiran"][value="Berseorangan"]').checked = true;
+        }
+
         const containerSesi = document.getElementById('container-pilihan-sesi');
         const containerGeneralStatus = document.getElementById('container-status-keseluruhan');
         const sectionGeneralKategori = document.getElementById('section-kategori');
@@ -873,6 +989,7 @@
           containerGeneralStatus.classList.remove('hidden');
           sectionGeneralKategori.classList.remove('hidden');
           toggleGeneralStatus();
+          updateKategoriUI();
         }
 
       } else {
@@ -1040,25 +1157,22 @@
       const agensi = document.getElementById('input-agensi').value || '-';
       const gred = selectedEvent.hasGred ? document.getElementById('select-gred').value : '-';
 
-      // ==========================================
-      // PEMPROSESAN KEMAS NOMBOR TELEFON 0 DI HADAPAN
-      // ==========================================
       let rawPhone = document.getElementById('input-phone').value.trim();
-      rawPhone = rawPhone.replace(/[^0-9]/g, ''); // Ambil digit sahaja
+      rawPhone = rawPhone.replace(/[^0-9]/g, '');
       if (rawPhone.startsWith('1')) {
-        rawPhone = '0' + rawPhone; // Tambah 0 automatik jika terlupa
+        rawPhone = '0' + rawPhone;
       } else if (rawPhone.startsWith('60')) {
-        rawPhone = '0' + rawPhone.substring(2); // Tukar 601... jadi 01...
+        rawPhone = '0' + rawPhone.substring(2);
       }
       
-      // Letak "'" untuk maksa Google Sheets simpan sebagai teks tanpa padam '0'
       const phone = "'" + rawPhone;
-      const displayPhone = rawPhone; // Untuk tujuan Whatsapp & Paparan
-
+      const displayPhone = rawPhone;
       const time = new Date().toLocaleString('ms-MY');
 
+      const uniqueId = Date.now() + '-' + Math.floor(Math.random() * 10000);
+
       const newRecord = {
-        id: Date.now(),
+        id: uniqueId,
         eventId: selectedEvent.id,
         eventName: selectedEvent.name,
         adminPhone: selectedEvent.adminPhone,
@@ -1075,17 +1189,18 @@
       };
 
       attendanceRecords.unshift(newRecord);
-      saveData();
+      appendRecordToCloud(newRecord);
 
       const gredText = (selectedEvent.hasGred && gred !== '-') ? `\n*Gred Jawatan:* ${gred}` : '';
       const sesiWhatsappText = selectedEvent.hasSesi ? `\n*Sesi Kehadiran:* ${sesiText}` : '';
+      const pakaianWhatsappText = (selectedEvent.pakaian && selectedEvent.pakaian.trim() !== "") ? `\n*Pakaian:* ${selectedEvent.pakaian}` : '';
       const hariTarikhText = selectedEvent.day ? `${selectedEvent.day}, ${formatTarikhClean(selectedEvent.date)}` : formatTarikhClean(selectedEvent.date);
 
       const waMsg = `📢 *PENGESAHAN KEHADIRAN MAJLIS*\n` +
                     `-----------------------------------\n` +
                     `*Majlis:* ${selectedEvent.name}\n` +
                     `*Tarikh/Masa:* ${hariTarikhText} (${selectedEvent.time || '-'})\n` +
-                    `*Tempat:* ${selectedEvent.location || '-'}\n\n` +
+                    `*Tempat:* ${selectedEvent.location || '-'}${pakaianWhatsappText}\n\n` +
                     `*Nama Tetamu Jemputan:* ${namaPenuh}${gredText}${sesiWhatsappText}\n` +
                     `*No. Telefon:* ${displayPhone}\n` +
                     `*Agensi:* ${agensi}\n` +
@@ -1123,10 +1238,13 @@
       document.getElementById('modal-event-date').value = '';
       document.getElementById('modal-event-time').value = '';
       document.getElementById('modal-event-location').value = '';
+      document.getElementById('modal-event-pakaian').value = '';
       document.getElementById('modal-event-phone').value = '';
       document.getElementById('modal-event-url').value = '';
       document.getElementById('modal-event-has-gred').checked = false;
       document.getElementById('modal-event-has-sesi').checked = false;
+      document.getElementById('modal-event-allow-berdua').checked = true;
+      document.getElementById('modal-event-allow-wakil').checked = true;
       document.getElementById('event-modal').classList.remove('hidden');
     }
 
@@ -1140,10 +1258,13 @@
         document.getElementById('modal-event-date').value = formatTarikhClean(evt.date);
         document.getElementById('modal-event-time').value = evt.time || '';
         document.getElementById('modal-event-location').value = evt.location || '';
+        document.getElementById('modal-event-pakaian').value = evt.pakaian || '';
         document.getElementById('modal-event-phone').value = cleanPhoneNumber(evt.adminPhone);
         document.getElementById('modal-event-url').value = evt.aturcaraUrl || '';
         document.getElementById('modal-event-has-gred').checked = !!evt.hasGred;
         document.getElementById('modal-event-has-sesi').checked = !!evt.hasSesi;
+        document.getElementById('modal-event-allow-berdua').checked = evt.allowBerdua !== undefined ? !!evt.allowBerdua : true;
+        document.getElementById('modal-event-allow-wakil').checked = evt.allowWakil !== undefined ? !!evt.allowWakil : true;
         document.getElementById('event-modal').classList.remove('hidden');
       }
     }
@@ -1161,6 +1282,7 @@
       const date = document.getElementById('modal-event-date').value.trim();
       const time = document.getElementById('modal-event-time').value.trim();
       const location = document.getElementById('modal-event-location').value.trim();
+      const pakaian = document.getElementById('modal-event-pakaian').value.trim();
       
       let rawPhone = document.getElementById('modal-event-phone').value.trim();
       rawPhone = rawPhone.replace(/[^0-9]/g, '');
@@ -1170,6 +1292,8 @@
       const inputUrl = document.getElementById('modal-event-url').value.trim();
       const hasGred = document.getElementById('modal-event-has-gred').checked;
       const hasSesi = document.getElementById('modal-event-has-sesi').checked;
+      const allowBerdua = document.getElementById('modal-event-allow-berdua').checked;
+      const allowWakil = document.getElementById('modal-event-allow-wakil').checked;
 
       if (id) {
         const evt = events.find(e => e.id === id);
@@ -1179,9 +1303,12 @@
           evt.date = date;
           evt.time = time;
           evt.location = location;
+          evt.pakaian = pakaian;
           evt.adminPhone = phone;
           evt.hasGred = hasGred;
           evt.hasSesi = hasSesi;
+          evt.allowBerdua = allowBerdua;
+          evt.allowWakil = allowWakil;
           evt.aturcaraUrl = inputUrl;
         }
       } else {
@@ -1192,9 +1319,12 @@
           date,
           time,
           location,
+          pakaian,
           adminPhone: phone,
           hasGred,
           hasSesi,
+          allowBerdua,
+          allowWakil,
           aturcaraUrl: inputUrl,
           isOpen: true
         });
@@ -1262,6 +1392,85 @@
     function deleteEvent(id) {
       if (confirm("Adakah anda pasti untuk memadam majlis ini?")) {
         events = events.filter(e => e.id !== id);
+        selectedEventIds.delete(id);
+        saveData();
+        renderEventsAdminList();
+        populatePublicEventsDropdown();
+      }
+    }
+
+    function getFilteredEvents() {
+      const searchInput = document.getElementById('search-event-input');
+      const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+      if (!query) return events;
+      return events.filter(evt => 
+        evt.name.toLowerCase().includes(query) ||
+        (evt.date && evt.date.toLowerCase().includes(query)) ||
+        (evt.location && evt.location.toLowerCase().includes(query)) ||
+        (evt.pakaian && evt.pakaian.toLowerCase().includes(query))
+      );
+    }
+
+    function toggleEventSelection(id, isChecked) {
+      if (isChecked) {
+        selectedEventIds.add(id);
+      } else {
+        selectedEventIds.delete(id);
+      }
+      updateEventBulkUI();
+    }
+
+    function toggleSelectAllEvents(isChecked) {
+      const filteredEvents = getFilteredEvents();
+      filteredEvents.forEach(evt => {
+        if (isChecked) {
+          selectedEventIds.add(evt.id);
+        } else {
+          selectedEventIds.delete(evt.id);
+        }
+      });
+      renderEventsAdminList();
+    }
+
+    function updateEventBulkUI() {
+      const filteredEvents = getFilteredEvents();
+      const selectAllCheckbox = document.getElementById('select-all-events');
+      const deleteBtn = document.getElementById('btn-delete-selected-events');
+      const countSpan = document.getElementById('count-selected-events');
+
+      const validIds = new Set(events.map(e => e.id));
+      selectedEventIds.forEach(id => {
+        if (!validIds.has(id)) selectedEventIds.delete(id);
+      });
+
+      if (selectAllCheckbox) {
+        if (filteredEvents.length > 0 && filteredEvents.every(e => selectedEventIds.has(e.id))) {
+          selectAllCheckbox.checked = true;
+          selectAllCheckbox.indeterminate = false;
+        } else if (filteredEvents.some(e => selectedEventIds.has(e.id))) {
+          selectAllCheckbox.checked = false;
+          selectAllCheckbox.indeterminate = true;
+        } else {
+          selectAllCheckbox.checked = false;
+          selectAllCheckbox.indeterminate = false;
+        }
+      }
+
+      if (deleteBtn && countSpan) {
+        if (selectedEventIds.size > 0) {
+          countSpan.textContent = selectedEventIds.size;
+          deleteBtn.classList.remove('hidden');
+        } else {
+          deleteBtn.classList.add('hidden');
+        }
+      }
+    }
+
+    function deleteSelectedEvents() {
+      if (selectedEventIds.size === 0) return;
+      if (confirm(`Adakah anda pasti untuk memadam ${selectedEventIds.size} majlis yang dipilih?`)) {
+        events = events.filter(e => !selectedEventIds.has(e.id));
+        selectedEventIds.clear();
         saveData();
         renderEventsAdminList();
         populatePublicEventsDropdown();
@@ -1271,8 +1480,6 @@
     function renderEventsAdminList() {
       const container = document.getElementById('events-list-container');
       const filterSelect = document.getElementById('filter-event');
-      const searchInput = document.getElementById('search-event-input');
-      const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
 
       container.innerHTML = '';
       
@@ -1286,49 +1493,56 @@
       });
       if (currentFilterVal) filterSelect.value = currentFilterVal;
 
-      let filteredEvents = events;
-      if (query) {
-        filteredEvents = events.filter(evt => 
-          evt.name.toLowerCase().includes(query) ||
-          (evt.date && evt.date.toLowerCase().includes(query)) ||
-          (evt.location && evt.location.toLowerCase().includes(query))
-        );
-      }
+      const filteredEvents = getFilteredEvents();
 
       if (filteredEvents.length === 0) {
         container.innerHTML = `<div class="p-4 text-center text-slate-500 bg-white rounded-2xl border border-slate-300 text-xs">Tiada majlis dijumpai mengikut carian.</div>`;
+        updateEventBulkUI();
         return;
       }
 
       filteredEvents.forEach((evt) => {
+        const isChecked = selectedEventIds.has(evt.id);
         const item = document.createElement('div');
-        item.className = 'bg-white p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-300 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-sm';
+        item.className = `bg-white p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border ${isChecked ? 'border-rose-400 bg-rose-50/30' : 'border-slate-300'} flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-sm transition-colors`;
         
         const hariTarikhText = evt.day ? `${evt.day}, ${formatTarikhClean(evt.date)}` : formatTarikhClean(evt.date);
         const displayAdminPhone = cleanPhoneNumber(evt.adminPhone);
+        const allowBerdua = evt.allowBerdua !== undefined ? evt.allowBerdua : true;
+        const allowWakil  = evt.allowWakil  !== undefined ? evt.allowWakil  : true;
+        const pakaianText = evt.pakaian && evt.pakaian.trim() !== "" ? ` | 👔 ${evt.pakaian}` : '';
 
         item.innerHTML = `
-          <div>
-            <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-              <span class="font-black text-slate-900 text-xs sm:text-sm">${evt.name}</span>
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${evt.isOpen ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
-                ${evt.isOpen ? 'BUKA' : 'TUTUP'}
-              </span>
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${evt.hasGred ? 'bg-amber-100 text-amber-900' : 'bg-slate-100 text-slate-600'}">
-                ${evt.hasGred ? 'Gred: YA' : 'Gred: TIDAK'}
-              </span>
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${evt.hasSesi ? 'bg-purple-100 text-purple-900' : 'bg-slate-100 text-slate-600'}">
-                ${evt.hasSesi ? 'Pilihan Sesi: YA' : 'Pilihan Sesi: TIDAK'}
-              </span>
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${evt.aturcaraUrl ? 'bg-blue-100 text-blue-900' : 'bg-slate-100 text-slate-500'}">
-                ${evt.aturcaraUrl ? 'Atur Cara: Ada' : 'Atur Cara: Tiada'}
-              </span>
-            </div>
-            <div class="text-[11px] sm:text-xs text-slate-500 mt-1">
-              📅 ${hariTarikhText} (${evt.time || '-'}) | 📍 ${evt.location || '-'}
-            </div>
-            <div class="text-[11px] sm:text-xs text-slate-500 mt-0.5">
-              WhatsApp Urusetia: <span class="font-bold text-slate-700">${displayAdminPhone}</span>
+          <div class="flex items-start gap-3">
+            <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="toggleEventSelection('${evt.id}', this.checked)" class="mt-1 w-4 h-4 text-rose-600 rounded focus:ring-rose-500 cursor-pointer shrink-0" title="Pilih Majlis Ini">
+            <div>
+              <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                <span class="font-black text-slate-900 text-xs sm:text-sm">${evt.name}</span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${evt.isOpen ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
+                  ${evt.isOpen ? 'BUKA' : 'TUTUP'}
+                </span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${evt.hasGred ? 'bg-amber-100 text-amber-900' : 'bg-slate-100 text-slate-600'}">
+                  ${evt.hasGred ? 'Gred: YA' : 'Gred: TIDAK'}
+                </span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${evt.hasSesi ? 'bg-purple-100 text-purple-900' : 'bg-slate-100 text-slate-600'}">
+                  ${evt.hasSesi ? 'Sesi: YA' : 'Sesi: TIDAK'}
+                </span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${allowBerdua ? 'bg-teal-100 text-teal-900' : 'bg-slate-100 text-slate-400'}">
+                  ${allowBerdua ? 'Berdua: YA' : 'Berdua: TIDAK'}
+                </span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${allowWakil ? 'bg-indigo-100 text-indigo-900' : 'bg-slate-100 text-slate-400'}">
+                  ${allowWakil ? 'Wakil: YA' : 'Wakil: TIDAK'}
+                </span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${evt.aturcaraUrl ? 'bg-blue-100 text-blue-900' : 'bg-slate-100 text-slate-500'}">
+                  ${evt.aturcaraUrl ? 'Atur Cara: Ada' : 'Atur Cara: Tiada'}
+                </span>
+              </div>
+              <div class="text-[11px] sm:text-xs text-slate-500 mt-1">
+                📅 ${hariTarikhText} (${evt.time || '-'}) | 📍 ${evt.location || '-'}${pakaianText}
+              </div>
+              <div class="text-[11px] sm:text-xs text-slate-500 mt-0.5">
+                WhatsApp Urusetia: <span class="font-bold text-slate-700">${displayAdminPhone}</span>
+              </div>
             </div>
           </div>
           <div class="flex items-center gap-2 w-full sm:w-auto justify-end flex-wrap pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
@@ -1338,13 +1552,83 @@
             <button onclick="toggleEventStatus('${evt.id}')" class="px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${evt.isOpen ? 'bg-amber-100 text-amber-800 hover:bg-amber-200' : 'bg-emerald-100 text-emerald-800 hover:bg-emerald-200'}">
               ${evt.isOpen ? 'Tutup Borang' : 'Buka Borang'}
             </button>
-            <button onclick="deleteEvent('${evt.id}')" class="text-rose-600 hover:text-rose-800 p-2 text-xs">
+            <button onclick="deleteEvent('${evt.id}')" class="text-rose-600 hover:text-rose-800 p-2 text-xs" title="Padam Majlis">
               <i class="fa-solid fa-trash"></i>
             </button>
           </div>
         `;
         container.appendChild(item);
       });
+
+      updateEventBulkUI();
+    }
+
+    function toggleRecordSelection(id, isChecked) {
+      const strId = String(id);
+      if (isChecked) {
+        selectedRecordIds.add(strId);
+      } else {
+        selectedRecordIds.delete(strId);
+      }
+      updateRecordBulkUI();
+      renderAttendanceTable();
+    }
+
+    function toggleSelectAllRecords(isChecked) {
+      const filtered = getFilteredRecords();
+      filtered.forEach(r => {
+        const strId = String(r.id);
+        if (isChecked) {
+          selectedRecordIds.add(strId);
+        } else {
+          selectedRecordIds.delete(strId);
+        }
+      });
+      renderAttendanceTable();
+    }
+
+    function updateRecordBulkUI() {
+      const filtered = getFilteredRecords();
+      const selectAllCheckbox = document.getElementById('select-all-records');
+      const deleteBtn = document.getElementById('btn-delete-selected-records');
+      const countSpan = document.getElementById('count-selected-records');
+
+      const validIds = new Set(attendanceRecords.map(r => String(r.id)));
+      selectedRecordIds.forEach(id => {
+        if (!validIds.has(id)) selectedRecordIds.delete(id);
+      });
+
+      if (selectAllCheckbox) {
+        if (filtered.length > 0 && filtered.every(r => selectedRecordIds.has(String(r.id)))) {
+          selectAllCheckbox.checked = true;
+          selectAllCheckbox.indeterminate = false;
+        } else if (filtered.some(r => selectedRecordIds.has(String(r.id)))) {
+          selectAllCheckbox.checked = false;
+          selectAllCheckbox.indeterminate = true;
+        } else {
+          selectAllCheckbox.checked = false;
+          selectAllCheckbox.indeterminate = false;
+        }
+      }
+
+      if (deleteBtn && countSpan) {
+        if (selectedRecordIds.size > 0) {
+          countSpan.textContent = selectedRecordIds.size;
+          deleteBtn.classList.remove('hidden');
+        } else {
+          deleteBtn.classList.add('hidden');
+        }
+      }
+    }
+
+    function deleteSelectedRecords() {
+      if (selectedRecordIds.size === 0) return;
+      if (confirm(`Adakah anda pasti untuk memadam ${selectedRecordIds.size} rekod kehadiran tetamu yang dipilih?`)) {
+        attendanceRecords = attendanceRecords.filter(r => !selectedRecordIds.has(String(r.id)));
+        selectedRecordIds.clear();
+        saveData();
+        renderAttendanceTable();
+      }
     }
 
     function renderAttendanceTable() {
@@ -1357,16 +1641,22 @@
       document.getElementById('stat-absent').textContent = filtered.filter(r => r.status === 'Tidak Hadir').length;
 
       if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="11" class="p-6 text-center text-slate-400">Tiada rekod kehadiran dijumpai.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="12" class="p-6 text-center text-slate-400">Tiada rekod kehadiran dijumpai.</td></tr>`;
+        updateRecordBulkUI();
         return;
       }
 
       filtered.forEach(r => {
+        const strId = String(r.id);
+        const isChecked = selectedRecordIds.has(strId);
         const tr = document.createElement('tr');
-        tr.className = 'hover:bg-slate-50 border-b border-slate-200';
+        tr.className = `${isChecked ? 'bg-rose-50/70 hover:bg-rose-50' : 'hover:bg-slate-50'} border-b border-slate-200 transition-colors`;
         const displayPhone = cleanPhoneNumber(r.phone);
 
         tr.innerHTML = `
+          <td class="p-3 text-center">
+            <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="toggleRecordSelection('${strId}', this.checked)" class="w-4 h-4 text-rose-600 rounded focus:ring-rose-500 cursor-pointer" title="Pilih Rekod Ini">
+          </td>
           <td class="p-3 text-slate-500 whitespace-nowrap">${r.time}</td>
           <td class="p-3 font-semibold text-slate-900">${r.eventName}</td>
           <td class="p-3 font-bold text-slate-900">${r.nama}</td>
@@ -1392,6 +1682,8 @@
         `;
         tbody.appendChild(tr);
       });
+
+      updateRecordBulkUI();
     }
 
     function getFilteredRecords() {
@@ -1418,7 +1710,9 @@
 
     function deleteRecord(id) {
       if (confirm("Padam rekod ini?")) {
-        attendanceRecords = attendanceRecords.filter(r => String(r.id) !== String(id));
+        const strId = String(id);
+        attendanceRecords = attendanceRecords.filter(r => String(r.id) !== strId);
+        selectedRecordIds.delete(strId);
         saveData();
         renderAttendanceTable();
       }
